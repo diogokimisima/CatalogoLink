@@ -1,3 +1,22 @@
+
+<template>
+    <header>
+
+        <HeaderBanner />
+        
+        <div ref="headerBanner">
+            <HeaderSearch />
+        </div>
+
+        <div :class="{ 'fixed top-0 w-full z-50': isSticky }">
+            <HeaderCategorias />
+        </div>
+
+        <HeaderCardCategorias />
+
+    </header>
+</template>
+
 <script>
 import HeaderBanner from './HeaderBanner.vue'
 import HeaderCategorias from './HeaderCategorias.vue'
@@ -28,21 +47,3 @@ export default {
     }
 }
 </script>
-
-<template>
-    <header>
-
-        <HeaderBanner />
-        
-        <div ref="headerBanner">
-            <HeaderSearch />
-        </div>
-
-        <div :class="{ 'fixed top-0 w-full z-50': isSticky }">
-            <HeaderCategorias />
-        </div>
-
-        <HeaderCardCategorias />
-
-    </header>
-</template>

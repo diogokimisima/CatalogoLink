@@ -12,13 +12,13 @@ export const catalogo = [
     {
         id: 2,
         title: "Sandália",
-        categoria: "sandalia",
+        categoria: "Sandálias",
         imagem: tenis2
     },
     {
         id: 3,
         title: "Bota",
-        categoria: "bota",
+        categoria: "Botas",
         imagem: bota1
     }
 ]

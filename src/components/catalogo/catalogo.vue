@@ -1,3 +1,8 @@
+<template>
+    <CatalogoCard />
+    <CatalogoModal />
+</template>
+
 <script>
 import CatalogoCard from './CatalogoCard.vue';
 import CatalogoModal from './CatalogoModal.vue';
@@ -7,8 +12,3 @@ export default {
 }
 
 </script>
-
-<template>
-    <CatalogoCard />
-    <CatalogoModal />
-</template>

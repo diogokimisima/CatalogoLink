@@ -1,17 +1,3 @@
-<script>
-import { banner } from "../../data/banner.js";
-
-export default {
-    data() {
-        return {
-            banner: banner
-        };
-    }
-};
-
-
-
-</script>
 
 <template>
     <div class="carousel w-full h-36">
@@ -27,3 +13,18 @@ export default {
         </div>
     </div>
 </template>
+
+<script>
+import { banner } from "../../data/banner.js";
+
+export default {
+    data() {
+        return {
+            banner: banner
+        };
+    }
+};
+
+
+
+</script>
