@@ -11,23 +11,19 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+
 import { catalogo } from '../../data/catalogo';
 
-export default {
-    data() {
-        return {
-            categorias: []
-        };
-    },
-    mounted() {
-        this.extrairCategorias();
-    },
-    methods: {
-        extrairCategorias() {
-            const categoriasUnicas = [...new Set(catalogo.map(item => item.categoria))];
-            this.categorias = categoriasUnicas;
-        }
-    }
+const categorias = ref([]);
+
+const extrairCategorias = () => {
+    const categoriasUnicas = [...new Set(catalogo.map(item => item.categoria))];
+    categorias.value = categoriasUnicas;
 };
+
+onMounted(() => {
+    extrairCategorias();
+});
 </script>

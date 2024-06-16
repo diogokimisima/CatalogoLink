@@ -14,17 +14,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { banner } from "../../data/banner.js";
-
-export default {
-    data() {
-        return {
-            banner: banner
-        };
-    }
-};
-
-
 
 </script>

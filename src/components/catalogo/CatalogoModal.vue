@@ -1,7 +1,7 @@
 //CatalogoModal.vue
 
 <template>
-    <dialog ref="myModal" id="my_modal_3" class="modal">
+    <dialog ref="myModal" id="my_modal_3" class="modal py-12">
         <div class="modal-box h-full">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-xl" >✕</button>
@@ -10,3 +10,6 @@
         </div>
     </dialog>
 </template>
+
+<script>
+</script>

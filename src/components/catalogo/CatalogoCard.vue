@@ -11,14 +11,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { catalogo } from "../../data/catalogo.js";
 
-export default {
-    data() {
-        return {
-            catalogo: catalogo
-        };
-    }
-};
 </script>

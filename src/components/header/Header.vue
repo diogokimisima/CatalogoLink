@@ -1,7 +1,5 @@
-
 <template>
     <header>
-
         <HeaderBanner />
         
         <div ref="headerBanner">
@@ -13,37 +11,32 @@
         </div>
 
         <HeaderCardCategorias />
-
     </header>
 </template>
 
-<script>
-import HeaderBanner from './HeaderBanner.vue'
-import HeaderCategorias from './HeaderCategorias.vue'
-import HeaderCardCategorias from './HeaderCardCategorias.vue'
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+import HeaderBanner from './HeaderBanner.vue';
+import HeaderCategorias from './HeaderCategorias.vue';
+import HeaderCardCategorias from './HeaderCardCategorias.vue';
 import HeaderSearch from './HeaderSearch.vue';
 
-export default {
-    components: { HeaderBanner, HeaderCategorias, HeaderCardCategorias, HeaderSearch },
-    data() {
-        return {
-            isSticky: false
-        };
-    },
-    mounted() {
-        window.addEventListener('scroll', this.handleScroll);
-    },
-    beforeDestroy() {
-        window.removeEventListener('scroll', this.handleScroll);
-    },
-    methods: {
-        handleScroll() {
-            const headerBanner = this.$refs.headerBanner;
-            if (headerBanner) {
-                const bannerBottom = headerBanner.getBoundingClientRect().bottom;
-                this.isSticky = bannerBottom <= 0;
-            }
-        }
+const isSticky = ref(false);
+const headerBanner = ref(null);
+
+const handleScroll = () => {
+    if (headerBanner.value) {
+        const bannerBottom = headerBanner.value.getBoundingClientRect().bottom;
+        isSticky.value = bannerBottom <= 0;
     }
-}
+};
+
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('scroll', handleScroll);
+});
 </script>
