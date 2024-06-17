@@ -1,10 +1,10 @@
 <template>
-    <CatalogoCard />
-    <CatalogoModal />
+    <CatalogoCard/>
+
 </template>
 
 <script setup>
 import CatalogoCard from './CatalogoCard.vue';
-import CatalogoModal from './CatalogoModal.vue';
+
 
 </script>

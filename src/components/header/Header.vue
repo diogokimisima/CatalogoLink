@@ -9,8 +9,6 @@
         <div :class="{ 'fixed top-0 w-full z-50': isSticky }">
             <HeaderCategorias />
         </div>
-
-        <HeaderCardCategorias />
     </header>
 </template>
 
@@ -19,7 +17,6 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 import HeaderBanner from './HeaderBanner.vue';
 import HeaderCategorias from './HeaderCategorias.vue';
-import HeaderCardCategorias from './HeaderCardCategorias.vue';
 import HeaderSearch from './HeaderSearch.vue';
 
 const isSticky = ref(false);

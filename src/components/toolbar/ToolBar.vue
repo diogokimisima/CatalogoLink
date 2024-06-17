@@ -1,5 +1,5 @@
 <template>
-    <ul class="menu menu-horizontal  mt-6 w-full justify-evenly items-center h-20 bg-slate-400 ">
+    <ul class="menu menu-horizontal  mt-6 w-full justify-evenly items-center h-20 bg-slate-300 ">
         <li>
             <a class="tooltip " data-tip="Menu" >
                 <Menu class="size-10"/>
@@ -14,7 +14,7 @@
         </li>
         <li >
             <a class="tooltip" data-tip="WhatsApp">
-                <img class="size-10" :src="whatsIcon" alt="WhatsApp Icon" />
+                <img class="size-10 " :src="whatsIcon" alt="WhatsApp Icon" />
                 <p>Whats</p>
             </a>
         </li>
