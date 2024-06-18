@@ -20,17 +20,17 @@
     <dialog ref="myModal" id="my_modal_3" class="modal py-12">
         <div class="modal-box h-full overflow-auto  relative">
 
-                <form class="border-b border-b-gray-400 flex " method="dialog">
-                    <h3 class="font-bold text-lg">{{ selectedItem?.title }}</h3>
-                    <div class="flex-grow"></div>
-                    <button class="btn btn-sm btn-circle btn-ghost">
-                        <X class="" />
-                    </button>
-                </form>
+            <form class="border-b border-b-gray-400 flex " method="dialog">
+                <h3 class="font-bold text-lg">{{ selectedItem?.title }}</h3>
+                <div class="flex-grow"></div>
+                <button class="btn btn-sm btn-circle btn-ghost">
+                    <X class="" />
+                </button>
+            </form>
 
             <div>
-                <p>Cor: {{ selectedItem?.cor }}</p>
-                <p>Código do produto: {{ selectedItem?.id_produto }}</p>
+                <p>Cor: <span class="font-semibold">{{ selectedItem?.cor }}</span></p>
+                <p>Código do produto: <span class="font-semibold">{{ selectedItem?.id_produto }}</span></p>
             </div>
 
             <div class="my-5">
@@ -39,13 +39,15 @@
 
             <h2 class="my-3 text-center font-bold">Cores e modelos</h2>
 
-            <div class=" mt-5 overflow-y-auto flex items-center font-bold  h-26 w-full my-10">
+            <div class=" mt-5 overflow-y-auto flex items-center font-bold  h-26 w-full my-10" id="categoriaIgual">
 
                 <ul class="flex flex-row space-x-2 gap-5">
                     <li class="rounded w-28" v-for="relatedItem in relatedItems" :key="relatedItem.id">
-                        <img class="object-contain" :src="relatedItem.imagem" :alt="'Image ' + relatedItem.id" />
+                        <img class="object-contain" :src="relatedItem.imagem" :alt="'Image ' + relatedItem.id"
+                            @click="selectRelatedItem(relatedItem)" />
                     </li>
                 </ul>
+
             </div>
 
             <div class="flex justify-center">
@@ -59,7 +61,7 @@
                             </th>
                             <th class="p-4">
                                 <div class="flex justify-center items-center">
-                                    <CandlestickChart/>
+                                    <CandlestickChart />
                                 </div>
                             </th>
                         </tr>
@@ -69,13 +71,15 @@
                             <td class="p-4">{{ tamanho }}</td>
                             <td>
                                 <div class="flex justify-center items-center">
-                                    <InputNumber />
+                                    <InputNumber v-model="quantidade" />
                                 </div>
                             </td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
+
         </div>
     </dialog>
 </template>
@@ -83,6 +87,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { X, CandlestickChart, Ruler } from 'lucide-vue-next';
+
 import { catalogo } from "../../data/catalogo.js";
 import InputNumber from './CatalogoInputNumber.vue';
 
@@ -99,6 +104,10 @@ const myModal = ref(null);
 const showModal = (item) => {
     selectedItem.value = item;
     myModal.value.showModal();
+};
+
+const selectRelatedItem = (item) => {
+    selectedItem.value = item;
 };
 
 const filteredCatalogo = computed(() => {

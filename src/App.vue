@@ -2,7 +2,7 @@
   <div class="relative bg-slate-100">
     <Header />
     <Catalogo/>
-    <ToolBar class='fixed bottom-0 left-0'/>
+    <ToolBar class='fixed bottom-11 left-0'/>
   </div>
 </template>
 
