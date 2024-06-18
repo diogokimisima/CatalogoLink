@@ -1,7 +1,7 @@
 <template>
-  <div class="relative">
+  <div class="relative bg-slate-100">
     <Header />
-    <Catalogo />
+    <Catalogo/>
     <ToolBar class='fixed bottom-0 left-0'/>
   </div>
 </template>
@@ -13,3 +13,4 @@ import ToolBar from './components/toolbar/ToolBar.vue'
 
 
 </script>
+

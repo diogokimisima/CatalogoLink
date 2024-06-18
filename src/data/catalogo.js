@@ -19,6 +19,7 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Verde Musgo/Areia",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
+        valor: "54,06",
         imagem: tenis1Areia,
     },
     {
@@ -29,6 +30,7 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Laranja",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
+        valor: "54,06",
         imagem: tenis1Laranja
     },
     {
@@ -39,28 +41,31 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Azul",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
+        valor: "54,06",
         imagem: tenis1Azul
     },
     {
         id: 4,
         id_produto: "080.44.2080",
-        // id_categoria: "080.44",
-        id_categoria: "100.01",
+        id_categoria: "080.44",
+        // id_categoria: "100.01",
         title: "Sandália Bebê",
         categoria: "Sandálias",
         cor: "Azul bebê",
-        tamanho: [],
+        tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
+        valor: "43,61",
         imagem: sandalia1Azulbebe
     },
     {
         id: 5,
         id_produto: "098.35.2010",
-        // id_categoria: "098.35",
-        id_categoria: "100.01",
+        id_categoria: "098.35",
+        // id_categoria: "100.01",
         title: "Bota Infantil",
         categoria: "Botas",
         cor: "Areia",
-        tamanho: [],
+        tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
+        valor: "54,06",
         imagem: bota1Bege
     }
 ]
