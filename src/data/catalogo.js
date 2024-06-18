@@ -44,7 +44,8 @@ export const catalogo = [
     {
         id: 4,
         id_produto: "080.44.2080",
-        id_categoria: "080.44",
+        // id_categoria: "080.44",
+        id_categoria: "100.01",
         title: "Sandália Bebê",
         categoria: "Sandálias",
         cor: "Azul bebê",
@@ -54,7 +55,8 @@ export const catalogo = [
     {
         id: 5,
         id_produto: "098.35.2010",
-        id_categoria: "098.35",
+        // id_categoria: "098.35",
+        id_categoria: "100.01",
         title: "Bota Infantil",
         categoria: "Botas",
         cor: "Areia",

@@ -8,11 +8,11 @@
         </button>
     </div>
 
-    <dialog ref="myModal" id="my_modal_3" class="modal py-12">
-        <div class="modal-box h-full">
+    <dialog ref="myModal" id="my_modal_3" class="modal py-12 ">
+        <div class="modal-box h-full relative overflow-auto ">
 
             <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-2xl border-none">
+                <button class="btn btn-sm btn-circle btn-ghost fixed right-4 top-4 z-10 text-2xl ">
                     <X />
                 </button>
             </form>
@@ -27,14 +27,15 @@
                 <img :src="selectedItem?.imagem" alt="imagem">
             </div>
 
-            <div class="mt-5 overflow-y-auto flex flex-column items-center justify-center h-24">
+            <div class="mt-5 overflow-x-auto flex items-center justify-center h-24 w-full">
                 <ul class="flex flex-row space-x-2">
-                    <li class="px-3 py-2 hover:bg-gray-900 rounded " 
-                    v-for="relatedItem in relatedItems" :key="relatedItem.id" >
-                        <img class="block" :src="relatedItem.imagem" :alt="'Image ' + relatedItem.id" />
+                    <li class="px-3 py-2 rounded" v-for="relatedItem in relatedItems" :key="relatedItem.id">
+                        <img class="w-9 h-9 object-contain" :src="relatedItem.imagem"
+                            :alt="'Image ' + relatedItem.id" />
                     </li>
                 </ul>
             </div>
+
 
             <div>
                 <ul>
@@ -45,7 +46,7 @@
                 </ul>
             </div>
 
-            
+
         </div>
     </dialog>
 </template>
