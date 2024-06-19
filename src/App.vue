@@ -1,8 +1,8 @@
 <template>
   <div class="relative bg-slate-100">
-    <Header />
-    <Catalogo/>
-    <ToolBar class='fixed bottom-11 left-0'/>
+    <Header/>
+    <Catalogo />
+    <ToolBar class='fixed bottom-1'/>
   </div>
 </template>
 
@@ -11,6 +11,4 @@ import Header from './components/header/Header.vue'
 import Catalogo from './components/catalogo/Catalogo.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
 
-
 </script>
-

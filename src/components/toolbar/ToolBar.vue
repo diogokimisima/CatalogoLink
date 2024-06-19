@@ -1,28 +1,28 @@
 <template>
-    <div class="w-full h-20 ">
-        <ul class="menu menu-horizontal bg-slate-300 mt-6 w-full justify-evenly items-center h-14  ">
-            <li class="">
+    <div class="w-full h-20">
+        <div class="menu menu-horizontal bg-slate-300 w-full justify-evenly items-center py-0.5 ">
+            <div class="flex justify-center flex-col">
                 <a class="tooltip " data-tip="Menu">
-                    <Menu class="size-8" />
+                    <Menu class="size-7" />
                     <p>Menu</p>
                 </a>
-            </li>
-            <li>
+            </div>
+            <div>
                 <a class="tooltip" data-tip="Carrinho">
-                    <ShoppingCart class="size-8" />
+                    <ShoppingCart class="size-7" />
                     <p>Cart</p>
                 </a>
-            </li>
-            <li>
+            </div>
+            <div>
                 <a class="tooltip" data-tip="WhatsApp">
-                    <img class="size-8 " :src="whatsIcon" alt="WhatsApp Icon" />
+                    <img class="size-7 " :src="whatsIcon" alt="WhatsApp Icon" />
                     <p>Whats</p>
                 </a>
-            </li>
+            </div>
+        </div>
 
-        </ul>
         <div class="bg-slate-800 flex justify-center items-center h-8">
-            <img class="size-28 object-contain" :src="LogoTrovata" alt="logo trovata">
+            <img class="size-32 object-contain" :src="LogoTrovata" alt="logo trovata">
         </div>
     </div>
 
