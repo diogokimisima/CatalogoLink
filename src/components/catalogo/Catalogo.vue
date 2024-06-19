@@ -24,13 +24,13 @@
               <h3 class="font-bold text-lg">{{ selectedItem?.title }}</h3>
               <div class="flex-grow"></div>
               <button class="btn btn-sm btn-circle btn-ghost">
-                  <X class="" />
+                  <X class="size-8" />
               </button>
           </form>
 
           <div>
-              <p>Cor: <span class="font-semibold">{{ selectedItem?.cor }}</span></p>
-              <p>Código do produto: <span class="font-semibold">{{ selectedItem?.id_produto }}</span></p>
+              <p><span class="font-semibold">Cor: </span>{{ selectedItem?.cor }}</p>
+              <p><span class="font-semibold">Código do produto: </span>{{ selectedItem?.id_produto }}</p>
           </div>
 
           <div class="my-5">
