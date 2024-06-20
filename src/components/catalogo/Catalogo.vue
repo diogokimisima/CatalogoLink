@@ -1,7 +1,9 @@
 <template>
 
     <!-- Card -->
-    <div v-for="(item, index) in filteredCatalogo" :key="item.id">
+     <!-- v-motion-pop-visible
+     v-motion-fade-visible -->
+    <div v-motion-fade-visible v-for="(item, index) in filteredCatalogo" :key="item.id">
         <button @click="showModal(item)"
             :class="['card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl', { 'mb-40': index === catalogo.length - 1 }]">
 

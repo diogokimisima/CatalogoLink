@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/motion": "^2.2.3",
     "lucide-vue-next": "^0.395.0",
     "vue": "^3.4.21",
     "vue-router": "^4.0.13"
