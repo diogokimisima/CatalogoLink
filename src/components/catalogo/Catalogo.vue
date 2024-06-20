@@ -18,9 +18,9 @@
   </div>
 
   <dialog ref="myModal" id="my_modal_3" class="modal py-12">
-      <div class="modal-box h-full overflow-auto  relative">
+      <div class="modal-box h-full overflow-auto relative">
 
-          <form class="border-b border-b-gray-400 flex " method="dialog">
+          <form class=" border-b border-b-gray-400 flex sticky -top-6 bg-white z-10 py-3 " method="dialog">
               <h3 class="font-bold text-lg">{{ selectedItem?.title }}</h3>
               <div class="flex-grow"></div>
               <button class="btn btn-sm btn-circle btn-ghost">
