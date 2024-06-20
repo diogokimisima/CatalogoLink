@@ -12,7 +12,7 @@
 
             <button type="button" id="increment-button" @click="increment"
                 class="bg-gray-100 border p-3 h-11 border-none">
-                <Plus class="bg-emerald-500 rounded-lg text-white" />
+                <Plus class="bg-emerald-400 rounded-lg text-white" />
             </button>
         </div>
     </form>
