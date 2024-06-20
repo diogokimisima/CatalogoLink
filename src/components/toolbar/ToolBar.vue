@@ -27,9 +27,13 @@
             </a>
         </div>
 
+        <transition name="fade">
+            <div v-if="isSidebarOpen" class="fixed inset-0 bg-black bg-opacity-70 z-40" @click="toggleSidebar"></div>
+        </transition>
+
         <transition name="slide">
             <div v-if="isSidebarOpen"
-                class="fixed inset-y-0 left-0 w-64 bg-slate-300 text-black p-4 transform transition-transform duration-300 z-50">
+                class="fixed inset-y-0 left-0 w-72 bg-slate-300 text-black p-4 transform transition-transform duration-300 z-50">
                 <div class="flex items-center mb-6">
                     <h2 class="text-2xl font-bold">Menu</h2>
                     <button @click="toggleSidebar" class="ml-auto">
@@ -48,7 +52,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { Menu, ShoppingCart, X } from 'lucide-vue-next';
 import whatsIcon from '../../assets/images/whats.svg';
 import LogoTrovata from '../../assets/images/logo.png';
@@ -62,19 +66,29 @@ const toggleSidebar = () => {
     isSidebarOpen.value = !isSidebarOpen.value;
 };
 
+watch(isSidebarOpen, (newValue) => {
+    if (newValue) {
+        document.body.classList.add('overflow-hidden');
+    } else {
+        document.body.classList.remove('overflow-hidden');
+    }
+});
+
 </script>
 
 <style scoped>
-.slide-enter-active,
-.slide-leave-active {
-    transition: transform 0.3s ease;
-}
-
 .slide-enter-from {
     transform: translateX(-100%);
 }
 
 .slide-leave-to {
     transform: translateX(-100%);
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+}
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
 }
 </style>
