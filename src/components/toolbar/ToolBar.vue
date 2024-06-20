@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-auto">
-        <div class="menu menu-horizontal bg-slate-300 w-full justify-evenly items-center pt-1 pb-0">
+        <div class="menu menu-horizontal bg-slate-300 w-full justify-evenly items-center pt-1">
             <div class="flex justify-center flex-col">
                 <button class="tooltip" data-tip="Menu" @click="toggleSidebar">
                     <Menu class="w-7 h-7" />
