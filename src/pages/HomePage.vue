@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-slate-100">
+  <div class="relative pb-40">
     <ToolBar class='fixed bottom-0 z-50' />
     <Header />
     <Catalogo />
