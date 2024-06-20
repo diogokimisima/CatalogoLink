@@ -3,7 +3,7 @@
         <HeaderBanner />
         
         <div ref="headerBanner">
-            <HeaderSearch />
+            <HeaderSearch @highlight-user="highlightUser"/>
         </div>
 
         <div :class="{ 'fixed top-0 w-full z-10': isSticky }">
@@ -21,6 +21,13 @@ import HeaderSearch from './HeaderSearch.vue';
 
 const isSticky = ref(false);
 const headerBanner = ref(null);
+const highlight = ref('')
+
+function highlightUser(searched){
+    highlight.value = searched
+    console.log('searched ' +searched)
+
+}
 
 const handleScroll = () => {
     if (headerBanner.value) {
@@ -36,4 +43,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', handleScroll);
 });
+
+
 </script>

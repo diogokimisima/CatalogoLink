@@ -6,5 +6,6 @@
 </template>
 
 <script setup>
+
 import ToolBar from './components/toolbar/ToolBar.vue'
 </script>

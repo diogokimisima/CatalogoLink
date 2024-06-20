@@ -12,8 +12,4 @@ import Header from '../components/header/Header.vue'
 import Catalogo from '../components/catalogo/Catalogo.vue'
 import ToolBar from '../components/toolbar/ToolBar.vue'
 import BackTop from '../components/backTop/BackTop.vue'
-
-import { ref } from 'vue';
-
-const selectedCategory = ref('Todos');
 </script>

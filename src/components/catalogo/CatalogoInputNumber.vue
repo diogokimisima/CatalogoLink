@@ -3,7 +3,7 @@
         <div class="flex items-center max-w-[8rem]">
             <button type="button" id="decrement-button" @click="decrement"
                 class="border-none p-3 h-11">
-                <Minus :class="{ 'bg-red-100': quantidade < 1 }" class="rounded-lg text-white bg-red-600" />
+                <Minus :class="{ 'bg-rose-400': quantidade < 1 }" class="rounded-lg text-white bg-red-600" />
             </button>
 
             <input type="text" data-input-counter aria-describedby="helper-text-explanation"

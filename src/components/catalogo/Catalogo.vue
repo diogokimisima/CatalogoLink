@@ -29,7 +29,7 @@
     <dialog ref="myModal" id="my_modal_3" class="modal py-12">
         <div class="modal-box h-full overflow-auto relative">
 
-            <form class="flex flex-col justify-between border-b border-b-gray-400 sticky -top-6 bg-white z-10 py-3 "
+            <form class="flex flex-col justify-between border-b border-b-gray-400 sticky -top-6 bg-white z-10 py-1 "
                 method="dialog">
                 <div class="flex flex-row -mb-2">
                     <h3 class="font-bold text-lg">{{ selectedItem?.title }}
