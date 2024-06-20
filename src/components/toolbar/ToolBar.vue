@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-auto">
-        <div class="menu menu-horizontal bg-slate-300 w-full justify-evenly items-center pt-1">
+        <div class="menu menu-horizontal bg-slate-300 w-full justify-evenly items-center pt-1 pb-0.5">
             <div class="flex justify-center flex-col">
                 <button class="tooltip" data-tip="Menu" @click="toggleSidebar">
                     <Menu class="w-7 h-7" />
@@ -29,7 +29,7 @@
 
         <transition name="slide">
             <div v-if="isSidebarOpen"
-                class="fixed inset-y-0 left-0 w-64 bg-slate-300 text-black p-4 transform transition-transform duration-300">
+                class="fixed inset-y-0 left-0 w-64 bg-slate-300 text-black p-4 transform transition-transform duration-300 z-50">
                 <div class="flex items-center mb-6">
                     <h2 class="text-2xl font-bold">Menu</h2>
                     <button @click="toggleSidebar" class="ml-auto">

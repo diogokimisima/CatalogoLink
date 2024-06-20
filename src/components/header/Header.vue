@@ -6,7 +6,7 @@
             <HeaderSearch />
         </div>
 
-        <div :class="{ 'fixed top-0 w-full z-50': isSticky }">
+        <div :class="{ 'fixed top-0 w-full z-10': isSticky }">
             <HeaderCategorias />
         </div>
     </header>

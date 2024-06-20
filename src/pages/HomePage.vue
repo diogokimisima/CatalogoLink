@@ -1,8 +1,8 @@
 <template>
     <div class="relative bg-slate-100">
-      <Header/>
+      <ToolBar class='fixed bottom-0 z-50'/>
+      <Header />
       <Catalogo />
-      <ToolBar class='fixed bottom-0'/>
     </div>
   </template>
   
