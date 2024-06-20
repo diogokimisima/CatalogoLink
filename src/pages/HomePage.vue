@@ -1,8 +1,9 @@
 <template>
   <div class="relative bg-slate-100">
     <ToolBar class='fixed bottom-0 z-50' />
-    <Header :selectedCategory="selectedCategory" />
-    <Catalogo :selectedCategory="selectedCategory" />
+    <Header />
+    <Catalogo />
+    <BackTop />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Header from '../components/header/Header.vue'
 import Catalogo from '../components/catalogo/Catalogo.vue'
 import ToolBar from '../components/toolbar/ToolBar.vue'
+import BackTop from '../components/backTop/BackTop.vue'
 
 import { ref } from 'vue';
 

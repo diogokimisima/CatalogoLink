@@ -1,37 +1,53 @@
 <template>
+
+    <!-- Card -->
     <div v-for="(item, index) in filteredCatalogo" :key="item.id">
         <button @click="showModal(item)"
             :class="['card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl', { 'mb-40': index === catalogo.length - 1 }]">
+
             <figure>
                 <img :src="item.imagem" :alt="'Image ' + item.id" />
             </figure>
-            <div class="card-body gap-0">
-                <div class="flex gap-24">
-                    <h2 class="card-title font-normal text-lg">{{ item.title }}</h2>
-                    <h4 class="card-title">R$ {{ item.valor }}</h4>
+
+            <div class="card-body flex-row justify-between items-center gap-24">
+                <div class="flex flex-col ">
+                    <h2 class="card-title font-semibold text-lg whitespace-nowrap">{{ item.title }}</h2>
+                    <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
                 </div>
 
-                <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
-
+                <div class="flex flex-col">
+                    <h3 class="text-base text-red-400  whitespace-nowrap" v-if="item.valor_antigo">De <span
+                            class="line-through"> R${{ item.valor_antigo }}</span> </h3>
+                    <h4 class="card-title whitespace-nowrap">R$ {{ item.valor }}</h4>
+                </div>
             </div>
+
         </button>
     </div>
 
+    <!-- Modal -->
     <dialog ref="myModal" id="my_modal_3" class="modal py-12">
         <div class="modal-box h-full overflow-auto relative">
 
-            <form class=" border-b border-b-gray-400 flex sticky -top-6 bg-white z-10 py-3 " method="dialog">
-                <h3 class="font-bold text-lg">{{ selectedItem?.title }}</h3>
-                <div class="flex-grow"></div>
-                <button class="btn btn-sm btn-circle btn-ghost">
-                    <X class="size-8" />
-                </button>
+            <form class="flex flex-col justify-between border-b border-b-gray-400 sticky -top-6 bg-white z-10 py-3 "
+                method="dialog">
+                <div class="flex flex-row -mb-2">
+                    <h3 class="font-bold text-lg">{{ selectedItem?.title }}
+                        <span class="font-semibold">({{ selectedItem?.id_produto }})</span>
+                    </h3>
+                    <div class="flex-grow"></div>
+                    <button class="btn btn-sm btn-circle btn-ghost border-none focus:outline-none">
+                        <X class="size-8" />
+                    </button>
+                </div>
+
+                <div class="flex flex-row">
+                    <p class="text-lg font-semibold">{{ selectedItem?.cor }}</p>
+                </div>
+
+
             </form>
 
-            <div>
-                <p><span class="font-semibold">Cor: </span>{{ selectedItem?.cor }}</p>
-                <p><span class="font-semibold">Código do produto: </span>{{ selectedItem?.id_produto }}</p>
-            </div>
 
             <div class="my-5">
                 <img :src="selectedItem?.imagem" alt="imagem">

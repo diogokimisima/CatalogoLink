@@ -86,7 +86,7 @@ watch(isSidebarOpen, (newValue) => {
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: opacity 1s;
+    transition: opacity 0.5s;
 }
 .fade-enter-from, .fade-leave-to {
     opacity: 0;

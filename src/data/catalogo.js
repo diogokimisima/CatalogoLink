@@ -37,6 +37,7 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Verde Musgo/Areia",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
+        valor_antigo: "59,90",
         valor: "54,06",
         imagem: tenis1Areia,
     },
