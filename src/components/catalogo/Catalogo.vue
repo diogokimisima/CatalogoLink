@@ -31,7 +31,8 @@
         <dialog ref="myModal" id="my_modal_3" class="modal py-12">
             <div class="modal-box h-full overflow-auto relative">
 
-                <form class="flex flex-col justify-between border-b border-b-gray-400 sticky -top-6 bg-white z-10 py-1 "
+                <form v-motion-fade-visible
+                    class="flex flex-col justify-between border-b border-b-gray-400 sticky -top-6 bg-white z-10 py-1 "
                     method="dialog">
                     <div class="flex flex-row -mb-2">
                         <h3 class="font-bold text-lg">{{ selectedItem?.title }}
@@ -60,7 +61,9 @@
                 <div class=" mt-5 overflow-y-auto flex items-center font-bold  h-26 w-full my-10" id="categoriaIgual">
 
                     <ul class="flex flex-row space-x-2 gap-5">
-                        <li class="rounded w-28" v-for="relatedItem in relatedItems" :key="relatedItem.id">
+                        <li v-motion-fade-visible class="rounded w-28" v-for="relatedItem in relatedItems"
+                            :key="relatedItem.id"
+                            :class="{ 'border-b-4 border-gray-300 transition-colors duration-500 ease-in-out': relatedItem.imagem === selectedItem?.imagem }">
                             <img class="object-contain" :src="relatedItem.imagem" :alt="'Image ' + relatedItem.id"
                                 @click="selectRelatedItem(relatedItem)" />
                         </li>
@@ -89,7 +92,7 @@
                                 <td class="p-4">{{ tamanho }}</td>
                                 <td>
                                     <div class="flex justify-center items-center">
-                                        <InputNumber />
+                                        <InputNumber v-motion-fade-visible />
                                     </div>
                                 </td>
                             </tr>
@@ -144,7 +147,7 @@ const relatedItems = computed(() => {
 });
 
 const updateCategory = (categoria) => {
-  selectedCategory.value = categoria; 
+    selectedCategory.value = categoria;
 };
 
 onMounted(() => {
