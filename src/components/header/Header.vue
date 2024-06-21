@@ -8,6 +8,8 @@
             <HeaderSearch />
         </div>
 
+        <div id="top"></div>
+
         <div :class="{ 'fixed top-0 w-full z-10': isSticky }">
             <HeaderCategorias @category-selected="updateCategory" />
         </div>
@@ -35,6 +37,8 @@ const handleScroll = () => {
 const updateCategory = (categoria) => {
     const event = new CustomEvent('category-selected', { detail: categoria });
     window.dispatchEvent(event);
+
+    document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
 };
 
 onMounted(() => {
