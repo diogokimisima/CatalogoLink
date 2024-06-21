@@ -1,36 +1,49 @@
-<!-- HeaderCategorias.vue -->
-
 <template>
     <div class="bg-blue-950 text-gray-100 overflow-y-auto flex items-center h-20">
-        <ul class="flex flex-row">
-            <li class="px-6 py-2 hover:bg-gray-900 rounded">
-                <a href="#" class="block" @click.prevent="selectCategory('Todos')">Todos</a>
-            </li>
-            <li v-for="categoria in categorias" :key="categoria" class="px-3 py-2 hover:bg-gray-900 rounded">
-                <a href="#" class="whitespace-nowrap text-base" @click.prevent="selectCategory(categoria)">
-                    {{ categoria.charAt(0).toUpperCase() + categoria.slice(1) }}
-                </a>
-            </li>
-        </ul>
+      <ul class="flex flex-row mx-2">
+        <li @click.prevent="selectCategory('Todos')" 
+        :class="{ 'bg-blue-950': selectedCategory === 'Todos' }"
+        class="px-6 py-2 hover:bg-gray-900 rounded cursor-pointer">
+          <a class="block">
+            Todos
+          </a>
+        </li>
+        <li v-for="categoria in categorias" :key="categoria" @click.prevent="selectCategory(categoria)" class="px-3 py-2 hover:bg-gray-900 rounded cursor-pointer"
+        :class="{ 'bg-blue-950': selectedCategory === categoria }">
+          <a  class="whitespace-nowrap text-base">
+            {{ categoria.charAt(0).toUpperCase() + categoria.slice(1) }}
+          </a>
+        </li>
+      </ul>
     </div>
-</template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import { catalogo } from '../../data/catalogo.js';
-
-const categorias = ref([]);
-const extrairCategorias = () => {
+  </template>
+  
+  <script setup>
+  import { ref, onMounted, watch } from 'vue';
+  import { catalogo } from '../../data/catalogo.js';
+  
+  const categorias = ref([]);
+  const selectedCategory = ref('Todos'); 
+  
+  const extrairCategorias = () => {
     const categoriasUnicas = [...new Set(catalogo.map(item => item.categoria))];
     categorias.value = categoriasUnicas;
-};
-
-const emit = defineEmits(['category-selected']);
-const selectCategory = (categoria) => {
+  };
+  
+  const emit = defineEmits(['category-selected']);
+  const selectCategory = (categoria) => {
+    selectedCategory.value = categoria;
     emit('category-selected', categoria);
-};
-
-onMounted(() => {
+  };
+  
+  onMounted(() => {
     extrairCategorias();
-});
-</script>
+  });
+  
+//   watch(selectedCategory, (newValue, oldValue) => {
+//     console.log('Categoria selecionada:', newValue);
+//   });
+
+  </script>
+  
+  

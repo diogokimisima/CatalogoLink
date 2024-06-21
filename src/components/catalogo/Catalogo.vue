@@ -89,7 +89,7 @@
                                 <td class="p-4">{{ tamanho }}</td>
                                 <td>
                                     <div class="flex justify-center items-center">
-                                        <InputNumber v-model="quantidade" />
+                                        <InputNumber />
                                     </div>
                                 </td>
                             </tr>
@@ -104,7 +104,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { X, CandlestickChart, Ruler } from 'lucide-vue-next';
 
 import { catalogo } from "../../data/catalogo.js";
@@ -119,6 +119,7 @@ const props = defineProps({
 
 const selectedItem = ref(null);
 const myModal = ref(null);
+const selectedCategory = ref('Todos');
 
 const showModal = (item) => {
     selectedItem.value = item;
@@ -142,12 +143,8 @@ const relatedItems = computed(() => {
     return catalogo.filter(item => item.id_categoria === selectedItem.value.id_categoria);
 });
 
-watch(() => props.selectedCategory, () => {
-    // React to changes in selectedCategory
-});
-
 const updateCategory = (categoria) => {
-    props.selectedCategory = categoria;
+  selectedCategory.value = categoria; 
 };
 
 onMounted(() => {

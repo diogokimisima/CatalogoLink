@@ -4,7 +4,7 @@
     <div class="m-3">
         <label class="input input-bordered flex items-center gap-2 ">
             <Search class="text-gray-400 size-5"/>
-            <input type="text" class="grow" placeholder="Pesquisar" v-model="searched"/>
+            <input type="text" class="grow" placeholder="Pesquisar"/>
         </label>
     </div>
 </template>

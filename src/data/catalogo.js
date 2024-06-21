@@ -180,7 +180,7 @@ export const catalogo = [
         imagem: mocassimAmarelo
     },
     {
-        id: 13,
+        id: 14,
         id_produto: "095.12.2010",
         id_categoria: "095.12",
         title: "Mocassim Bebê",
@@ -191,7 +191,7 @@ export const catalogo = [
         imagem: mocassimAreia
     },
     {
-        id: 14,
+        id: 15,
         id_produto: "095.12.20187",
         id_categoria: "095.12",
         title: "Mocassim Bebê",
@@ -202,7 +202,7 @@ export const catalogo = [
         imagem: mocassimAzul
     },
     {
-        id: 15,
+        id: 16,
         id_produto: "095.12.2015",
         id_categoria: "095.12",
         title: "Mocassim Bebê",
@@ -215,7 +215,7 @@ export const catalogo = [
 
     //Papete Infantil
     {
-        id: 16,
+        id: 17,
         id_produto: "120.03.2081",
         id_categoria: "120.03",
         title: "Papete Infantil",
@@ -226,7 +226,7 @@ export const catalogo = [
         imagem: papeteAzul
     },
     {
-        id: 17,
+        id: 18,
         id_produto: "120.03.20466",
         id_categoria: "120.03",
         title: "Papete Infantil",
@@ -237,7 +237,7 @@ export const catalogo = [
         imagem: papeteBegeClaro
     },
     {
-        id: 18,
+        id: 19,
         id_produto: "120.03.20131",
         id_categoria: "120.03",
         title: "Papete Infantil",
@@ -248,7 +248,7 @@ export const catalogo = [
         imagem: papeteMarrom
     },
     {
-        id: 19,
+        id: 20,
         id_produto: "120.03.20221",
         id_categoria: "120.03",
         title: "Papete Infantil",
@@ -261,7 +261,7 @@ export const catalogo = [
 
     //Tênis bebê
     {
-        id: 20,
+        id: 21,
         id_produto: "091.03.20011  ",
         id_categoria: "091.03",
         title: "Tênis Bebê",
@@ -272,7 +272,7 @@ export const catalogo = [
         imagem: tenisBebeAzul
     },
     {
-        id: 21,
+        id: 22,
         id_produto: "091.03.2015",
         id_categoria: "091.03",
         title: "Tênis Bebê",
@@ -283,7 +283,7 @@ export const catalogo = [
         imagem: tenisBebeBranco
     },
     {
-        id: 22,
+        id: 23,
         id_produto: "091.03.2079",
         id_categoria: "091.03",
         title: "Tênis Bebê",
