@@ -107,7 +107,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { X, CandlestickChart, Ruler } from 'lucide-vue-next';
 
 import { catalogo } from "../../data/catalogo.js";
@@ -123,6 +123,7 @@ const props = defineProps({
 const selectedItem = ref(null);
 const myModal = ref(null);
 const selectedCategory = ref('Todos');
+const searchQuery = ref('');
 
 const showModal = (item) => {
     selectedItem.value = item;
@@ -134,11 +135,20 @@ const selectRelatedItem = (item) => {
 };
 
 const filteredCatalogo = computed(() => {
-    if (props.selectedCategory === 'Todos') {
-        return catalogo;
-    } else {
-        return catalogo.filter(item => item.categoria === props.selectedCategory);
+    let filteredItems = catalogo;
+
+    if (props.selectedCategory !== 'Todos') {
+        filteredItems = filteredItems.filter(item => item.categoria === props.selectedCategory);
     }
+
+    if (searchQuery.value.trim() !== '') {
+        const query = searchQuery.value.trim().toLowerCase();
+        filteredItems = filteredItems.filter(item =>
+            item.title.toLowerCase().includes(query) || item.id_produto.toLowerCase().includes(query)
+        );
+    }
+
+    return filteredItems;
 });
 
 const relatedItems = computed(() => {
@@ -154,5 +164,15 @@ onMounted(() => {
     window.addEventListener('category-selected', (event) => {
         updateCategory(event.detail);
     });
+
+    window.addEventListener('search-input', (event) => {
+        searchQuery.value = event.detail;
+    });
 });
+
+onBeforeUnmount(() => {
+    window.removeEventListener('category-selected', updateCategory);
+    window.removeEventListener('search-input', handleSearchInput);
+});
+
 </script>

@@ -3,7 +3,7 @@
 <template>
     <header>
         <HeaderBanner />
-        
+
         <div ref="headerBanner"></div>
 
         <div id="top"></div>
@@ -12,16 +12,22 @@
             <HeaderCategorias @category-selected="updateCategory" />
         </div>
 
-        <HeaderSearch :class="{ 'pt-20': isSticky }"/>
+        <div class="m-3" :class="{ 'pt-20': isSticky }">
+            <label class="input input-bordered flex items-center gap-2">
+                <Search class="text-gray-400 size-5" />
+                <input type="text" class="grow" placeholder="Pesquisar"
+                    @input="handleSearchInput($event.target.value)" />
+            </label>
+        </div>
     </header>
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { Search } from 'lucide-vue-next';
 
 import HeaderBanner from './HeaderBanner.vue';
 import HeaderCategorias from './HeaderCategorias.vue';
-import HeaderSearch from './HeaderSearch.vue';
 
 const isSticky = ref(false);
 const headerBanner = ref(null);
@@ -40,6 +46,11 @@ const updateCategory = (categoria) => {
     document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
 };
 
+const handleSearchInput = (query) => {
+    const event = new CustomEvent('search-input', { detail: query });
+    window.dispatchEvent(event);
+};
+
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
 });
@@ -48,9 +59,4 @@ onBeforeUnmount(() => {
     window.removeEventListener('scroll', handleScroll);
 });
 
-// Watch for changes in isSticky and emit an event
-watch(isSticky, (newVal) => {
-    const event = new CustomEvent('sticky-change', { detail: newVal });
-    window.dispatchEvent(event);
-});
 </script>
