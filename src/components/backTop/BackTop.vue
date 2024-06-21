@@ -13,7 +13,7 @@ const backTop = ref(false)
 
 const scrollToTop = () => {
     window.scrollTo({
-        top: 0,
+        top: 150,
         behavior: 'smooth'
     })
 }

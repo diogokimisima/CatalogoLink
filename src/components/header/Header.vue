@@ -4,20 +4,20 @@
     <header>
         <HeaderBanner />
         
-        <div ref="headerBanner">
-            <HeaderSearch />
-        </div>
+        <div ref="headerBanner"></div>
 
         <div id="top"></div>
 
         <div :class="{ 'fixed top-0 w-full z-10': isSticky }">
             <HeaderCategorias @category-selected="updateCategory" />
         </div>
+
+        <HeaderSearch :class="{ 'pt-20': isSticky }"/>
     </header>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 
 import HeaderBanner from './HeaderBanner.vue';
 import HeaderCategorias from './HeaderCategorias.vue';
@@ -25,7 +25,6 @@ import HeaderSearch from './HeaderSearch.vue';
 
 const isSticky = ref(false);
 const headerBanner = ref(null);
-const selectedCategory = ref('Todos');
 
 const handleScroll = () => {
     if (headerBanner.value) {
@@ -47,5 +46,11 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', handleScroll);
+});
+
+// Watch for changes in isSticky and emit an event
+watch(isSticky, (newVal) => {
+    const event = new CustomEvent('sticky-change', { detail: newVal });
+    window.dispatchEvent(event);
 });
 </script>

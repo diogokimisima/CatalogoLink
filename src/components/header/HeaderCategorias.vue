@@ -1,8 +1,10 @@
 <template>
-    <div class="bg-blue-950 text-gray-100 overflow-y-auto flex items-center h-20">
+    <div class="bg-blue-950 text-gray-100 overflow-y-auto flex items-center h-20 -mt-2">
         <ul class="flex flex-row mx-2">
-            <li @click.prevent="selectCategory('Todos')"
-                :class="{ 'border-b-2 border-white': selectedCategory === 'Todos' }" class="px-6 py-2 cursor-pointer">
+            <li @click.prevent="selectCategory('Todos')" :class="[
+                'px-6 py-2 cursor-pointer',
+                selectedCategory === 'Todos' ? 'border-b-2 border-white transition-colors duration-500 ease-in-out' : 'border-b-2 border-transparent'
+            ]">
                 <a class="block">
                     Todos
                 </a>

@@ -3,7 +3,7 @@
 <template>
   <div class="relative pb-40">
     <ToolBar class='fixed bottom-0 z-50' />
-    <Header />
+    <Header/>
     <Catalogo :selectedCategory="selectedCategory" />
     <BackTop />
   </div>
