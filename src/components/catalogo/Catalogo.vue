@@ -60,10 +60,10 @@
 
                 <div class=" mt-5 overflow-y-auto flex items-center font-bold  h-26 w-full my-10" id="categoriaIgual">
 
-                    <ul class="flex flex-row space-x-2 gap-5">
+                    <ul class="flex flex-row space-x-2 gap-5 py-5">
                         <li v-motion-fade-visible class="rounded w-28" v-for="relatedItem in relatedItems"
                             :key="relatedItem.id"
-                            :class="{ 'border-b-4 border-gray-300 transition-colors duration-500 ease-in-out': relatedItem.imagem === selectedItem?.imagem }">
+                            :class="{ 'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out': relatedItem.imagem === selectedItem?.imagem }">
                             <img class="object-contain" :src="relatedItem.imagem" :alt="'Image ' + relatedItem.id"
                                 @click="selectRelatedItem(relatedItem)" />
                         </li>
