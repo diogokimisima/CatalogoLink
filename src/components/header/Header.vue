@@ -46,21 +46,35 @@
                     <ul>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('discount')">
-                                <Circle class="bg-white rounded-full"  :class="{ 'bg-sky-400': filterSelected === 'discount' }" />
+                                <Circle v-if="filterSelected != 'discount'" class="bg-white rounded-full"  />
+                                <CircleDot v-else class="bg-sky-400 rounded-full"/>
                             </button>
                             <label for="sortByDiscount" class="ml-2 cursor-pointer">Desconto</label>
                         </li>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('highPrice')" >
-                                <Circle class="bg-white rounded-full" :class="{ 'bg-sky-400': filterSelected === 'highPrice' }"/>
+                                <Circle v-if="filterSelected != 'highPrice'" class="bg-white rounded-full"  />
+                                <CircleDot v-else class="bg-sky-400 rounded-full"/>
                             </button>
                             <label for="sortByHighPrice" class="ml-2 cursor-pointer">Maior preço</label>
                         </li>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('lowPrice')">
-                                <Circle class="bg-white rounded-full" :class="{ 'bg-sky-400': filterSelected === 'lowPrice' }"/>
+                                <Circle v-if="filterSelected != 'lowPrice'" class="bg-white rounded-full"  />
+                                <CircleDot v-else class="bg-sky-400 rounded-full"/>
                             </button>
                             <label for="sortByLowPrice" class="ml-2 cursor-pointer">Menor preço</label>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-6">tamanho</h3>
+                    <ul>
+                        <li v-for="tamanho in seletectedItem?.tamanho" :key="tamanho" class="mb-2 flex items-center" >
+                            <button @click="sortBy('discount')">
+                                <Circle class="bg-white rounded-full"  :class="{ 'bg-sky-400': filterSelected === 'discount' }" />
+                            </button>
+                            <label for="sortByDiscount" class="ml-2 cursor-pointer">{{ tamanho }}</label>
                         </li>
                     </ul>
                 </div>
@@ -80,13 +94,14 @@ const isSticky = ref(false);
 const showSideFilter = ref(false);
 const headerBanner = ref(null);
 const filterSelected = ref(null);
+const seletectedItem = ref(null);
 
 const toggleSideFilter = () => {
     showSideFilter.value = !showSideFilter.value;
 };
 
 const sortBy = (selected) => {
-    filterSelected.value = selected;
+    filterSelected.value = filterSelected.value === selected ? null : selected;
 
     const event = new CustomEvent('sort-selected', { detail: selected });
     window.dispatchEvent(event);
