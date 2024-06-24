@@ -2,7 +2,9 @@
 
 <template>
     <header>
-        <HeaderBanner ref="headerBanner" />
+        <HeaderBanner />
+
+        <div ref="headerBanner"></div>
 
         <div id="top"></div>
 
