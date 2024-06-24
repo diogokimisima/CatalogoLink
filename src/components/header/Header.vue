@@ -46,19 +46,19 @@
                     <ul>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('discount')">
-                                <Circle class="bg-white rounded-full" />
+                                <Circle class="bg-white rounded-full"  :class="{ 'bg-sky-400': filterSelected === 'discount' }" />
                             </button>
                             <label for="sortByDiscount" class="ml-2 cursor-pointer">Desconto</label>
                         </li>
                         <li class="mb-2 flex items-center">
-                            <button @click="sortBy('highPrice')">
-                                <Circle class="bg-white rounded-full" />
+                            <button @click="sortBy('highPrice')" >
+                                <Circle class="bg-white rounded-full" :class="{ 'bg-sky-400': filterSelected === 'highPrice' }"/>
                             </button>
                             <label for="sortByHighPrice" class="ml-2 cursor-pointer">Maior preço</label>
                         </li>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('lowPrice')">
-                                <Circle class="bg-white rounded-full" />
+                                <Circle class="bg-white rounded-full" :class="{ 'bg-sky-400': filterSelected === 'lowPrice' }"/>
                             </button>
                             <label for="sortByLowPrice" class="ml-2 cursor-pointer">Menor preço</label>
                         </li>
@@ -71,7 +71,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
-import { Search, ListFilter, X, Circle } from 'lucide-vue-next';
+import { Search, ListFilter, X, Circle, CircleDot } from 'lucide-vue-next';
 
 import HeaderBanner from './HeaderBanner.vue';
 import HeaderCategorias from './HeaderCategorias.vue';
@@ -79,13 +79,16 @@ import HeaderCategorias from './HeaderCategorias.vue';
 const isSticky = ref(false);
 const showSideFilter = ref(false);
 const headerBanner = ref(null);
+const filterSelected = ref(null);
 
 const toggleSideFilter = () => {
     showSideFilter.value = !showSideFilter.value;
 };
 
-const sortBy = (criteria) => {
-    const event = new CustomEvent('sort-selected', { detail: criteria });
+const sortBy = (selected) => {
+    filterSelected.value = selected;
+
+    const event = new CustomEvent('sort-selected', { detail: selected });
     window.dispatchEvent(event);
 };
 

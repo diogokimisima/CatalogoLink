@@ -3,7 +3,7 @@
 <template>
     <div>
         <!-- Card -->
-        <div  v-for="(item, index) in filteredCatalogo" :key="item.id">
+        <div v-for="(item, index) in filteredCatalogo" :key="item.id">
             <button @click="showModal(item)"
                 :class="['card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl', { 'mb-0': index === filteredCatalogo.length - 1 }]">
 
@@ -19,8 +19,8 @@
 
                     <div class="flex flex-col">
                         <h3 class="text-base text-red-400  whitespace-nowrap" v-if="item.valor_antigo">De <span
-                                class="line-through"> R${{ item.valor_antigo }}</span> </h3>
-                        <h4 class="card-title whitespace-nowrap">R$ {{ item.valor }}</h4>
+                                class="line-through"> R${{ formatPrice(item.valor_antigo) }}</span> </h3>
+                        <h4 class="card-title whitespace-nowrap">R$ {{ formatPrice(item.valor) }}</h4>
                     </div>
                 </div>
 
@@ -126,6 +126,14 @@ const selectedCategory = ref('Todos');
 const searchQuery = ref('');
 const sortByCriteria = ref(null);
 
+const formatPrice = (valor) => {
+    if (typeof valor !== 'number') {
+        return valor;
+    }
+
+    return valor.toFixed(2).replace('.', ',');
+};
+
 const showModal = (item) => {
     selectedItem.value = item;
     myModal.value.showModal();
@@ -149,29 +157,20 @@ const filteredCatalogo = computed(() => {
     if (searchQuery.value.trim() !== '') {
         const query = removeDiacritics(searchQuery.value.trim().toLowerCase());
         filteredItems = filteredItems.filter(item =>
-            removeDiacritics(item.title.toLowerCase()).includes(query) || 
+            removeDiacritics(item.title.toLowerCase()).includes(query) ||
             removeDiacritics(item.id_produto.toLowerCase()).includes(query) ||
             removeDiacritics(item.cor.toLowerCase()).includes(query)
         );
     }
 
     if (sortByCriteria.value === 'discount') {
-    filteredItems = filteredItems.filter(item => item.valor_antigo);
-} else if (sortByCriteria.value === 'highPrice') {
-    filteredItems = filteredItems.sort((a, b) => {
-        const valorA = parseFloat(a.valor.replace(',', '.'));
-        const valorB = parseFloat(b.valor.replace(',', '.'));
-        return valorB - valorA;
-    });
-} else if (sortByCriteria.value === 'lowPrice') {
-    filteredItems = filteredItems.sort((a, b) => {
-        const valorA = parseFloat(a.valor.replace(',', '.'));
-        const valorB = parseFloat(b.valor.replace(',', '.'));
-        return valorA - valorB;
-    });
-}
+        filteredItems = filteredItems.filter(item => item.valor_antigo)
+    } else if (sortByCriteria.value === 'highPrice') {
+        filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
+    } else if (sortByCriteria.value === 'lowPrice') {
+        filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
+    }
 
-    // console.log('filteredItems:', filteredItems);
     return filteredItems;
 });
 

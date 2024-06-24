@@ -37,8 +37,8 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Verde Musgo/Areia",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor_antigo: "59,90",
-        valor: "54,06",
+        valor_antigo: 59.90,
+        valor: 54.06,
         imagem: tenis1Areia,
     },
     {
@@ -49,7 +49,7 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Laranja",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "54,06",
+        valor: 54.06,
         imagem: tenis1Laranja
     },
     {
@@ -60,7 +60,7 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Azul",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "54,06",
+        valor: 54.06,
         imagem: tenis1Azul
     },
     {
@@ -71,7 +71,7 @@ export const catalogo = [
         categoria: "tenis",
         cor: "Amarelo",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "54.06",
+        valor: 54.06,
         imagem: tenis1Amarelo
     },
 
@@ -84,8 +84,8 @@ export const catalogo = [
         categoria: "Sandálias",
         cor: "Azul bebê",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
-        valor: "43,61",
-        valor_antigo: "49,90",
+        valor: 43.61,
+        valor_antigo: 49.90,
         imagem: sandaliaAzulbebe
     },
     {
@@ -96,7 +96,7 @@ export const catalogo = [
         categoria: "Sandálias",
         cor: "Branco",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
-        valor: "43,61",
+        valor: 43.61,
         imagem: sandaliaBranco
     },
     {
@@ -107,7 +107,7 @@ export const catalogo = [
         categoria: "Sandálias",
         cor: "Verde Claro",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
-        valor: "43,61",
+        valor: 43.61,
         imagem: sandaliaVerde
     },
     {
@@ -118,7 +118,7 @@ export const catalogo = [
         categoria: "Sandálias",
         cor: "Marinho",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
-        valor: "43,61",
+        valor: 43.61,
         imagem: sandaliaMarinho
     },
 
@@ -131,8 +131,8 @@ export const catalogo = [
         categoria: "Botas",
         cor: "Areia",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor_antigo: "59,90",
-        valor: "54,06",
+        valor_antigo: 59.90,
+        valor: 54.06,
         imagem: botaBege
     },
     {
@@ -143,7 +143,7 @@ export const catalogo = [
         categoria: "Botas",
         cor: "Laranja",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "54,06",
+        valor: 54.06,
         imagem: botaLaranja
     },
     {
@@ -154,7 +154,7 @@ export const catalogo = [
         categoria: "Botas",
         cor: "Preto",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "54,06",
+        valor: 54.06,
         imagem: botaPreto
     },
     {
@@ -165,7 +165,7 @@ export const catalogo = [
         categoria: "Botas",
         cor: "Preto",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "54,06",
+        valor: 54.06,
         imagem: botaAmarelo
     },
 
@@ -178,8 +178,8 @@ export const catalogo = [
         categoria: "Mocassim",
         cor: "Amarelo",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-        valor_antigo: "52,90",
-        valor: "47,41",
+        valor_antigo: 52.90,
+        valor: 47.41,
         imagem: mocassimAmarelo
     },
     {
@@ -190,7 +190,7 @@ export const catalogo = [
         categoria: "Mocassim",
         cor: "Areia",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-        valor: "47,41",
+        valor: 47.41,
         imagem: mocassimAreia
     },
     {
@@ -201,7 +201,7 @@ export const catalogo = [
         categoria: "Mocassim",
         cor: "Azul",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-        valor: "47,41",
+        valor: 47.41,
         imagem: mocassimAzul
     },
     {
@@ -212,7 +212,7 @@ export const catalogo = [
         categoria: "Mocassim",
         cor: "Laranja",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-        valor: "47,41",
+        valor: 47.41,
         imagem: mocassimLaranja
     },
 
@@ -225,8 +225,8 @@ export const catalogo = [
         categoria: "Papete",
         cor: "Azul",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor_antigo: "54,90",
-        valor: "49,31",
+        valor_antigo: 54.90,
+        valor: 49.31,
         imagem: papeteAzul
     },
     {
@@ -237,7 +237,7 @@ export const catalogo = [
         categoria: "Papete",
         cor: "Bege Claro",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "49,31",
+        valor: 49.31,
         imagem: papeteBegeClaro
     },
     {
@@ -248,7 +248,7 @@ export const catalogo = [
         categoria: "Papete",
         cor: "Marrom",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "49,31",
+        valor: 49.31,
         imagem: papeteMarrom
     },
     {
@@ -259,7 +259,7 @@ export const catalogo = [
         categoria: "Papete",
         cor: "Preto",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "49,31",
+        valor: 49.31,
         imagem: papetePreto
     },
 
@@ -272,8 +272,8 @@ export const catalogo = [
         categoria: "Tênis Bebê",
         cor: "Azul",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor_antigo: "51,90",
-        valor: "47,41",
+        valor_antigo: 51.90,
+        valor: 47.41,
         imagem: tenisBebeAzul
     },
     {
@@ -284,7 +284,7 @@ export const catalogo = [
         categoria: "Tênis Bebê",
         cor: "Branco",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "47,41",
+        valor: 47.41,
         imagem: tenisBebeBranco
     },
     {
@@ -295,7 +295,7 @@ export const catalogo = [
         categoria: "Tênis Bebê",
         cor: "Laranja",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
-        valor: "47,41",
+        valor: 47.41,
         imagem: tenisBebeLaranja
     }
 
