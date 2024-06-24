@@ -134,6 +134,10 @@ const selectRelatedItem = (item) => {
     selectedItem.value = item;
 };
 
+const removeDiacritics = (text) => {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+};
+
 const filteredCatalogo = computed(() => {
     let filteredItems = catalogo;
 
@@ -142,9 +146,11 @@ const filteredCatalogo = computed(() => {
     }
 
     if (searchQuery.value.trim() !== '') {
-        const query = searchQuery.value.trim().toLowerCase();
+        const query = removeDiacritics(searchQuery.value.trim().toLowerCase());
         filteredItems = filteredItems.filter(item =>
-            item.title.toLowerCase().includes(query) || item.id_produto.toLowerCase().includes(query)
+            removeDiacritics(item.title.toLowerCase()).includes(query) || 
+            removeDiacritics(item.id_produto.toLowerCase()).includes(query) ||
+            removeDiacritics(item.cor.toLowerCase()).includes(query)
         );
     }
 
