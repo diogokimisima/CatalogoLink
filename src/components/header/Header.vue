@@ -1,5 +1,3 @@
-<!-- header.vue -->
-
 <template>
     <header>
         <HeaderBanner />
@@ -34,47 +32,48 @@
 
         <transition name="slide">
             <div v-if="showSideFilter"
-                class="fixed top-0 right-0 h-full w-72 bg-slate-200 text-black p-4 transform transition-transform duration-300 z-50">
+                class="fixed top-0 right-0 h-full w-72 bg-slate-200 text-black p-4 transform transition-transform duration-300 z-50 overflow-x-auto">
                 <div class="flex items-center mb-6">
                     <h2 class="text-2xl font-bold">Filtro</h2>
                     <button @click="toggleSideFilter" class="ml-auto">
                         <X class="w-7 h-7" />
                     </button>
                 </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-6">Ordenar por</h3>
+                <div class="mb-5">
+                    <h3 class="font-semibold text-lg mb-6 border-t border-b border-slate-400 py-2">Ordenar por</h3>
                     <ul>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('discount')">
-                                <Circle v-if="filterSelected != 'discount'" class="bg-white rounded-full"  />
-                                <CircleDot v-else class="bg-sky-400 rounded-full"/>
+                                <Circle v-if="filterSelected != 'discount'" class="bg-white rounded-full" />
+                                <CircleDot v-else class="bg-sky-400 rounded-full" />
                             </button>
                             <label for="sortByDiscount" class="ml-2 cursor-pointer">Desconto</label>
                         </li>
                         <li class="mb-2 flex items-center">
-                            <button @click="sortBy('highPrice')" >
-                                <Circle v-if="filterSelected != 'highPrice'" class="bg-white rounded-full"  />
-                                <CircleDot v-else class="bg-sky-400 rounded-full"/>
+                            <button @click="sortBy('highPrice')">
+                                <Circle v-if="filterSelected != 'highPrice'" class="bg-white rounded-full" />
+                                <CircleDot v-else class="bg-sky-400 rounded-full" />
                             </button>
                             <label for="sortByHighPrice" class="ml-2 cursor-pointer">Maior preço</label>
                         </li>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('lowPrice')">
-                                <Circle v-if="filterSelected != 'lowPrice'" class="bg-white rounded-full"  />
-                                <CircleDot v-else class="bg-sky-400 rounded-full"/>
+                                <Circle v-if="filterSelected != 'lowPrice'" class="bg-white rounded-full" />
+                                <CircleDot v-else class="bg-sky-400 rounded-full" />
                             </button>
                             <label for="sortByLowPrice" class="ml-2 cursor-pointer">Menor preço</label>
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-6">tamanho</h3>
-                    <ul>
-                        <li v-for="tamanho in seletectedItem?.tamanho" :key="tamanho" class="mb-2 flex items-center" >
-                            <button @click="sortBy('discount')">
-                                <Circle class="bg-white rounded-full"  :class="{ 'bg-sky-400': filterSelected === 'discount' }" />
+                <div class="mb-5">
+                    <h3 class="font-semibold text-lg mb-6 border-t border-b border-slate-400 py-2">Tamanho</h3>
+                    <ul class="flex flex-row flex-wrap gap-0.5">
+                        <li v-for="tamanho in uniqueSizes" :key="tamanho" >
+                            <button class="mb-2 border border-slate-400 w-14 h-8 rounded-md" @click="sortBySize(tamanho)">
+                            <div class="flex items-center justify-center">
+                                {{ tamanho }}
+                            </div>
                             </button>
-                            <label for="sortByDiscount" class="ml-2 cursor-pointer">{{ tamanho }}</label>
                         </li>
                     </ul>
                 </div>
@@ -86,6 +85,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Search, ListFilter, X, Circle, CircleDot } from 'lucide-vue-next';
+import { catalogo } from '../../data/catalogo.js'
 
 import HeaderBanner from './HeaderBanner.vue';
 import HeaderCategorias from './HeaderCategorias.vue';
@@ -94,7 +94,15 @@ const isSticky = ref(false);
 const showSideFilter = ref(false);
 const headerBanner = ref(null);
 const filterSelected = ref(null);
-const seletectedItem = ref(null);
+const uniqueSizes = ref([]);
+
+const extractUniqueSizes = (catalogo) => {
+    const sizes = new Set();
+    catalogo.forEach(item => {
+        item.tamanho.forEach(size => sizes.add(size));
+    });
+    return Array.from(sizes).sort((a, b) => a - b);
+};
 
 const toggleSideFilter = () => {
     showSideFilter.value = !showSideFilter.value;
@@ -104,6 +112,13 @@ const sortBy = (selected) => {
     filterSelected.value = filterSelected.value === selected ? null : selected;
 
     const event = new CustomEvent('sort-selected', { detail: selected });
+    window.dispatchEvent(event);
+};
+
+const sortBySize = (size) => {
+    filterSelected.value = filterSelected.value === size ? null : size;
+
+    const event = new CustomEvent('size-selected', { detail: size });
     window.dispatchEvent(event);
 };
 
@@ -127,6 +142,7 @@ const handleSearchInput = (query) => {
 };
 
 onMounted(() => {
+    uniqueSizes.value = extractUniqueSizes(catalogo); // Atualizar uniqueSizes na montagem
     window.addEventListener('scroll', handleScroll);
 });
 
