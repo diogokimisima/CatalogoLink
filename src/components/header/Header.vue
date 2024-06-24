@@ -45,18 +45,21 @@
                     <h3 class="font-semibold text-lg mb-6">Ordenar por</h3>
                     <ul>
                         <li class="mb-2 flex items-center">
-                            <input type="checkbox" id="sortByDiscount" name="sortByDiscount"
-                                class="rounded-full h-5 w-5 text-primary focus:ring-primary">
+                            <button @click="sortBy('discount')">
+                                <Circle class="bg-white rounded-full" />
+                            </button>
                             <label for="sortByDiscount" class="ml-2 cursor-pointer">Desconto</label>
                         </li>
                         <li class="mb-2 flex items-center">
-                            <input type="checkbox" id="sortByHighPrice" name="sortByHighPrice"
-                                class="rounded-full h-5 w-5 text-primary focus:ring-primary">
+                            <button @click="sortBy('highPrice')">
+                                <Circle class="bg-white rounded-full" />
+                            </button>
                             <label for="sortByHighPrice" class="ml-2 cursor-pointer">Maior preço</label>
                         </li>
                         <li class="mb-2 flex items-center">
-                            <input type="checkbox" id="sortByLowPrice" name="sortByLowPrice"
-                                class="rounded-full h-5 w-5 text-primary focus:ring-primary">
+                            <button @click="sortBy('lowPrice')">
+                                <Circle class="bg-white rounded-full" />
+                            </button>
                             <label for="sortByLowPrice" class="ml-2 cursor-pointer">Menor preço</label>
                         </li>
                     </ul>
@@ -68,7 +71,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
-import { Search, ListFilter, X } from 'lucide-vue-next';
+import { Search, ListFilter, X, Circle } from 'lucide-vue-next';
 
 import HeaderBanner from './HeaderBanner.vue';
 import HeaderCategorias from './HeaderCategorias.vue';
@@ -79,6 +82,11 @@ const headerBanner = ref(null);
 
 const toggleSideFilter = () => {
     showSideFilter.value = !showSideFilter.value;
+};
+
+const sortBy = (criteria) => {
+    const event = new CustomEvent('sort-selected', { detail: criteria });
+    window.dispatchEvent(event);
 };
 
 const handleScroll = () => {

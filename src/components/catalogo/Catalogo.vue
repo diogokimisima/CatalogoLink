@@ -124,6 +124,7 @@ const selectedItem = ref(null);
 const myModal = ref(null);
 const selectedCategory = ref('Todos');
 const searchQuery = ref('');
+const sortByCriteria = ref(null);
 
 const showModal = (item) => {
     selectedItem.value = item;
@@ -154,6 +155,23 @@ const filteredCatalogo = computed(() => {
         );
     }
 
+    if (sortByCriteria.value === 'discount') {
+    filteredItems = filteredItems.filter(item => item.valor_antigo);
+} else if (sortByCriteria.value === 'highPrice') {
+    filteredItems = filteredItems.sort((a, b) => {
+        const valorA = parseFloat(a.valor.replace(',', '.'));
+        const valorB = parseFloat(b.valor.replace(',', '.'));
+        return valorB - valorA;
+    });
+} else if (sortByCriteria.value === 'lowPrice') {
+    filteredItems = filteredItems.sort((a, b) => {
+        const valorA = parseFloat(a.valor.replace(',', '.'));
+        const valorB = parseFloat(b.valor.replace(',', '.'));
+        return valorA - valorB;
+    });
+}
+
+    // console.log('filteredItems:', filteredItems);
     return filteredItems;
 });
 
@@ -173,6 +191,10 @@ onMounted(() => {
 
     window.addEventListener('search-input', (event) => {
         searchQuery.value = event.detail;
+    });
+
+    window.addEventListener('sort-selected', (event) => {
+        sortByCriteria.value = event.detail;
     });
 });
 
