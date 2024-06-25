@@ -83,13 +83,12 @@
                     </div>
                     <ul v-if="displayStates.size" class="flex flex-row flex-wrap gap-1 my-3">
                         <li v-for="tamanho in uniqueSizes" :key="tamanho">
-                            <button :class="{ 'border-black': filterSelected === tamanho }"
-                                class="mb-2 border bg-white border-neutral-300 w-14 h-8 rounded-md"
-                                @click="filterSize(tamanho)">
-                                <div class="flex items-center justify-center">
-                                    {{ tamanho }}
-                                </div>
-                            </button>
+                            <button :class="[filterSelected === tamanho ? 'border-black' : '', 'mb-2 border bg-white border-neutral-300 w-14 h-8 rounded-md']"
+        @click="filterSize(tamanho)">
+    <div class="flex items-center justify-center">
+        {{ tamanho }}
+    </div>
+</button>
                         </li>
                     </ul>
                 </div>
