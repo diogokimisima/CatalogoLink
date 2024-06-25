@@ -129,6 +129,8 @@ const selectedCategory = ref('Todos');
 const searchQuery = ref('');
 const sortByCriteria = ref(null);
 const selectedSize = ref(null); 
+const selectedColor = ref(null); 
+
 
 const formatPrice = (valor) => {
     if (typeof valor !== 'number') {
@@ -172,6 +174,11 @@ const filteredCatalogo = computed(() => {
         filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
     } else if (sortByCriteria.value === 'lowPrice') {
         filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
+    }
+
+        
+        if (selectedColor.value) {
+        filteredItems = filteredItems.filter(item => item.cor.toLowerCase() === selectedColor.value.toLowerCase());
     }
 
     if (selectedSize.value) {  

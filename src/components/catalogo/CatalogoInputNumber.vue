@@ -1,8 +1,7 @@
 <template>
     <form class="max-w-xs mx-auto my-0">
         <div class="flex items-center max-w-[8rem]">
-            <button type="button" id="decrement-button" @click="decrement"
-                class="border-none p-3 h-11">
+            <button type="button" id="decrement-button" @click="decrement" class="border-none p-3 h-11">
                 <Minus :class="quantidade < 1 ? 'opacity-15' : ''" class="rounded-lg text-white bg-red-600" />
             </button>
 

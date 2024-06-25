@@ -41,9 +41,9 @@
                 </div>
 
                 <div class="border-t border-slate-400 ">
-                    <div class="flex items-centers py-3">
+                    <div @click="toggleDisplay('sortBy')" class="flex items-centers py-3">
                         <h3 class="font-semibold text-lg  ">Ordenar por</h3>
-                        <button @click="toggleDisplay('sortBy')" class="ml-auto">
+                        <button  class="ml-auto">
                             <ChevronDown v-if="!displayStates.sortBy" />
                             <ChevronUp v-else />
                         </button>
@@ -52,21 +52,21 @@
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('discount')">
                                 <Circle v-if="filterSelected != 'discount'" class=" rounded-full" />
-                                <CircleDot v-else class=" rounded-full" />
+                                <CircleDot v-else class="rounded-full text-white bg-black" />
                             </button>
                             <label for="sortByDiscount" class="ml-2 cursor-pointer">Desconto</label>
                         </li>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('highPrice')">
                                 <Circle v-if="filterSelected != 'highPrice'" class="rounded-full" />
-                                <CircleDot v-else class=" rounded-full" />
+                                <CircleDot v-else class="rounded-full text-white bg-black" />
                             </button>
                             <label for="sortByHighPrice" class="ml-2 cursor-pointer">Maior preço</label>
                         </li>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('lowPrice')">
                                 <Circle v-if="filterSelected != 'lowPrice'" class="rounded-full" />
-                                <CircleDot v-else class=" rounded-full" />
+                                <CircleDot v-else class="rounded-full text-white bg-black" />
                             </button>
                             <label for="sortByLowPrice" class="ml-2 cursor-pointer">Menor preço</label>
                         </li>
@@ -74,9 +74,9 @@
                 </div>
 
                 <div class="border-t border-slate-400">
-                    <div class="flex items-centers py-3">
+                    <div @click="toggleDisplay('size')" class="flex items-centers py-3">
                         <h3 class="font-semibold text-lg  ">Tamanho</h3>
-                        <button @click="toggleDisplay('size')" class="ml-auto">
+                        <button  class="ml-auto">
                             <ChevronDown v-if="!displayStates.size" />
                             <ChevronUp v-else />
                         </button>
@@ -94,10 +94,24 @@
                     </ul>
                 </div>
 
-
-
-                <div class="border-t border-slate-400"></div>
-
+                <div class="border-t border-slate-400">
+                    <div @click="toggleDisplay('color')" class="flex items-centers py-3">
+                        <h3 class="font-semibold text-lg  ">Cor</h3>
+                        <button class="ml-auto">
+                            <ChevronDown v-if="!displayStates.color" />
+                            <ChevronUp v-else />
+                        </button>
+                    </div>
+                    <ul v-if="displayStates.color" class="flex flex-row flex-wrap gap-1 my-3">
+                        <li v-for="color in uniqueColors" :key="color">
+                            <button  @click="filterColor(color)" :class="['mb-2 border bg-white border-black w-14 h-8 rounded-md  ', selectedColor != color ? 'border-opacity-20' : '']">
+                                <div class="flex items-center justify-center">
+                                    {{ color }}
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </transition>
     </header>
@@ -116,15 +130,17 @@ const showSideFilter = ref(false);
 const headerBanner = ref(null);
 const filterSelected = ref(null);
 const uniqueSizes = ref([]);
+const uniqueColors = ref([]);
+const selectedColor = ref(null);
 const displayStates = ref({
     sortBy: true,
-    size: true
+    size: true,
+    color: true
 });
 
 const toggleDisplay = (section) => {
     displayStates.value[section] = !displayStates.value[section];
 };
-
 
 const toggleSideFilter = () => {
     showSideFilter.value = !showSideFilter.value;
@@ -144,6 +160,18 @@ const filterSize = (size) => {
     window.dispatchEvent(event);
 };
 
+const filterColor = (color) => {
+    selectedColor.value = selectedColor.value === color ? null : color;
+
+    const event = new CustomEvent('color-selected', { detail: color });
+    window.dispatchEvent(event);
+};
+
+const extractUniqueColors = (catalogo) => {
+    const colors = new Set();
+    catalogo.forEach(item => colors.add(item.cor.toLowerCase()));
+    return Array.from(colors);
+};
 
 const extractUniqueSizes = (catalogo) => {
     const sizes = new Set();
@@ -165,7 +193,6 @@ const updateCategory = (categoria) => {
     window.dispatchEvent(event);
 
     document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
-
 };
 
 const handleSearchInput = (query) => {
@@ -175,6 +202,7 @@ const handleSearchInput = (query) => {
 
 onMounted(() => {
     uniqueSizes.value = extractUniqueSizes(catalogo);
+    uniqueColors.value = extractUniqueColors(catalogo);
     window.addEventListener('scroll', handleScroll);
 });
 
