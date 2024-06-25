@@ -92,13 +92,17 @@
                                 <td class="p-4">{{ tamanho }}</td>
                                 <td>
                                     <div class="flex justify-center items-center">
-                                        <InputNumber v-motion-fade-visible />
+                                        <InputNumber id="1" v-motion-fade-visible/>
                                     </div>
                                 </td>
                             </tr>
 
                         </tbody>
                     </table>
+                </div>
+
+                <div class="mt-10">
+                    <InputNumber id="2" />
                 </div>
 
             </div>
@@ -125,7 +129,6 @@ const selectedCategory = ref('Todos');
 const searchQuery = ref('');
 const sortByCriteria = ref(null);
 const selectedSize = ref(null); 
-
 
 const formatPrice = (valor) => {
     if (typeof valor !== 'number') {
@@ -171,7 +174,7 @@ const filteredCatalogo = computed(() => {
         filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
     }
 
-    if (selectedSize.value) {  // Adicionei este bloco para filtrar pelo tamanho selecionado
+    if (selectedSize.value) {  
         filteredItems = filteredItems.filter(item => item.tamanho.includes(selectedSize.value));
     }
 
@@ -187,15 +190,15 @@ const updateCategory = (categoria) => {
     selectedCategory.value = categoria;
 };
 
-const handleSizeSelected = (size) => {  // Adicionei esta função para lidar com a seleção de tamanho
+const handleSizeSelected = (size) => {  
     selectedSize.value = selectedSize.value === size ? null : size;
 };
 
-const handleSearchInput = (query) => {  // Adicionei esta função para lidar com a entrada de pesquisa
+const handleSearchInput = (query) => {  
     searchQuery.value = query;
 };
 
-const handleSortSelected = (criteria) => {  // Adicionei esta função para lidar com a seleção de ordenação
+const handleSortSelected = (criteria) => { 
     sortByCriteria.value = sortByCriteria.value === criteria ? null : criteria;
 };
 
@@ -215,6 +218,7 @@ onMounted(() => {
     window.addEventListener('size-selected', (event) => {
         handleSizeSelected(event.detail);
     });
+
 });
 
 onBeforeUnmount(() => {
