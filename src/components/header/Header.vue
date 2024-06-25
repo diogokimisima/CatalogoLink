@@ -40,14 +40,15 @@
                     </button>
                 </div>
 
-                <div class="mb-5">
-                    <div class="flex items-centers border-t border-b border-slate-400 mb-6 py-2">
+                <div class="border-t border-slate-400 ">
+                    <div class="flex items-centers py-3">
                         <h3 class="font-semibold text-lg  ">Ordenar por</h3>
-                        <button class="ml-auto">
-                            <ChevronDown />
+                        <button @click="toggleDisplay('sortBy')" class="ml-auto">
+                            <ChevronDown v-if="!displayStates.sortBy" />
+                            <ChevronUp v-else />
                         </button>
                     </div>
-                    <ul>
+                    <ul v-if="displayStates.sortBy" class="my-5">
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('discount')">
                                 <Circle v-if="filterSelected != 'discount'" class=" rounded-full" />
@@ -72,16 +73,18 @@
                     </ul>
                 </div>
 
-                <div class="mb-5">
-                    <div class="flex items-centers border-t border-b border-slate-400 mb-6 py-2">
-                        <h3 class="font-semibold text-lg">Tamanho</h3>
-                        <button class="ml-auto">
-                            <ChevronDown />
+                <div class="border-t border-slate-400">
+                    <div class="flex items-centers py-3">
+                        <h3 class="font-semibold text-lg  ">Tamanho</h3>
+                        <button @click="toggleDisplay('size')" class="ml-auto">
+                            <ChevronDown v-if="!displayStates.size" />
+                            <ChevronUp v-else />
                         </button>
                     </div>
-                    <ul class="flex flex-row flex-wrap gap-1">
+                    <ul v-if="displayStates.size" class="flex flex-row flex-wrap gap-1 my-3">
                         <li v-for="tamanho in uniqueSizes" :key="tamanho">
-                            <button :class="{ 'border-black': filterSelected === tamanho}" class="mb-2 border bg-white border-neutral-300 w-14 h-8 rounded-md"
+                            <button :class="{ 'border-black': filterSelected === tamanho }"
+                                class="mb-2 border bg-white border-neutral-300 w-14 h-8 rounded-md"
                                 @click="filterSize(tamanho)">
                                 <div class="flex items-center justify-center">
                                     {{ tamanho }}
@@ -90,6 +93,9 @@
                         </li>
                     </ul>
                 </div>
+
+                <div class="border-t border-slate-400"></div>
+
             </div>
         </transition>
     </header>
@@ -108,6 +114,15 @@ const showSideFilter = ref(false);
 const headerBanner = ref(null);
 const filterSelected = ref(null);
 const uniqueSizes = ref([]);
+const displayStates = ref({
+    sortBy: true,
+    size: true
+});
+
+const toggleDisplay = (section) => {
+    displayStates.value[section] = !displayStates.value[section];
+};
+
 
 const toggleSideFilter = () => {
     showSideFilter.value = !showSideFilter.value;
@@ -148,7 +163,7 @@ const updateCategory = (categoria) => {
     window.dispatchEvent(event);
 
     document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
-    
+
 };
 
 const handleSearchInput = (query) => {
@@ -157,7 +172,7 @@ const handleSearchInput = (query) => {
 };
 
 onMounted(() => {
-    uniqueSizes.value = extractUniqueSizes(catalogo); 
+    uniqueSizes.value = extractUniqueSizes(catalogo);
     window.addEventListener('scroll', handleScroll);
 });
 

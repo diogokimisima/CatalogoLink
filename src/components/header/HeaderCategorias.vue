@@ -43,8 +43,4 @@ onMounted(() => {
     extrairCategorias();
 });
 
-//   watch(selectedCategory, (newValue, oldValue) => {
-//     console.log('Categoria selecionada:', newValue);
-//   });
-
 </script>

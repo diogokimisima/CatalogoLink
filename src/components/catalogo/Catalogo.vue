@@ -124,7 +124,8 @@ const myModal = ref(null);
 const selectedCategory = ref('Todos');
 const searchQuery = ref('');
 const sortByCriteria = ref(null);
-const selectedSize = ref(null);  // Adicionei esta linha para armazenar o tamanho selecionado
+const selectedSize = ref(null); 
+
 
 const formatPrice = (valor) => {
     if (typeof valor !== 'number') {
