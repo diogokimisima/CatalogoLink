@@ -109,7 +109,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { X, CandlestickChart, Ruler } from 'lucide-vue-next';
-
 import { catalogo } from "../../data/catalogo.js";
 import InputNumber from './CatalogoInputNumber.vue';
 
@@ -125,12 +124,12 @@ const myModal = ref(null);
 const selectedCategory = ref('Todos');
 const searchQuery = ref('');
 const sortByCriteria = ref(null);
+const selectedSize = ref(null);  // Adicionei esta linha para armazenar o tamanho selecionado
 
 const formatPrice = (valor) => {
     if (typeof valor !== 'number') {
         return valor;
     }
-
     return valor.toFixed(2).replace('.', ',');
 };
 
@@ -164,11 +163,15 @@ const filteredCatalogo = computed(() => {
     }
 
     if (sortByCriteria.value === 'discount') {
-        filteredItems = filteredItems.filter(item => item.valor_antigo)
+        filteredItems = filteredItems.filter(item => item.valor_antigo);
     } else if (sortByCriteria.value === 'highPrice') {
         filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
     } else if (sortByCriteria.value === 'lowPrice') {
         filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
+    }
+
+    if (selectedSize.value) {  // Adicionei este bloco para filtrar pelo tamanho selecionado
+        filteredItems = filteredItems.filter(item => item.tamanho.includes(selectedSize.value));
     }
 
     return filteredItems;
@@ -183,23 +186,40 @@ const updateCategory = (categoria) => {
     selectedCategory.value = categoria;
 };
 
+const handleSizeSelected = (size) => {  // Adicionei esta função para lidar com a seleção de tamanho
+    selectedSize.value = selectedSize.value === size ? null : size;
+};
+
+const handleSearchInput = (query) => {  // Adicionei esta função para lidar com a entrada de pesquisa
+    searchQuery.value = query;
+};
+
+const handleSortSelected = (criteria) => {  // Adicionei esta função para lidar com a seleção de ordenação
+    sortByCriteria.value = sortByCriteria.value === criteria ? null : criteria;
+};
+
 onMounted(() => {
     window.addEventListener('category-selected', (event) => {
         updateCategory(event.detail);
     });
 
     window.addEventListener('search-input', (event) => {
-        searchQuery.value = event.detail;
+        handleSearchInput(event.detail);
     });
 
     window.addEventListener('sort-selected', (event) => {
-        sortByCriteria.value = event.detail;
+        handleSortSelected(event.detail);
+    });
+
+    window.addEventListener('size-selected', (event) => {
+        handleSizeSelected(event.detail);
     });
 });
 
 onBeforeUnmount(() => {
     window.removeEventListener('category-selected', updateCategory);
     window.removeEventListener('search-input', handleSearchInput);
+    window.removeEventListener('sort-selected', handleSortSelected);
+    window.removeEventListener('size-selected', handleSizeSelected);
 });
-
 </script>
