@@ -152,6 +152,15 @@ const removeDiacritics = (text) => {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 };
 
+const clearAllFilters = () => {
+    selectedSizes.value = [];
+    selectedColors.value = [];
+    sortByCriteria.value = null; 
+
+    const event = new CustomEvent('clear-filters');
+    window.dispatchEvent(event);
+};
+
 const filteredCatalogo = computed(() => {
     let filteredItems = catalogo;
 
@@ -234,6 +243,7 @@ onMounted(() => {
         handleColorSelected(event.detail);
     });
 
+    window.addEventListener('clear-filters', clearAllFilters);
 });
 
 onBeforeUnmount(() => {
@@ -242,6 +252,7 @@ onBeforeUnmount(() => {
     window.removeEventListener('sort-selected', handleSortSelected);
     window.removeEventListener('sizes-selected', handleSizeSelected);
     window.removeEventListener('colors-selected', handleColorSelected);
+    window.removeEventListener('clear-filters', clearAllFilters);
 });
 </script>
 

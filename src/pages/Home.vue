@@ -2,8 +2,8 @@
 
 <template>
   <div class="relative pb-40">
-    <ToolBar class='fixed bottom-0 z-50' />
-    <Header class="z-40"/>
+    <ToolBar class='fixed bottom-0 z-30' />
+    <Header class="z-20"/>
     <Catalogo :selectedCategory="selectedCategory" />
     <BackTop />
   </div>
