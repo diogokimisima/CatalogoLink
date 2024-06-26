@@ -11,7 +11,7 @@
                     <img :src="item.imagem" :alt="'Image ' + item.id" />
                 </figure>
 
-            <div :class="['card-body flex-row justify-between items-center gap-24', item.valor_antigo ? 'gap-12' : '']">
+            <div :class="['card-body flex-row justify-between items-center gap-24', item.valor_antigo ? 'gap-11' : '']">
                     <div class="flex flex-col flex-grow">
                         <h2 class="card-title font-semibold text-lg whitespace-nowrap">{{ item.title }}</h2>
                         <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
