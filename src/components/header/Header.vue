@@ -60,7 +60,7 @@
                             <ChevronUp v-else />
                         </button>
                     </div>
-                    <ul v-if="displayStates.sortBy" class="my-5">
+                    <ul v-if="displayStates.sortBy" class="my-3">
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('discount')">
                                 <Circle v-if="selectedSortBy != 'discount'" class=" rounded-full" />
@@ -97,7 +97,7 @@
                     <ul v-if="displayStates.size" class="flex flex-row flex-wrap gap-1 my-3">
                         <li v-for="tamanho in uniqueSizes" :key="tamanho">
                             <button
-                                :class="['mb-2 border bg-white border-black py-1 px-4 rounded-md', !selectedSizes.includes(tamanho) ? 'border-opacity-20' : 'border-opacity-100']"
+                                :class="['mb-2 border-2 bg-white border-black py-1 px-4 rounded-md', !selectedSizes.includes(tamanho) ? 'border-opacity-10' : 'border-opacity-100']"
                                 @click="toggleSizeSelection(tamanho)">
                                 <div class="flex items-center justify-center">
                                     {{ tamanho }}
