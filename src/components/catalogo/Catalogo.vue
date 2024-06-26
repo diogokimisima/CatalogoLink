@@ -92,7 +92,7 @@
                                 <td class="p-4">{{ tamanho }}</td>
                                 <td>
                                     <div class="flex justify-center items-center">
-                                        <InputNumber id="1" v-motion-fade-visible/>
+                                        <InputNumber id="1" v-motion-fade-visible />
                                     </div>
                                 </td>
                             </tr>
@@ -128,8 +128,8 @@ const myModal = ref(null);
 const selectedCategory = ref('Todos');
 const searchQuery = ref('');
 const sortByCriteria = ref(null);
-const selectedSizes = ref([]); 
-const selectedColors = ref([]); 
+const selectedSizes = ref([]);
+const selectedColors = ref([]);
 
 
 const formatPrice = (valor) => {
@@ -155,7 +155,7 @@ const removeDiacritics = (text) => {
 const clearAllFilters = () => {
     selectedSizes.value = [];
     selectedColors.value = [];
-    sortByCriteria.value = null; 
+    sortByCriteria.value = null;
 
     const event = new CustomEvent('clear-filters');
     window.dispatchEvent(event);
@@ -177,20 +177,33 @@ const filteredCatalogo = computed(() => {
         );
     }
 
-    if (sortByCriteria.value === 'discount') {
-        filteredItems = filteredItems.filter(item => item.valor_antigo);
-    } else if (sortByCriteria.value === 'highPrice') {
+    if (sortByCriteria.value === 'highPrice') {
         filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
     } else if (sortByCriteria.value === 'lowPrice') {
         filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
+    } else if (sortByCriteria.value === 'highDiscount') {
+        filteredItems = filteredItems.filter(item => item.valor_antigo);
+        filteredItems = [...filteredItems].sort((a, b) => {
+            const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
+            const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
+            return discountPercentB - discountPercentA;
+        });
+    } else if (sortByCriteria.value === 'lowDiscount') {
+        filteredItems = filteredItems.filter(item => item.valor_antigo);
+        filteredItems = [...filteredItems].sort((a, b) => {
+            const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
+            const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
+            return discountPercentA - discountPercentB;
+        });
     }
+
 
     if (selectedColors.value.length > 0) {
         filteredItems = filteredItems.filter(item => selectedColors.value.includes(item.cor.toLowerCase()));
 
     }
 
-    if (selectedSizes.value.length > 0) {  
+    if (selectedSizes.value.length > 0) {
         filteredItems = filteredItems.filter(item => selectedSizes.value.some(size => item.tamanho.includes(size)));
     }
 
@@ -206,15 +219,15 @@ const updateCategory = (categoria) => {
     selectedCategory.value = categoria;
 };
 
-const handleSizeSelected = (sizes) => {  
+const handleSizeSelected = (sizes) => {
     selectedSizes.value = sizes;
 };
 
-const handleSearchInput = (query) => {  
+const handleSearchInput = (query) => {
     searchQuery.value = query;
 };
 
-const handleSortSelected = (criteria) => { 
+const handleSortSelected = (criteria) => {
     sortByCriteria.value = sortByCriteria.value === criteria ? null : criteria;
 };
 
@@ -255,4 +268,3 @@ onBeforeUnmount(() => {
     window.removeEventListener('clear-filters', clearAllFilters);
 });
 </script>
-

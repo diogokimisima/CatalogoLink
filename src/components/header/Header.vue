@@ -30,7 +30,7 @@
             </div>
         </transition>
 
-        <transition name="slide" >
+        <transition name="slide">
             <div v-if="showSideFilter"
                 class="fixed top-0 right-0 h-full w-72 bg-white text-black p-3 transform transition-transform duration-300 z-40 overflow-x-auto">
                 <div class="sticky -top-3 pt-1 z-10 mb-1 flex flex-col gap-2 border-b border-slate-400 bg-white">
@@ -52,7 +52,7 @@
                 </div>
 
                 <!-- ORDENAR POR -->
-                <div v-motion-fade-visible >
+                <div v-motion-fade-visible>
                     <div @click="toggleDisplay('sortBy')" class="flex items-centers py-3">
                         <h3 class="font-semibold text-lg  ">Ordenar por</h3>
                         <button class="ml-auto">
@@ -62,11 +62,18 @@
                     </div>
                     <ul v-if="displayStates.sortBy" class="my-3">
                         <li class="mb-2 flex items-center">
-                            <button @click="sortBy('discount')">
-                                <Circle v-if="selectedSortBy != 'discount'" class=" rounded-full" />
+                            <button @click="sortBy('lowDiscount')">
+                                <Circle v-if="selectedSortBy !== 'lowDiscount'" class="rounded-full" />
                                 <CircleDot v-else class="rounded-full text-white bg-black" />
                             </button>
-                            <label for="sortByDiscount" class="ml-2 cursor-pointer">Desconto</label>
+                            <label for="sortByLowDiscount" class="ml-2 cursor-pointer">Menor Desconto</label>
+                        </li>
+                        <li class="mb-2 flex items-center">
+                            <button @click="sortBy('highDiscount')">
+                                <Circle v-if="selectedSortBy !== 'highDiscount'" class="rounded-full" />
+                                <CircleDot v-else class="rounded-full text-white bg-black" />
+                            </button>
+                            <label for="sortByHighDiscount" class="ml-2 cursor-pointer">Maior Desconto</label>
                         </li>
                         <li class="mb-2 flex items-center">
                             <button @click="sortBy('highPrice')">

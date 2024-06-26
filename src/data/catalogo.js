@@ -77,6 +77,7 @@ export const catalogo = [
         cor_predominante: "yellow",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
+        valor_antigo: 60.90,
         imagem: tenis1Amarelo
     },
 
@@ -128,6 +129,7 @@ export const catalogo = [
         cor_predominante: "blue",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
         valor: 43.61,
+        valor_antigo: 46.90,
         imagem: sandaliaMarinho
     },
 
@@ -179,6 +181,7 @@ export const catalogo = [
         cor_predominante: "yellow",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
+        valor_antigo: 69.90,
         imagem: botaAmarelo
     },
 
@@ -230,6 +233,7 @@ export const catalogo = [
         cor_predominante: "orange",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
         valor: 47.41,
+        valor_antigo: 59.90,
         imagem: mocassimLaranja
     },
 
@@ -281,6 +285,7 @@ export const catalogo = [
         cor_predominante: "black",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 49.31,
+        valor_antigo: 55.90,
         imagem: papetePreto
     },
 
@@ -320,6 +325,7 @@ export const catalogo = [
         cor_predominante: "orange",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 47.41,
+        valor_antigo: 49.90,
         imagem: tenisBebeLaranja
     }
 ]
