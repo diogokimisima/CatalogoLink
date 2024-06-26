@@ -11,15 +11,19 @@
                     <img :src="item.imagem" :alt="'Image ' + item.id" />
                 </figure>
 
-                <div class="card-body flex-row justify-between items-center gap-24">
+                <div class="card-body flex-row justify-between items-center gap-16">
                     <div class="flex flex-col ">
                         <h2 class="card-title font-semibold text-lg whitespace-nowrap">{{ item.title }}</h2>
                         <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
                     </div>
 
+
                     <div class="flex flex-col">
-                        <h3 class="text-base text-red-400  whitespace-nowrap" v-if="item.valor_antigo">De <span
-                                class="line-through"> R${{ formatPrice(item.valor_antigo) }}</span> </h3>
+                        <h3 class="text-base text-gray-400  whitespace-nowrap" v-if="item.valor_antigo">
+                            <span class="line-through mr-2"> R${{ formatPrice(item.valor_antigo) }}
+                            </span> 
+                            <span class="text-emerald-600"> {{formatPercentage(item.valor_antigo, item.valor)}}% off </span>
+                        </h3>
                         <h4 class="card-title whitespace-nowrap">R$ {{ formatPrice(item.valor) }}</h4>
                     </div>
                 </div>
@@ -138,6 +142,12 @@ const formatPrice = (valor) => {
     }
     return valor.toFixed(2).replace('.', ',');
 };
+
+const formatPercentage = (valor_antigo, valor_atual) => {
+     let resultado = ((valor_antigo - valor_atual) / valor_antigo ) * 100;
+
+     return resultado.toFixed(0);
+}
 
 const showModal = (item) => {
     selectedItem.value = item;
