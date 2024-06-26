@@ -27,6 +27,7 @@ import tenisBebeAzul from '../assets/images/tenisbebe-azul.jpg'
 import tenisBebeLaranja from '../assets/images/tenisbebe-laranja.jpg'
 import tenisBebeBranco from '../assets/images/tenisbebe-branco.jpg'
 
+
 export const catalogo = [
     //Tênis infantil
     {
@@ -36,6 +37,7 @@ export const catalogo = [
         title: "Tênis Infantil",
         categoria: "tenis",
         cor: "Verde",
+        cor_predominante: "green",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor_antigo: 59.90,
         valor: 54.06,
@@ -48,6 +50,7 @@ export const catalogo = [
         title: "Tênis Infantil",
         categoria: "tenis",
         cor: "Laranja",
+        cor_predominante: "orange",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
         imagem: tenis1Laranja
@@ -59,6 +62,7 @@ export const catalogo = [
         title: "Tênis Infantil",
         categoria: "tenis",
         cor: "Azul",
+        cor_predominante: "blue",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
         imagem: tenis1Azul
@@ -70,6 +74,7 @@ export const catalogo = [
         title: "Tênis Infantil",
         categoria: "tenis",
         cor: "Amarelo",
+        cor_predominante: "yellow",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
         imagem: tenis1Amarelo
@@ -83,6 +88,7 @@ export const catalogo = [
         title: "Sandália Bebê",
         categoria: "Sandálias",
         cor: "Azul",
+        cor_predominante: "blue",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
         valor: 43.61,
         valor_antigo: 49.90,
@@ -95,6 +101,7 @@ export const catalogo = [
         title: "Sandália Bebê",
         categoria: "Sandálias",
         cor: "Branco",
+        cor_predominante: "white",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
         valor: 43.61,
         imagem: sandaliaBranco
@@ -106,6 +113,7 @@ export const catalogo = [
         title: "Sandália Bebê",
         categoria: "Sandálias",
         cor: "Verde",
+        cor_predominante: "green",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
         valor: 43.61,
         imagem: sandaliaVerde
@@ -116,7 +124,8 @@ export const catalogo = [
         id_categoria: "080.44",
         title: "Sandália Bebê",
         categoria: "Sandálias",
-        cor: "Marinho",
+        cor: "Azul",
+        cor_predominante: "blue",
         tamanho: [15, 16, 17, 18, 19, 20, 21, 22],
         valor: 43.61,
         imagem: sandaliaMarinho
@@ -129,7 +138,8 @@ export const catalogo = [
         id_categoria: "098.35",
         title: "Bota Infantil",
         categoria: "Botas",
-        cor: "Areia",
+        cor: "bege",
+        cor_predominante: "#f5f5dc",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor_antigo: 59.90,
         valor: 54.06,
@@ -142,6 +152,7 @@ export const catalogo = [
         title: "Bota Infantil",
         categoria: "Botas",
         cor: "Laranja",
+        cor_predominante: "orange",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
         imagem: botaLaranja
@@ -153,6 +164,7 @@ export const catalogo = [
         title: "Bota Infantil",
         categoria: "Botas",
         cor: "Preto",
+        cor_predominante: "black",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
         imagem: botaPreto
@@ -163,7 +175,8 @@ export const catalogo = [
         id_categoria: "098.35",
         title: "Bota Infantil",
         categoria: "Botas",
-        cor: "Preto",
+        cor: "Amarelo",
+        cor_predominante: "yellow",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 54.06,
         imagem: botaAmarelo
@@ -177,6 +190,7 @@ export const catalogo = [
         title: "Mocassim Bebê",
         categoria: "Mocassim",
         cor: "Amarelo",
+        cor_predominante: "yellow",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
         valor_antigo: 52.90,
         valor: 47.41,
@@ -188,7 +202,8 @@ export const catalogo = [
         id_categoria: "095.12",
         title: "Mocassim Bebê",
         categoria: "Mocassim",
-        cor: "Areia",
+        cor: "Bege",
+        cor_predominante: "#f5f5dc",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
         valor: 47.41,
         imagem: mocassimAreia
@@ -200,6 +215,7 @@ export const catalogo = [
         title: "Mocassim Bebê",
         categoria: "Mocassim",
         cor: "Azul",
+        cor_predominante: "blue",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
         valor: 47.41,
         imagem: mocassimAzul
@@ -211,6 +227,7 @@ export const catalogo = [
         title: "Mocassim Bebê",
         categoria: "Mocassim",
         cor: "Laranja",
+        cor_predominante: "orange",
         tamanho: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
         valor: 47.41,
         imagem: mocassimLaranja
@@ -224,6 +241,7 @@ export const catalogo = [
         title: "Papete Infantil",
         categoria: "Papete",
         cor: "Azul",
+        cor_predominante: "blue",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor_antigo: 54.90,
         valor: 49.31,
@@ -236,6 +254,7 @@ export const catalogo = [
         title: "Papete Infantil",
         categoria: "Papete",
         cor: "Bege",
+        cor_predominante: "#f5f5dc",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 49.31,
         imagem: papeteBegeClaro
@@ -247,6 +266,7 @@ export const catalogo = [
         title: "Papete Infantil",
         categoria: "Papete",
         cor: "Marrom",
+        cor_predominante: "#8b4513",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 49.31,
         imagem: papeteMarrom
@@ -258,6 +278,7 @@ export const catalogo = [
         title: "Papete Infantil",
         categoria: "Papete",
         cor: "Preto",
+        cor_predominante: "black",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 49.31,
         imagem: papetePreto
@@ -271,6 +292,7 @@ export const catalogo = [
         title: "Tênis Bebê",
         categoria: "Tênis Bebê",
         cor: "Azul",
+        cor_predominante: "blue",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor_antigo: 51.90,
         valor: 47.41,
@@ -283,6 +305,7 @@ export const catalogo = [
         title: "Tênis Bebê",
         categoria: "Tênis Bebê",
         cor: "Branco",
+        cor_predominante: "white",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 47.41,
         imagem: tenisBebeBranco
@@ -294,10 +317,9 @@ export const catalogo = [
         title: "Tênis Bebê",
         categoria: "Tênis Bebê",
         cor: "Laranja",
+        cor_predominante: "orange",
         tamanho: [20, 21, 22, 23, 24, 25, 26, 27],
         valor: 47.41,
         imagem: tenisBebeLaranja
     }
-
- 
 ]

@@ -103,10 +103,11 @@
                         </button>
                     </div>
                     <ul v-if="displayStates.color" class="flex flex-row flex-wrap gap-1 my-3">
-                        <li v-for="color in uniqueColors" :key="color">
-                            <button  @click="toggleColorSelection(color)" :class="['mb-2 border bg-white border-black py-1 px-2 rounded-md  ', !selectedColors.includes(color) ? 'border-opacity-20' : '']">
-                                <div class="flex items-center justify-center">
-                                    {{ color }}
+                        <li v-for="color in uniqueColors" :key="color.nome">
+                            <button  @click="toggleColorSelection(color)" :class="['mb-2 border bg-white border-black py-1 px-2 rounded-md  ', !selectedColors.includes(color.nome) ? 'border-opacity-20' : '']">
+                                <div  class="flex flex-col items-center justify-center">
+                                    <div :class="['p-3 rounded-full', color.nome === 'branco'? 'border border-black border-opacity-30' : '']" :style="`background-color: ${color.cor_predominante}`"></div>
+                                    <p>{{ color.nome }}</p>
                                 </div>
                             </button>
                         </li>
@@ -155,11 +156,21 @@ const sortBy = (selected) => {
     window.dispatchEvent(event);
 };
 
+
 const extractUniqueColors = (catalogo) => {
-    const colors = new Set();
-    catalogo.forEach(item => colors.add(item.cor.toLowerCase()));
-    return Array.from(colors);
+    const colorsMap = new Map();
+    catalogo.forEach(item => {
+        const cor = item.cor.toLowerCase();
+        if (!colorsMap.has(cor)) {
+            colorsMap.set(cor, {
+                nome: cor,
+                cor_predominante: item.cor_predominante
+            });
+        }
+    });
+    return Array.from(colorsMap.values());
 };
+
 
 const extractUniqueSizes = (catalogo) => {
     const sizes = new Set();
@@ -193,9 +204,9 @@ const toggleSizeSelection = (size) => {
 const toggleColorSelection = (color) => {
     filterSelected.value = filterSelected.value == color ? null : color;
 
-    const index = selectedColors.value.indexOf(color); // Encontra o índice do tamanho no array
+    const index = selectedColors.value.indexOf(color.nome); // Encontra o índice do tamanho no array
     if (index === -1) {
-        selectedColors.value.push(color);// Se o tamanho não estiver no array, adiciona
+        selectedColors.value.push(color.nome);// Se o tamanho não estiver no array, adiciona
     } else {
         selectedColors.value.splice(index, 1)// Se o tamanho estiver no array, remove
     }
