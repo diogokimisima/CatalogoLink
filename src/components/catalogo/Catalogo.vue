@@ -11,20 +11,20 @@
                     <img :src="item.imagem" :alt="'Image ' + item.id" />
                 </figure>
 
-            <div :class="['card-body flex-row justify-between items-center gap-24', item.valor_antigo ? 'gap-11' : '']">
+                <div class="card-body flex-row items-center gap-12">
                     <div class="flex flex-col flex-grow">
                         <h2 class="card-title font-semibold text-lg whitespace-nowrap">{{ item.title }}</h2>
                         <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
                     </div>
 
 
-                    <div class="flex flex-col text-right">
+                    <div class="flex flex-col ">
                         <h3 class="text-base text-gray-400  whitespace-nowrap" v-if="item.valor_antigo">
                             <span class="line-through mr-2"> R${{ formatPrice(item.valor_antigo) }}
                             </span> 
                             <span class="text-emerald-600"> {{formatPercentage(item.valor_antigo, item.valor)}}% off </span>
                         </h3>
-                        <h4 :class="['card-title whitespace-nowrap', item.valor_antigo ? 'ml-10' : '' ]">R$ {{ formatPrice(item.valor) }}</h4>
+                        <h4 class="card-title whitespace-nowrap">R$ {{ formatPrice(item.valor) }}</h4>
                     </div>
                 </div>
 
