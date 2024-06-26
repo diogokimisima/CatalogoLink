@@ -11,14 +11,14 @@
                     <img :src="item.imagem" :alt="'Image ' + item.id" />
                 </figure>
 
-                <div class="card-body flex-row justify-between items-center gap-16">
-                    <div class="flex flex-col ">
+                <div class="card-body flex-row items-center gap-12">
+                    <div class="flex flex-col flex-grow">
                         <h2 class="card-title font-semibold text-lg whitespace-nowrap">{{ item.title }}</h2>
                         <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
                     </div>
 
 
-                    <div class="flex flex-col">
+                    <div class="flex flex-col ">
                         <h3 class="text-base text-gray-400  whitespace-nowrap" v-if="item.valor_antigo">
                             <span class="line-through mr-2"> R${{ formatPrice(item.valor_antigo) }}
                             </span> 
