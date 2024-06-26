@@ -34,7 +34,7 @@
             <div v-if="showSideFilter"
                 class="fixed top-0 right-0 h-full w-72 bg-white text-black p-4 transform transition-transform duration-300 z-50 overflow-x-auto">
                 <div class="flex items-center mb-6">
-                    <h2 class="text-2xl font-bold">Filtro</h2>
+                    <h2 class="text-2xl font-bold">Filtros e Ordenação</h2>
                     <button @click="toggleSideFilter" class="ml-auto">
                         <X class="w-7 h-7" />
                     </button>
@@ -75,7 +75,7 @@
 
                 <div class="border-t border-slate-400">
                     <div @click="toggleDisplay('size')" class="flex items-centers py-3">
-                        <h3 class="font-semibold text-lg  ">Tamanho</h3>
+                        <h3 class="font-semibold text-lg  ">Filtrar por tamanho</h3>
                         <button  class="ml-auto">
                             <ChevronDown v-if="!displayStates.size" />
                             <ChevronUp v-else />
@@ -84,8 +84,8 @@
                     <ul v-if="displayStates.size" class="flex flex-row flex-wrap gap-1 my-3">
                         <li v-for="tamanho in uniqueSizes" :key="tamanho">
                             <button
-                                :class="['mb-2 border bg-white border-black w-14 h-8 rounded-md', filterSelected != tamanho ? 'border-opacity-20' : '']"
-                                @click="filterSize(tamanho)">
+                                :class="['mb-2 border bg-white border-black py-1 px-4 rounded-md', !selectedSizes.includes(tamanho) ? 'border-opacity-20' : 'border-opacity-100']"
+                                @click="toggleSizeSelection(tamanho)">
                                 <div class="flex items-center justify-center">
                                     {{ tamanho }}
                                 </div>
@@ -96,7 +96,7 @@
 
                 <div class="border-t border-slate-400">
                     <div @click="toggleDisplay('color')" class="flex items-centers py-3">
-                        <h3 class="font-semibold text-lg  ">Cor</h3>
+                        <h3 class="font-semibold text-lg  ">Filtrar por cor</h3>
                         <button class="ml-auto">
                             <ChevronDown v-if="!displayStates.color" />
                             <ChevronUp v-else />
@@ -104,7 +104,7 @@
                     </div>
                     <ul v-if="displayStates.color" class="flex flex-row flex-wrap gap-1 my-3">
                         <li v-for="color in uniqueColors" :key="color">
-                            <button  @click="filterColor(color)" :class="['mb-2 border bg-white border-black w-14 h-8 rounded-md  ', selectedColor != color ? 'border-opacity-20' : '']">
+                            <button  @click="toggleColorSelection(color)" :class="['mb-2 border bg-white border-black py-1 px-2 rounded-md  ', !selectedColors.includes(color) ? 'border-opacity-20' : '']">
                                 <div class="flex items-center justify-center">
                                     {{ color }}
                                 </div>
@@ -112,6 +112,7 @@
                         </li>
                     </ul>
                 </div>
+
             </div>
         </transition>
     </header>
@@ -131,7 +132,8 @@ const headerBanner = ref(null);
 const filterSelected = ref(null);
 const uniqueSizes = ref([]);
 const uniqueColors = ref([]);
-const selectedColor = ref(null);
+const selectedSizes = ref([]);
+const selectedColors = ref([]);
 const displayStates = ref({
     sortBy: true,
     size: true,
@@ -150,20 +152,6 @@ const sortBy = (selected) => {
     filterSelected.value = filterSelected.value === selected ? null : selected;
 
     const event = new CustomEvent('sort-selected', { detail: selected });
-    window.dispatchEvent(event);
-};
-
-const filterSize = (size) => {
-    filterSelected.value = filterSelected.value === size ? null : size;
-
-    const event = new CustomEvent('size-selected', { detail: size });
-    window.dispatchEvent(event);
-};
-
-const filterColor = (color) => {
-    selectedColor.value = selectedColor.value === color ? null : color;
-
-    const event = new CustomEvent('color-selected', { detail: color });
     window.dispatchEvent(event);
 };
 
@@ -187,6 +175,34 @@ const handleScroll = () => {
         isSticky.value = bannerBottom <= 0;
     }
 };
+
+const toggleSizeSelection = (size) => {
+    filterSelected.value = filterSelected.value === size ? null : size;
+
+    const index = selectedSizes.value.indexOf(size);
+    if (index === -1) {
+        selectedSizes.value.push(size);
+    } else {
+        selectedSizes.value.splice(index, 1);
+    }
+
+    const event = new CustomEvent('sizes-selected', { detail: selectedSizes.value });
+    window.dispatchEvent(event);
+};
+
+const toggleColorSelection = (color) => {
+    filterSelected.value = filterSelected.value == color ? null : color;
+
+    const index = selectedColors.value.indexOf(color); // Encontra o índice do tamanho no array
+    if (index === -1) {
+        selectedColors.value.push(color);// Se o tamanho não estiver no array, adiciona
+    } else {
+        selectedColors.value.splice(index, 1)// Se o tamanho estiver no array, remove
+    }
+
+    const event = new CustomEvent('colors-selected', { detail: selectedColors.value });
+    window.dispatchEvent(event); // Dispara um evento customizado com os tamanhos selecionados
+}
 
 const updateCategory = (categoria) => {
     const event = new CustomEvent('category-selected', { detail: categoria });
@@ -218,6 +234,7 @@ watch(showSideFilter, (newValue) => {
     }
 });
 </script>
+
 
 <style scoped>
 .slide-enter-from {

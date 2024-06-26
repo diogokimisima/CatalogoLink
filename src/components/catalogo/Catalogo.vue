@@ -128,8 +128,8 @@ const myModal = ref(null);
 const selectedCategory = ref('Todos');
 const searchQuery = ref('');
 const sortByCriteria = ref(null);
-const selectedSize = ref(null); 
-const selectedColor = ref(null); 
+const selectedSizes = ref([]); 
+const selectedColors = ref([]); 
 
 
 const formatPrice = (valor) => {
@@ -176,13 +176,13 @@ const filteredCatalogo = computed(() => {
         filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
     }
 
-        
-        if (selectedColor.value) {
-        filteredItems = filteredItems.filter(item => item.cor.toLowerCase() === selectedColor.value.toLowerCase());
+    if (selectedColors.value.length > 0) {
+        filteredItems = filteredItems.filter(item => selectedColors.value.includes(item.cor.toLowerCase()));
+
     }
 
-    if (selectedSize.value) {  
-        filteredItems = filteredItems.filter(item => item.tamanho.includes(selectedSize.value));
+    if (selectedSizes.value.length > 0) {  
+        filteredItems = filteredItems.filter(item => selectedSizes.value.some(size => item.tamanho.includes(size)));
     }
 
     return filteredItems;
@@ -197,8 +197,8 @@ const updateCategory = (categoria) => {
     selectedCategory.value = categoria;
 };
 
-const handleSizeSelected = (size) => {  
-    selectedSize.value = selectedSize.value === size ? null : size;
+const handleSizeSelected = (sizes) => {  
+    selectedSizes.value = sizes;
 };
 
 const handleSearchInput = (query) => {  
@@ -208,6 +208,10 @@ const handleSearchInput = (query) => {
 const handleSortSelected = (criteria) => { 
     sortByCriteria.value = sortByCriteria.value === criteria ? null : criteria;
 };
+
+const handleColorSelected = (color) => {
+    selectedColors.value = color;
+}
 
 onMounted(() => {
     window.addEventListener('category-selected', (event) => {
@@ -222,8 +226,12 @@ onMounted(() => {
         handleSortSelected(event.detail);
     });
 
-    window.addEventListener('size-selected', (event) => {
+    window.addEventListener('sizes-selected', (event) => {
         handleSizeSelected(event.detail);
+    });
+
+    window.addEventListener('colors-selected', (event) => {
+        handleColorSelected(event.detail);
     });
 
 });
@@ -232,6 +240,8 @@ onBeforeUnmount(() => {
     window.removeEventListener('category-selected', updateCategory);
     window.removeEventListener('search-input', handleSearchInput);
     window.removeEventListener('sort-selected', handleSortSelected);
-    window.removeEventListener('size-selected', handleSizeSelected);
+    window.removeEventListener('sizes-selected', handleSizeSelected);
+    window.removeEventListener('colors-selected', handleColorSelected);
 });
 </script>
+
