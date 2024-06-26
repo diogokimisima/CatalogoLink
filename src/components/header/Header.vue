@@ -43,7 +43,7 @@
                 <div class="border-t border-slate-400 ">
                     <div @click="toggleDisplay('sortBy')" class="flex items-centers py-3">
                         <h3 class="font-semibold text-lg  ">Ordenar por</h3>
-                        <button  class="ml-auto">
+                        <button class="ml-auto">
                             <ChevronDown v-if="!displayStates.sortBy" />
                             <ChevronUp v-else />
                         </button>
@@ -76,7 +76,7 @@
                 <div class="border-t border-slate-400">
                     <div @click="toggleDisplay('size')" class="flex items-centers py-3">
                         <h3 class="font-semibold text-lg  ">Filtrar por tamanho</h3>
-                        <button  class="ml-auto">
+                        <button class="ml-auto">
                             <ChevronDown v-if="!displayStates.size" />
                             <ChevronUp v-else />
                         </button>
@@ -104,10 +104,14 @@
                     </div>
                     <ul v-if="displayStates.color" class="flex flex-row flex-wrap gap-1 my-3">
                         <li v-for="color in uniqueColors" :key="color.nome">
-                            <button  @click="toggleColorSelection(color)" :class="['mb-2 border bg-white border-black py-1 px-2 rounded-md  ', !selectedColors.includes(color.nome) ? 'border-opacity-20' : '']">
-                                <div  class="flex flex-col items-center justify-center">
-                                    <div :class="['p-3 rounded-full', color.nome === 'branco'? 'border border-black border-opacity-30' : '']" :style="`background-color: ${color.cor_predominante}`"></div>
-                                    <p>{{ color.nome }}</p>
+                            <button @click="toggleColorSelection(color)"
+                                class="mb-2 bg-white py-1 px-2 ">
+                                <div class="flex flex-col items-center justify-center w-11 h-auto ">
+                                    <div :class="[' flex items-center justify-center w-7 h-7 rounded-full', color.nome === 'branco' ? 'border border-black border-opacity-30' : '']"
+                                        :style="`background-color: ${color.cor_predominante}`">
+                                        <Check v-if="selectedColors.includes(color.nome)" :class="[color.nome === 'preto' ? 'text-white' : '']"/>
+                                    </div>
+                                    <p>{{ color.nome.charAt(0).toUpperCase() + color.nome.slice(1) }}</p>
                                 </div>
                             </button>
                         </li>
@@ -121,7 +125,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
-import { Search, ListFilter, X, Circle, CircleDot, ChevronDown, ChevronUp } from 'lucide-vue-next';
+import { Search, ListFilter, X, Circle, CircleDot, ChevronDown, ChevronUp, Check } from 'lucide-vue-next';
 import { catalogo } from '../../data/catalogo.js'
 
 import HeaderBanner from './HeaderBanner.vue';
