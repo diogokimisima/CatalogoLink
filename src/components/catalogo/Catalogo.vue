@@ -113,8 +113,7 @@
 
                 <div v-if="selectedItem">
                     <h2>Soma Total: R$ {{ formatPrice(somaTotal(selectedItem.id)) }}</h2>
-                    <button @click="adicionarAoCarrinho(selectedItem.title, somaTotal(selectedItem.id))">Adicionar ao
-                        Carrinho</button>
+                    <button @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">Adicionar ao Carrinho</button>
                 </div>
 
             </div>
@@ -124,6 +123,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, reactive } from 'vue';
+import { useStore } from 'vuex';
 import { X, CandlestickChart, Ruler } from 'lucide-vue-next';
 
 import { catalogo } from "../../data/catalogo.js";
@@ -146,10 +146,12 @@ const selectedColors = ref([]);
 
 const quantidades = reactive({});
 
+const store = useStore();
+
 const emit = defineEmits(['adicionarAoCarrinho']);
 
-const adicionarAoCarrinho = (nomeProduto, valorTotal) => {
-    emit('adicionarAoCarrinho', { nomeProduto, valorTotal });
+const handleAddToCart = (nomeProduto, valorTotal) => {
+    store.dispatch('addToCart', { nomeProduto, valorTotal });
 };
 
 
