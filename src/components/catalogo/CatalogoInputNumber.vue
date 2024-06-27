@@ -44,7 +44,6 @@ const decrement = () => {
     }
 }
 
-// Watch for changes in props.initialValue
 watch(() => props.initialValue, (newValue) => {
     quantidade.value = newValue;
 });
