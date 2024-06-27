@@ -15,23 +15,37 @@
             </button>
         </div>
     </form>
-
 </template>
 
 <script setup>
 import { Plus, Minus } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const quantidade = ref(0);
+const props = defineProps({
+    initialValue: {
+        type: Number,
+        default: 0
+    }
+});
+
+const emit = defineEmits(['input']);
+
+const quantidade = ref(props.initialValue);
 
 const increment = () => {
     quantidade.value++;
+    emit('input', quantidade.value);
 }
 
 const decrement = () => {
     if (quantidade.value > 0) {
         quantidade.value--;
+        emit('input', quantidade.value);
     }
 }
 
+// Watch for changes in props.initialValue
+watch(() => props.initialValue, (newValue) => {
+    quantidade.value = newValue;
+});
 </script>

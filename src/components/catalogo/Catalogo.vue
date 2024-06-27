@@ -21,8 +21,9 @@
                     <div class="flex flex-col ">
                         <h3 class="text-base text-gray-400  whitespace-nowrap" v-if="item.valor_antigo">
                             <span class="line-through mr-2"> R${{ formatPrice(item.valor_antigo) }}
-                            </span> 
-                            <span class="text-emerald-600"> {{formatPercentage(item.valor_antigo, item.valor)}}% off </span>
+                            </span>
+                            <span class="text-emerald-600"> {{ formatPercentage(item.valor_antigo, item.valor) }}% off
+                            </span>
                         </h3>
                         <h4 class="card-title whitespace-nowrap">R$ {{ formatPrice(item.valor) }}</h4>
                     </div>
@@ -96,7 +97,8 @@
                                 <td class="p-4">{{ tamanho }}</td>
                                 <td>
                                     <div class="flex justify-center items-center">
-                                        <InputNumber id="1" v-motion-fade-visible />
+                                        <InputNumber :initialValue="getQuantidade(selectedItem.id, tamanho)"
+                                            @input="updateQuantidade(selectedItem.id, tamanho, $event)" />
                                     </div>
                                 </td>
                             </tr>
@@ -109,13 +111,17 @@
                     <InputNumber id="2" />
                 </div>
 
+                <div v-if="selectedItem">
+                    <h2>Soma Total: R$ {{ formatPrice(somaTotal(selectedItem.id)) }}</h2>
+                </div>
+
             </div>
         </dialog>
     </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, reactive } from 'vue';
 import { X, CandlestickChart, Ruler } from 'lucide-vue-next';
 import { catalogo } from "../../data/catalogo.js";
 import InputNumber from './CatalogoInputNumber.vue';
@@ -135,6 +141,32 @@ const sortByCriteria = ref(null);
 const selectedSizes = ref([]);
 const selectedColors = ref([]);
 
+const quantidades = reactive({});
+
+const getQuantidade = (id, tamanho) => {
+    if (!quantidades[id]) {
+        return 0;
+    }
+    return quantidades[id][tamanho] || 0;
+};
+
+// Função para atualizar a quantidade quando o InputNumber emite um evento
+const updateQuantidade = (id, tamanho, quantidade) => {
+    if (!quantidades[id]) {
+        quantidades[id] = {};
+    }
+    quantidades[id][tamanho] = quantidade;
+};
+
+// Função para calcular a soma total com base nas quantidades e no valor do produto
+const somaTotal = (id) => {
+    if (!quantidades[id]) {
+        return 0;
+    }
+    return Object.entries(quantidades[id]).reduce((total, [tamanho, quantidade]) => {
+        return total + selectedItem.value.valor * quantidade;
+    }, 0);
+};
 
 const formatPrice = (valor) => {
     if (typeof valor !== 'number') {
@@ -144,9 +176,9 @@ const formatPrice = (valor) => {
 };
 
 const formatPercentage = (valor_antigo, valor_atual) => {
-     let resultado = ((valor_antigo - valor_atual) / valor_antigo ) * 100;
+    let resultado = ((valor_antigo - valor_atual) / valor_antigo) * 100;
 
-     return resultado.toFixed(0);
+    return resultado.toFixed(0);
 }
 
 const showModal = (item) => {
