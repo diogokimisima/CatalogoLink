@@ -227,8 +227,6 @@ const sortBy = (selected) => {
 
 
 const toggleSizeSelection = (size) => {
-    selectedSortBy.value = selectedSortBy.value === size ? null : size;
-
     const index = selectedSizes.value.indexOf(size);
     if (index === -1) {
         selectedSizes.value.push(size);
@@ -241,8 +239,6 @@ const toggleSizeSelection = (size) => {
 };
 
 const toggleColorSelection = (color) => {
-    selectedSortBy.value = selectedSortBy.value == color ? null : color;
-
     const index = selectedColors.value.indexOf(color.nome); // Encontra o índice do tamanho no array
     if (index === -1) {
         selectedColors.value.push(color.nome);// Se o tamanho não estiver no array, adiciona
