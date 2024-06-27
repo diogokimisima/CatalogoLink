@@ -27,13 +27,14 @@ import { catalogo } from '../../data/catalogo.js';
 
 const categorias = ref([]);
 const selectedCategory = ref('Todos');
+const emit = defineEmits(['category-selected']);
+
 
 const extrairCategorias = () => {
     const categoriasUnicas = [...new Set(catalogo.map(item => item.categoria))];
     categorias.value = categoriasUnicas;
 };
 
-const emit = defineEmits(['category-selected']);
 const selectCategory = (categoria) => {
     selectedCategory.value = categoria;
     emit('category-selected', categoria);

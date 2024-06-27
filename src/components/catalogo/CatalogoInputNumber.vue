@@ -29,7 +29,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['input']);
-
 const quantidade = ref(props.initialValue);
 
 const increment = () => {

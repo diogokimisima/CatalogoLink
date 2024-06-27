@@ -59,7 +59,6 @@ import LogoTrovata from '../../assets/images/logo.png';
 
 const phoneNumber = '5511948256352';
 const whatsAppLink = `https://wa.me/${phoneNumber}`;
-
 const isSidebarOpen = ref(false);
 
 const toggleSidebar = () => {

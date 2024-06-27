@@ -171,15 +171,6 @@ const displayStates = ref({
 
 
 
-const toggleDisplay = (section) => {
-    displayStates.value[section] = !displayStates.value[section];
-};
-
-const toggleSideFilter = () => {
-    showSideFilter.value = !showSideFilter.value;
-};
-
-
 const extractUniqueColors = (catalogo) => {
     const colorsMap = new Map();
     catalogo.forEach(item => {
@@ -202,12 +193,8 @@ const extractUniqueSizes = (catalogo) => {
     return Array.from(sizes).sort((a, b) => a - b);
 };
 
-const handleScroll = () => {
-    if (headerBanner.value) {
-        const bannerBottom = headerBanner.value.getBoundingClientRect().bottom;
-        isSticky.value = bannerBottom <= 0;
-    }
-};
+
+
 
 const clearAllFilters = () => {
     selectedSizes.value = [];
@@ -224,7 +211,6 @@ const sortBy = (selected) => {
     const event = new CustomEvent('sort-selected', { detail: selected });
     window.dispatchEvent(event);
 };
-
 
 const toggleSizeSelection = (size) => {
     const index = selectedSizes.value.indexOf(size);
@@ -247,7 +233,7 @@ const toggleColorSelection = (color) => {
     }
 
     const event = new CustomEvent('colors-selected', { detail: selectedColors.value });
-    window.dispatchEvent(event); // Dispara um evento customizado com os tamanhos selecionados
+    window.dispatchEvent(event); 
 }
 
 const updateCategory = (categoria) => {
@@ -262,6 +248,8 @@ const handleSearchInput = (query) => {
     window.dispatchEvent(event);
 };
 
+
+
 onMounted(() => {
     uniqueSizes.value = extractUniqueSizes(catalogo);
     uniqueColors.value = extractUniqueColors(catalogo);
@@ -272,6 +260,24 @@ onBeforeUnmount(() => {
     window.removeEventListener('scroll', handleScroll);
 });
 
+
+
+
+const handleScroll = () => {
+    if (headerBanner.value) {
+        const bannerBottom = headerBanner.value.getBoundingClientRect().bottom;
+        isSticky.value = bannerBottom <= 0;
+    }
+};
+
+const toggleDisplay = (section) => {
+    displayStates.value[section] = !displayStates.value[section];
+};
+
+const toggleSideFilter = () => {
+    showSideFilter.value = !showSideFilter.value;
+};
+
 watch(showSideFilter, (newValue) => {
     if (newValue) {
         document.body.classList.add('overflow-hidden');
@@ -279,6 +285,8 @@ watch(showSideFilter, (newValue) => {
         document.body.classList.remove('overflow-hidden');
     }
 });
+
+
 </script>
 
 

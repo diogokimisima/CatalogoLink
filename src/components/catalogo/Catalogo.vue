@@ -143,11 +143,9 @@ const searchQuery = ref('');
 const sortByCriteria = ref(null);
 const selectedSizes = ref([]);
 const selectedColors = ref([]);
-
 const quantidades = reactive({});
 
 const store = useStore();
-
 const emit = defineEmits(['adicionarAoCarrinho']);
 
 const handleAddToCart = (nomeProduto, valorTotal) => {
