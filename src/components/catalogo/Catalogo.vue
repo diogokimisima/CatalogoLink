@@ -38,9 +38,16 @@
             </button>
         </div>
 
+        <transition enter-active-class="transition-opacity duration-300 ease-in-out" enter-from-class="opacity-0"
+            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300 ease-in-out"
+            leave-from-class="opacity-100" leave-to-class="opacity-0">
+            <ToastSuccess v-if="showToast" message="Produto adicionado ao carrinho com sucesso" />
+        </transition>
+
+
 
         <!-- Modal -->
-        <dialog ref="myModal" id="my_modal_3" class="modal py-0">
+        <dialog ref="myModal" id="my_modal_3" class="modal py-5">
 
             <transition name="slide" mode="out-in">
                 <div v-if="selectedItem && somaTotal(selectedItem.id) != 0" :key="selectedItem.id"
@@ -71,9 +78,6 @@
 
 
                 </form>
-
-
-
 
                 <div class="my-5 px-4">
                     <img :src="selectedItem?.imagem" alt="imagem">
@@ -153,6 +157,7 @@ import { X, CandlestickChart, Ruler, ShoppingCart } from 'lucide-vue-next';
 import { catalogo } from "../../data/catalogo.js";
 // import { filteredCatalogo } from '../../utils/filtrosCatalogo.js'
 import InputNumber from './CatalogoInputNumber.vue';
+import ToastSuccess from '../toasts/ToastSuccess.vue'
 
 const props = defineProps({
     selectedCategory: {
@@ -169,6 +174,7 @@ const sortByCriteria = ref(null);
 const selectedSizes = ref([]);
 const selectedColors = ref([]);
 const quantidades = reactive({});
+const showToast = ref(false);
 
 const store = useStore();
 const emit = defineEmits(['adicionarAoCarrinho']);
@@ -182,7 +188,13 @@ const handleAddToCart = () => {
         imagem: selectedItem.value.imagem,
         cor: selectedItem.value.cor
     });
+    quantidades[selectedItem.value.id] = {};
     myModal.value.close();
+
+    showToast.value = true;
+    setTimeout(() => {
+        showToast.value = false;
+    }, 3000);
 };
 
 const getQuantidade = (id, tamanho) => {
@@ -352,22 +364,3 @@ onBeforeUnmount(() => {
 });
 </script>
 
-
-<style scoped>
-.slide-enter-from {
-    transform: translateX(-100%) scaleX(0) scaleY(0);
-    opacity: 0;
-}
-
-.slide-enter-to {
-    transform: translateX(0) scaleX(1) scaleY(1);
-    opacity: 1;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.slide-leave-to {
-    transform: translateX(-100%) scaleX(0) scaleY(0);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-</style>

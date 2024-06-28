@@ -1,4 +1,7 @@
 <template>
+    <transition name="fade">
+        <ToastSuccess v-if="showToast" message="Produto excluído com sucesso" />
+    </transition>
 
     <header>
         <div role="tablist" class="tabs tabs-bordered h-10">
@@ -8,10 +11,7 @@
         </div>
     </header>
 
-
     <div class="flex flex-col justify-center items-center">
-
-
         <div v-if="carrinho.length === 0" class="flex flex-col items-center justify-center h-lvh">
             <h1 class="font-semibold">SEU CARRINHO ESTÁ VAZIO</h1>
 
@@ -22,11 +22,10 @@
 
         <ul class="mt-5">
             <li v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-00 mb-4 pb-4">
-                <div class="flex flex-col items-startr">
+                <div class="flex flex-col">
                     <div class="flex flex-row items-center justify-between">
                         <h2 class="font-bold text-lg"> {{ item.nomeProduto }}</h2>
-                        <button @click="removerDoCarrinho(index)"
-                            >
+                        <button onclick="my_modal_2.showModal()">
                             <Trash2 />
                         </button>
                     </div>
@@ -49,18 +48,32 @@
                     </ul>
                 </div>
 
-
+                <dialog id="my_modal_2" class="modal">
+                    <div class="modal-box">
+                        <h3 class="text-lg font-bold">Confirmação de exclusão</h3>
+                        <p class="py-4">Deseja excluir o produto {{ item.nomeProduto }}</p>
+                        <form method="dialog" class="mt-5">
+                            <div class="flex ">
+                                <button class="bg-black  bg-opacity-10 p-2 rounded-md"
+                                    @click="removerDoCarrinho(index)">Confirmar</button>
+                                <button class="ml-auto bg-black bg-opacity-10 p-2 rounded-md">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </dialog>
             </li>
         </ul>
-
-
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { Trash2 } from 'lucide-vue-next';
+
+import ToastSuccess from '../components/toasts/ToastSuccess.vue';
+
+const showToast = ref(false);
 
 const store = useStore();
 
@@ -68,5 +81,10 @@ const carrinho = computed(() => store.getters.cartItems);
 
 const removerDoCarrinho = (index) => {
     store.dispatch('removeFromCart', index);
+
+    showToast.value = true;
+    setTimeout(() => {
+        showToast.value = false;
+    }, 2000);
 };
 </script>
