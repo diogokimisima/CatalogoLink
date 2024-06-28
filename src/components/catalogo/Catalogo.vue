@@ -40,7 +40,7 @@
 
 
         <!-- Modal -->
-        <dialog ref="myModal" id="my_modal_3" class="modal py-12">
+        <dialog ref="myModal" id="my_modal_3" class="modal py-0">
             <div class="modal-box h-full overflow-auto relative py-0 px-0">
 
                 <form v-motion-fade-visible
