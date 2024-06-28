@@ -1,6 +1,6 @@
-import { removeDiacritics } from './utils';
+import { removeDiacritics } from './formatarValores';
 
-export const filterCatalog = (catalogo, { selectedCategory, searchQuery, sortByCriteria, selectedSizes, selectedColors }) => {
+export const filteredCatalogo = (catalogo, { selectedCategory, searchQuery, sortByCriteria, selectedSizes, selectedColors }) => {
     let filteredItems = catalogo;
 
     if (selectedCategory !== 'Todos') {

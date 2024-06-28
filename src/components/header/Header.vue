@@ -30,10 +30,10 @@
             </div>
         </transition>
 
-        <transition name="slide">
+        <transition name="slide" class="py-0">
             <div v-if="showSideFilter"
                 class="fixed top-0 right-0 h-full w-72 bg-white text-black p-3 transform transition-transform duration-300 z-40 overflow-x-auto">
-                <div class="sticky -top-3 pt-1 z-10 mb-1 flex flex-col gap-2 border-b border-slate-400 bg-white">
+                <div class="sticky top-0 pt-1 z-10 mb-1 flex flex-col gap-2 border-b border-slate-400 bg-white">
                     <div class="flex items-center">
                         <h2 class="text-2xl font-bold">Filtros e Ordenação</h2>
                         <button @click="toggleSideFilter" class="ml-auto">

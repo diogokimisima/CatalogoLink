@@ -1,15 +1,33 @@
 <template>
-    <div class="flex flex-col justify-center items-center">
-        <h1 class="text-3xl font-bold mb-4">Carrinho de Compras</h1>
 
-        <ul>
-            <li v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-200 mb-4 pb-4">
+    <header>
+        <div role="tablist" class="tabs tabs-bordered h-10">
+            <a role="tab" class="tab tab-active">1 Carrinho</a>
+            <a role="tab" class="tab">2 Dados do pedido</a>
+            <a role="tab" class="tab">3 Fechar Pedido</a>
+        </div>
+    </header>
+
+
+    <div class="flex flex-col justify-center items-center">
+
+
+        <div v-if="carrinho.length === 0" class="flex flex-col items-center justify-center h-lvh">
+            <h1 class="font-semibold">SEU CARRINHO ESTÁ VAZIO</h1>
+
+            <router-link to="/" class="text-blue-600 mt-5 block text-xl">
+                Voltar para o catalogo
+            </router-link>
+        </div>
+
+        <ul class="mt-5">
+            <li v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-400 mb-4 pb-4">
                 <div class="flex flex-col items-startr">
                     <div class="flex flex-row items-center justify-between">
                         <h2 class="font-bold text-lg"> {{ item.nomeProduto }}</h2>
                         <button @click="removerDoCarrinho(index)"
-                            class="text-red-600 mt-4 px-3 py-1 border border-red-600 rounded hover:bg-red-600 hover:text-white transition duration-300">
-                            Remover
+                            >
+                            <Trash2 />
                         </button>
                     </div>
                     <div class="flex items-center">
@@ -35,15 +53,14 @@
             </li>
         </ul>
 
-        <router-link to="/" class="text-blue-600 mt-5 block text-xl">
-            Voltar para a página inicial
-        </router-link>
+
     </div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { Trash2 } from 'lucide-vue-next';
 
 const store = useStore();
 
