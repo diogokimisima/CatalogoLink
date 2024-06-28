@@ -32,8 +32,8 @@ window.addEventListener('category-selected', (event) => {
   updateCategory(event.detail);
 });
 
-const adicionarAoCarrinho = ({ nomeProduto, valorTotal }) => {
-  store.dispatch('addToCart', { nomeProduto, valorTotal });
+const adicionarAoCarrinho = ({ nomeProduto, valorTotal, codigoProduto, quantidadePorTamanho }) => {
+  store.dispatch('addToCart', { nomeProduto, valorTotal, codigoProduto, quantidadePorTamanho });
   router.push({ path: '/carrinho' });
 };
 </script>

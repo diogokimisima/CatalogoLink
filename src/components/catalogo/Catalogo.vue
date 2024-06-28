@@ -113,7 +113,7 @@
 
                 <div v-if="selectedItem">
                     <h2>Soma Total: R$ {{ formatPrice(somaTotal(selectedItem.id)) }}</h2>
-                    <button @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">Adicionar ao Carrinho</button>
+                    <button class="mt-3 bg-slate-300 p-1 rounded-md" @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">Adicionar ao Carrinho</button>
                 </div>
 
             </div>
@@ -148,9 +148,18 @@ const quantidades = reactive({});
 const store = useStore();
 const emit = defineEmits(['adicionarAoCarrinho']);
 
-const handleAddToCart = (nomeProduto, valorTotal) => {
-    store.dispatch('addToCart', { nomeProduto, valorTotal });
+const handleAddToCart = () => {
+  store.dispatch('addToCart', {
+    codigoProduto: selectedItem.value.id_produto,
+    nomeProduto: selectedItem.value.title,
+    valorTotal: somaTotal(selectedItem.value.id),
+    quantidadePorTamanho: quantidades[selectedItem.value.id],
+    imagem: selectedItem.value.imagem,
+    cor: selectedItem.value.cor
+  });
+  myModal.value.close();
 };
+
 
 
 const getQuantidade = (id, tamanho) => {
@@ -191,10 +200,6 @@ const formatPercentage = (valor_antigo, valor_atual) => {
     return resultado.toFixed(0);
 }
 
-const showModal = (item) => {
-    selectedItem.value = item;
-    myModal.value.showModal();
-};
 
 const selectRelatedItem = (item) => {
     selectedItem.value = item;
@@ -266,6 +271,12 @@ const relatedItems = computed(() => {
     if (!selectedItem.value) return [];
     return catalogo.filter(item => item.id_categoria === selectedItem.value.id_categoria);
 });
+
+const showModal = (item) => {
+    selectedItem.value = item;
+    myModal.value.showModal();
+};
+
 
 const updateCategory = (categoria) => {
     selectedCategory.value = categoria;
