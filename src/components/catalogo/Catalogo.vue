@@ -41,6 +41,15 @@
 
         <!-- Modal -->
         <dialog ref="myModal" id="my_modal_3" class="modal py-0">
+
+            <transition name="slide" mode="out-in">
+                <div v-if="selectedItem && somaTotal(selectedItem.id) != 0" :key="selectedItem.id"
+                    class="flex flex-col items-center justify-center gap-0 fixed top-24 right-8 z-50 bg-blue-950 w-[70px] h-[70px] rounded-full transform transition-transform duration-300">
+                    <p class="text-slate-400 -mt-2">R$</p>
+                    <p class="text-white font-bold">{{ formatPrice(somaTotal(selectedItem.id)) }}</p>
+                </div>
+            </transition>
+
             <div class="modal-box h-full overflow-auto relative py-0 px-0">
 
                 <form v-motion-fade-visible
@@ -64,13 +73,16 @@
                 </form>
 
 
+
+
                 <div class="my-5 px-4">
                     <img :src="selectedItem?.imagem" alt="imagem">
                 </div>
 
                 <h2 class="my-3 text-center font-bold">Cores e modelos</h2>
 
-                <div class="overflow-y-auto flex items-center font-bold h-26 w-full my-10 mt-5 px-4" id="categoriaIgual">
+                <div class="overflow-y-auto flex items-center font-bold h-26 w-full my-10 mt-5 px-4"
+                    id="categoriaIgual">
 
                     <ul class="flex flex-row space-x-2 gap-5 py-5">
                         <li v-motion-fade-visible class="rounded w-28" v-for="relatedItem in relatedItems"
@@ -118,16 +130,12 @@
                     <InputNumber id="2" />
                 </div> -->
 
-                <div v-if="selectedItem" class="px-4">
-                    <h2>Soma Total: R$ {{ formatPrice(somaTotal(selectedItem.id)) }}</h2>
-                </div>
-
                 <div class="bg-white border-t border-gray-400 mt-10 sticky bottom-0 px-4 py-2 ">
-                    <div class="flex items-center justify-center py-2 w-full bg-blue-950 rounded-md ">
+                    <div class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md ">
                         <button class="flex text-white"
                             @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">
-
-                            <ShoppingCart class="mr-2  z-10" /> Adicionar
+                            <ShoppingCart class="mr-2  z-10" />
+                            Adicionar
                         </button>
                     </div>
                 </div>
@@ -343,3 +351,23 @@ onBeforeUnmount(() => {
     window.removeEventListener('clear-filters', clearAllFilters);
 });
 </script>
+
+
+<style scoped>
+.slide-enter-from {
+    transform: translateX(-100%) scaleX(0) scaleY(0);
+    opacity: 0;
+}
+
+.slide-enter-to {
+    transform: translateX(0) scaleX(1) scaleY(1);
+    opacity: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.slide-leave-to {
+    transform: translateX(-100%) scaleX(0) scaleY(0);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+</style>

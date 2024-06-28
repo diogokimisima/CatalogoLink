@@ -21,7 +21,7 @@
         </div>
 
         <ul class="mt-5">
-            <li v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-400 mb-4 pb-4">
+            <li v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-00 mb-4 pb-4">
                 <div class="flex flex-col items-startr">
                     <div class="flex flex-row items-center justify-between">
                         <h2 class="font-bold text-lg"> {{ item.nomeProduto }}</h2>
