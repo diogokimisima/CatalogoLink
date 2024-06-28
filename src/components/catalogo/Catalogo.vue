@@ -3,6 +3,10 @@
 <template>
     <div>
         <!-- Card -->
+        <div v-if="filteredCatalogo.length === 0" class="text-center mt-5">
+            <h1 class="font-semibold">Nenhuma busca encontrada.</h1>
+        </div>
+
         <div v-for="(item, index) in filteredCatalogo" :key="item.id">
             <button @click="showModal(item)"
                 :class="['card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl', { 'mb-0': index === filteredCatalogo.length - 1 }]">
@@ -22,15 +26,18 @@
                         <h3 class="text-base text-gray-400  whitespace-nowrap" v-if="item.valor_antigo">
                             <span class="line-through mr-2"> R${{ formatPrice(item.valor_antigo) }}
                             </span>
-                            <span class="text-emerald-600"> {{ formatPercentage(item.valor_antigo, item.valor) }}% off
+                            <span class="text-emerald-600"> {{ formatPercentage(item.valor_antigo, item.valor) }}%
+                                off
                             </span>
                         </h3>
                         <h4 class="card-title whitespace-nowrap">R$ {{ formatPrice(item.valor) }}</h4>
                     </div>
-                </div>
 
+
+                </div>
             </button>
         </div>
+
 
         <!-- Modal -->
         <dialog ref="myModal" id="my_modal_3" class="modal py-12">
@@ -113,7 +120,9 @@
 
                 <div v-if="selectedItem">
                     <h2>Soma Total: R$ {{ formatPrice(somaTotal(selectedItem.id)) }}</h2>
-                    <button class="mt-3 bg-slate-300 p-1 rounded-md" @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">Adicionar ao Carrinho</button>
+                    <button class="mt-3 bg-slate-300 p-1 rounded-md"
+                        @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">Adicionar ao
+                        Carrinho</button>
                 </div>
 
             </div>
@@ -149,18 +158,16 @@ const store = useStore();
 const emit = defineEmits(['adicionarAoCarrinho']);
 
 const handleAddToCart = () => {
-  store.dispatch('addToCart', {
-    codigoProduto: selectedItem.value.id_produto,
-    nomeProduto: selectedItem.value.title,
-    valorTotal: somaTotal(selectedItem.value.id),
-    quantidadePorTamanho: quantidades[selectedItem.value.id],
-    imagem: selectedItem.value.imagem,
-    cor: selectedItem.value.cor
-  });
-  myModal.value.close();
+    store.dispatch('addToCart', {
+        codigoProduto: selectedItem.value.id_produto,
+        nomeProduto: selectedItem.value.title,
+        valorTotal: somaTotal(selectedItem.value.id),
+        quantidadePorTamanho: quantidades[selectedItem.value.id],
+        imagem: selectedItem.value.imagem,
+        cor: selectedItem.value.cor
+    });
+    myModal.value.close();
 };
-
-
 
 const getQuantidade = (id, tamanho) => {
     if (!quantidades[id]) {
@@ -169,7 +176,6 @@ const getQuantidade = (id, tamanho) => {
     return quantidades[id][tamanho] || 0;
 };
 
-// Função para atualizar a quantidade quando o InputNumber emite um evento
 const updateQuantidade = (id, tamanho, quantidade) => {
     if (!quantidades[id]) {
         quantidades[id] = {};
@@ -177,7 +183,6 @@ const updateQuantidade = (id, tamanho, quantidade) => {
     quantidades[id][tamanho] = quantidade;
 };
 
-// Função para calcular a soma total com base nas quantidades e no valor do produto
 const somaTotal = (id) => {
     if (!quantidades[id]) {
         return 0;
@@ -263,7 +268,6 @@ const filteredCatalogo = computed(() => {
     if (selectedSizes.value.length > 0) {
         filteredItems = filteredItems.filter(item => selectedSizes.value.some(size => item.tamanho.includes(size)));
     }
-
     return filteredItems;
 });
 
