@@ -11,7 +11,7 @@
         </div>
     </header>
 
-    <div  class="flex flex-col justify-center items-center">
+    <div class="flex flex-col justify-center items-center">
         <div v-if="carrinho.length === 0" class="flex flex-col items-center justify-center h-lvh">
             <h1 class="font-semibold">SEU CARRINHO ESTÁ VAZIO</h1>
 
@@ -20,8 +20,9 @@
             </router-link>
         </div>
 
-        <ul  class="mt-5">
-            <li v-motion-fade-visible v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-00 mb-4 pb-4">
+        <ul class="mt-5">
+            <li v-motion-fade-visible v-for="(item, index) in carrinho" :key="index"
+                class="border-b border-gray-00 mb-4 pb-4">
                 <div class="flex flex-col">
                     <div class="flex flex-row items-center justify-between">
                         <h2 class="font-bold text-lg">{{ item.numeroItem }} - {{ item.nomeProduto }}</h2>
@@ -39,13 +40,17 @@
                     </div>
                 </div>
 
-                <div class="flex gap-4 items-">
-                    <ul v-for="(quantidade, tamanho) in item.quantidadePorTamanho" :key="tamanho" class="mt-2 ">
+                <div class="flex gap-4 mt-2">
+                    <ul v-for="(quantidade, tamanho) in item.quantidadePorTamanho" :key="tamanho" class="">
                         <li class="text-gray-600">
                             {{ tamanho }}
                         </li>
                         <li>{{ quantidade }} </li>
                     </ul>
+                    <div>
+                        <p>Total</p>
+                        <p> {{ somaQuantidade(item.quantidadePorTamanho) }} </p>
+                    </div>
                 </div>
 
                 <dialog id="my_modal_2" class="modal">
@@ -56,7 +61,7 @@
                             <div class="flex ">
                                 <button class="border-neutral-200 border p-2 rounded-md"
                                     @click="removerDoCarrinho(index)">Confirmar</button>
-                                <button  class="ml-auto border-neutral-200 border p-2 rounded-md">Cancelar</button>
+                                <button class="ml-auto border-neutral-200 border p-2 rounded-md">Cancelar</button>
                             </div>
                         </form>
                     </div>
@@ -82,6 +87,10 @@ carrinho.value.forEach((item, index) => {
     item.numeroItem = index + 1;
 });
 
+const somaQuantidade = (quantidadePorTamanho) => {
+    return Object.values(quantidadePorTamanho).reduce((total, quantidade) => total + quantidade, 0);
+};
+
 const removerDoCarrinho = (index) => {
     store.dispatch('removeFromCart', index);
 
@@ -94,15 +103,19 @@ const removerDoCarrinho = (index) => {
 
 
 <style scoped>
-
-.slide-enter-active, .slide-leave-active {
+.slide-enter-active,
+.slide-leave-active {
     transition: transform 0.5s, opacity 0.5s;
 }
-.slide-enter-from, .slide-leave-to {
+
+.slide-enter-from,
+.slide-leave-to {
     opacity: 0;
     transform: translateX(100%);
 }
-.slide-enter-to, .slide-leave-from {
+
+.slide-enter-to,
+.slide-leave-from {
     opacity: 1;
     transform: translateX(0);
 }

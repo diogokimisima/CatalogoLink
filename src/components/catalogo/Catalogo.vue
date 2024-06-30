@@ -4,7 +4,7 @@
     <div>
         <!-- Card -->
         <div v-if="filteredCatalogo.length === 0" class="text-center mt-5">
-            <h1 class="font-semibold">Nenhuma busca encontrada.</h1>
+            <h1 class="font-semibold">NENHUM PRODUTO ENCONTRADO.</h1>
         </div>
 
         <div v-for="(item, index) in filteredCatalogo" :key="item.id">
