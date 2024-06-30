@@ -1,20 +1,24 @@
 <template>
     <div class="w-full h-auto">
         <div class="menu menu-horizontal bg-slate-200 w-full justify-evenly items-center pt-1 pb-0.5">
-            <div class="flex justify-center flex-col">
-                <button class="tooltip" data-tip="Menu" @click="toggleSidebar">
+            <div>
+                <button class="tooltip flex flex-col items-center" data-tip="Menu" @click="toggleSidebar">
                     <Menu class="w-7 h-7" />
                     <p>Menu</p>
                 </button>
             </div>
-            <div>
-                <router-link to="/carrinho" class="tooltip" data-tip="Carrinho">
+            <div >
+                <router-link to="/carrinho" class="tooltip flex flex-col items-center" data-tip="Carrinho">
                     <ShoppingCart class="w-7 h-7" />
-                    <p>Cart</p>
+                    <span class="absolute -top-1 right-1 bg-red-500 rounded-full text-white text-xs px-1"
+                        v-if="$store.getters.cartItems.length > 0">
+                        {{ $store.getters.cartItems.length }}
+                    </span>
+                    <p class="">Carrinho</p>
                 </router-link>
             </div>
-            <div>
-                <a :href="whatsAppLink" class="tooltip" data-tip="WhatsApp" target="_blank">
+            <div class="flex flex-col items-center">
+                <a :href="whatsAppLink" class="tooltip flex flex-col items-center" data-tip="WhatsApp" target="_blank">
                     <img class="w-7 h-7" :src="whatsIcon" alt="WhatsApp Icon" />
                     <p>Whats</p>
                 </a>
@@ -84,10 +88,13 @@ watch(isSidebarOpen, (newValue) => {
     transform: translateX(-100%);
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
     transition: opacity 0.5s;
 }
-.fade-enter-from, .fade-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
     opacity: 0;
 }
 </style>

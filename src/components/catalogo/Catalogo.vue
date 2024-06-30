@@ -38,9 +38,7 @@
             </button>
         </div>
 
-        <transition enter-active-class="transition-opacity duration-300 ease-in-out" enter-from-class="opacity-0"
-            enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300 ease-in-out"
-            leave-from-class="opacity-100" leave-to-class="opacity-0">
+        <transition name="slide">
             <ToastSuccess v-if="showToast" message="Produto adicionado ao carrinho com sucesso" />
         </transition>
 
@@ -364,3 +362,18 @@ onBeforeUnmount(() => {
 });
 </script>
 
+
+<style scoped>
+
+.slide-enter-active, .slide-leave-active {
+    transition: transform 0.5s, opacity 0.5s;
+}
+.slide-enter-from, .slide-leave-to {
+    opacity: 0;
+    transform: translateX(100%);
+}
+.slide-enter-to, .slide-leave-from {
+    opacity: 1;
+    transform: translateX(0);
+}
+</style>

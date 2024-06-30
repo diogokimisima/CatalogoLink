@@ -6,27 +6,6 @@ const store = createStore({
   },
   mutations: {
     ADD_TO_CART(state, { codigoProduto, nomeProduto, valorTotal, quantidadePorTamanho, imagem, cor }) {
-      // const itemIndex = state.cart.findIndex(item => item.codigoProduto === codigoProduto);
-      //   if (itemIndex !== -1) {
-      //     for (const tamanho in quantidadePorTamanho) {
-      //       if (state.cart[itemIndex].quantidadePorTamanho[tamanho]) {
-      //         state.cart[itemIndex].quantidadePorTamanho[tamanho] += quantidadePorTamanho[tamanho];
-      //       } else {
-      //         state.cart[itemIndex].quantidadePorTamanho[tamanho] = quantidadePorTamanho[tamanho];
-      //       }
-      //     }
-      //   } else {
-      //     state.cart.push({
-      //       codigoProduto,
-      //       nomeProduto,
-      //       valorTotal,
-      //       quantidadePorTamanho,
-      //       imagem,
-      //       cor
-      //     });
-      //   }
-      // }
-
       state.cart.push({
         codigoProduto,
         nomeProduto,
@@ -51,6 +30,7 @@ const store = createStore({
   },
   getters: {
     cartItems: state => state.cart,
+    cartItemsCount: state => state.cart.length,
   },
 });
 

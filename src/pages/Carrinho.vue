@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade">
+    <transition name="slide">
         <ToastSuccess v-if="showToast" message="Produto excluído com sucesso" />
     </transition>
 
@@ -11,7 +11,7 @@
         </div>
     </header>
 
-    <div class="flex flex-col justify-center items-center">
+    <div  class="flex flex-col justify-center items-center">
         <div v-if="carrinho.length === 0" class="flex flex-col items-center justify-center h-lvh">
             <h1 class="font-semibold">SEU CARRINHO ESTÁ VAZIO</h1>
 
@@ -20,11 +20,11 @@
             </router-link>
         </div>
 
-        <ul class="mt-5">
-            <li v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-00 mb-4 pb-4">
+        <ul  class="mt-5">
+            <li v-motion-fade-visible v-for="(item, index) in carrinho" :key="index" class="border-b border-gray-00 mb-4 pb-4">
                 <div class="flex flex-col">
                     <div class="flex flex-row items-center justify-between">
-                        <h2 class="font-bold text-lg"> {{ item.nomeProduto }}</h2>
+                        <h2 class="font-bold text-lg">{{ item.numeroItem }} - {{ item.nomeProduto }}</h2>
                         <button onclick="my_modal_2.showModal()">
                             <Trash2 />
                         </button>
@@ -51,12 +51,12 @@
                 <dialog id="my_modal_2" class="modal">
                     <div class="modal-box">
                         <h3 class="text-lg font-bold">Confirmação de exclusão</h3>
-                        <p class="py-4">Deseja excluir o produto {{ item.nomeProduto }}</p>
+                        <p class="py-4">Confirma a exclusão do item {{ item.numeroItem }} - {{ item.nomeProduto }}?</p>
                         <form method="dialog" class="mt-5">
                             <div class="flex ">
-                                <button class="bg-black  bg-opacity-10 p-2 rounded-md"
+                                <button class="border-neutral-200 border p-2 rounded-md"
                                     @click="removerDoCarrinho(index)">Confirmar</button>
-                                <button class="ml-auto bg-black bg-opacity-10 p-2 rounded-md">Cancelar</button>
+                                <button  class="ml-auto border-neutral-200 border p-2 rounded-md">Cancelar</button>
                             </div>
                         </form>
                     </div>
@@ -74,10 +74,13 @@ import { Trash2 } from 'lucide-vue-next';
 import ToastSuccess from '../components/toasts/ToastSuccess.vue';
 
 const showToast = ref(false);
-
 const store = useStore();
 
 const carrinho = computed(() => store.getters.cartItems);
+
+carrinho.value.forEach((item, index) => {
+    item.numeroItem = index + 1;
+});
 
 const removerDoCarrinho = (index) => {
     store.dispatch('removeFromCart', index);
@@ -88,3 +91,19 @@ const removerDoCarrinho = (index) => {
     }, 2000);
 };
 </script>
+
+
+<style scoped>
+
+.slide-enter-active, .slide-leave-active {
+    transition: transform 0.5s, opacity 0.5s;
+}
+.slide-enter-from, .slide-leave-to {
+    opacity: 0;
+    transform: translateX(100%);
+}
+.slide-enter-to, .slide-leave-from {
+    opacity: 1;
+    transform: translateX(0);
+}
+</style>
