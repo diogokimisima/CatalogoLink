@@ -7,7 +7,7 @@
     <div role="tablist" class="tabs tabs-lifted py-5 px-1">
       <a role="tab" class="tab tab-active h-12"
         ><span
-          class="bg-black w-5 h-5 rounded-full text-white flex items-center justify-center mr-1"
+          class="bg-blue-950 w-5 h-5 rounded-full text-white flex items-center justify-center mr-1"
         >
           1
         </span>
@@ -18,7 +18,7 @@
         class="tab text-nowrap h-12 bg-neutral-200 text-black text-opacity-30"
       >
         <span
-          class="bg-black w-5 h-5 rounded-full text-white flex items-center justify-center bg-opacity-30 mr-1"
+          class="bg-blue-950 w-5 h-5 rounded-full text-white flex items-center justify-center bg-opacity-30 mr-1"
         >
           2
         </span>
@@ -26,7 +26,7 @@
       </a>
       <a role="tab" class="tab text-nowrap h-12 bg-neutral-200 text-black text-opacity-30"
         ><span
-          class="bg-black w-5 h-5 rounded-full text-white flex items-center justify-center  bg-opacity-30 mr-1"
+          class="bg-blue-950 w-5 h-5 rounded-full text-white flex items-center justify-center  bg-opacity-30 mr-1"
         >
           3
         </span>
