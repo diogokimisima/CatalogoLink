@@ -4,6 +4,9 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
+  colors: {
+    'bege': '#f4f4f4',
+  },
   theme: {
     extend: {},
   },

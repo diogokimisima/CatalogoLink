@@ -5,10 +5,11 @@ const store = createStore({
     cart: []
   },
   mutations: {
-    ADD_TO_CART(state, { codigoProduto, nomeProduto, valorTotal, quantidadePorTamanho, imagem, cor }) {
+    ADD_TO_CART(state, { codigoProduto, nomeProduto, valorUnitario, valorTotal, quantidadePorTamanho, imagem, cor }) {
       state.cart.push({
         codigoProduto,
         nomeProduto,
+        valorUnitario,
         valorTotal,
         quantidadePorTamanho,
         imagem,

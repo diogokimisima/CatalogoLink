@@ -127,10 +127,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- 
-                <div class="mt-10">
-                    <InputNumber id="2" />
-                </div> -->
 
                 <div class="bg-white border-t border-gray-400 mt-10 sticky bottom-0 px-4 py-2 ">
                     <div class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md ">
@@ -152,8 +148,8 @@ import { ref, computed, onMounted, onBeforeUnmount, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { X, CandlestickChart, Ruler, ShoppingCart } from 'lucide-vue-next';
 
+import { formatPrice, formatPercentage, removeDiacritics } from '../../utils/formatarValores.js'
 import { catalogo } from "../../data/catalogo.js";
-// import { filteredCatalogo } from '../../utils/filtrosCatalogo.js'
 import InputNumber from './CatalogoInputNumber.vue';
 import ToastSuccess from '../toasts/ToastSuccess.vue'
 
@@ -177,10 +173,32 @@ const showToast = ref(false);
 const store = useStore();
 const emit = defineEmits(['adicionarAoCarrinho']);
 
+
+const updateCategory = (categoria) => {
+    selectedCategory.value = categoria;
+};
+
+const handleSizeSelected = (sizes) => {
+    selectedSizes.value = sizes;
+};
+
+const handleSearchInput = (query) => {
+    searchQuery.value = query;
+};
+
+const handleSortSelected = (criteria) => {
+    sortByCriteria.value = sortByCriteria.value === criteria ? null : criteria;
+};
+
+const handleColorSelected = (color) => {
+    selectedColors.value = color;
+}
+
 const handleAddToCart = () => {
     store.dispatch('addToCart', {
         codigoProduto: selectedItem.value.id_produto,
         nomeProduto: selectedItem.value.title,
+        valorUnitario: selectedItem.value.valor,
         valorTotal: somaTotal(selectedItem.value.id),
         quantidadePorTamanho: quantidades[selectedItem.value.id],
         imagem: selectedItem.value.imagem,
@@ -218,26 +236,8 @@ const somaTotal = (id) => {
     }, 0);
 };
 
-const formatPrice = (valor) => {
-    if (typeof valor !== 'number') {
-        return valor;
-    }
-    return valor.toFixed(2).replace('.', ',');
-};
-
-const formatPercentage = (valor_antigo, valor_atual) => {
-    let resultado = ((valor_antigo - valor_atual) / valor_antigo) * 100;
-
-    return resultado.toFixed(0);
-}
-
-
 const selectRelatedItem = (item) => {
     selectedItem.value = item;
-};
-
-const removeDiacritics = (text) => {
-    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 };
 
 const clearAllFilters = () => {
@@ -285,10 +285,8 @@ const filteredCatalogo = computed(() => {
         });
     }
 
-
     if (selectedColors.value.length > 0) {
         filteredItems = filteredItems.filter(item => selectedColors.value.includes(item.cor.toLowerCase()));
-
     }
 
     if (selectedSizes.value.length > 0) {
@@ -305,28 +303,15 @@ const relatedItems = computed(() => {
 const showModal = (item) => {
     selectedItem.value = item;
     myModal.value.showModal();
+    scrollToTop();
 };
 
-
-const updateCategory = (categoria) => {
-    selectedCategory.value = categoria;
+const scrollToTop = () => {
+    const modalBox = myModal.value.querySelector('.modal-box');
+    if (modalBox) {
+        modalBox.scrollTop = 0;
+    }
 };
-
-const handleSizeSelected = (sizes) => {
-    selectedSizes.value = sizes;
-};
-
-const handleSearchInput = (query) => {
-    searchQuery.value = query;
-};
-
-const handleSortSelected = (criteria) => {
-    sortByCriteria.value = sortByCriteria.value === criteria ? null : criteria;
-};
-
-const handleColorSelected = (color) => {
-    selectedColors.value = color;
-}
 
 onMounted(() => {
     window.addEventListener('category-selected', (event) => {

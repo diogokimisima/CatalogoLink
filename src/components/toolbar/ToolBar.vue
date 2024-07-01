@@ -7,6 +7,12 @@
                     <p>Menu</p>
                 </button>
             </div>
+            <div class="flex flex-col items-center">
+                <router-link to="/" class="tooltip flex flex-col items-center" data-tip="Catálogo" >
+                   <BookImage />
+                    <p>Catálogo</p>
+                </router-link>
+            </div>
             <div >
                 <router-link to="/carrinho" class="tooltip flex flex-col items-center" data-tip="Carrinho">
                     <ShoppingCart class="w-7 h-7" />
@@ -57,7 +63,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { Menu, ShoppingCart, X } from 'lucide-vue-next';
+import { Menu, ShoppingCart, X, BookImage } from 'lucide-vue-next';
 import whatsIcon from '../../assets/images/whats.svg';
 import LogoTrovata from '../../assets/images/logo.png';
 

@@ -33,7 +33,7 @@ window.addEventListener('category-selected', (event) => {
 });
 
 const adicionarAoCarrinho = ({ nomeProduto, valorTotal, codigoProduto, quantidadePorTamanho }) => {
-  store.dispatch('addToCart', { nomeProduto, valorTotal, codigoProduto, quantidadePorTamanho });
+  store.dispatch('addToCart', { nomeProduto, valorUnitario,  valorTotal, codigoProduto, quantidadePorTamanho });
   router.push({ path: '/carrinho' });
 };
 </script>
