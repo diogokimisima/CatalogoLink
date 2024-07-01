@@ -19,7 +19,7 @@
           class="tooltip flex flex-col items-center"
           data-tip="Catálogo"
         >
-          <BookImage />
+          <BookImage class="w-7 h-7"/>
           <p>Catálogo</p>
         </router-link>
       </div>
