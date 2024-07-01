@@ -4,16 +4,10 @@
   </transition>
 
   <header>
-    <!-- <div role="tablist" class="tabs tabs-bordered h-10">
-      <a role="tab" class="tab tab-active">1 Carrinho</a>
-      <a role="tab" class="tab">2 Dados do pedido</a>
-      <a role="tab" class="tab">3 Fechar Pedido</a>
-    </div> -->
-
-    <div role="tablist" class="tabs tabs-lifted p-4">
+    <div role="tablist" class="tabs tabs-lifted py-5 px-1">
       <a role="tab" class="tab tab-active text-white [--tab-bg:#172554]">1 Carrinho</a>
-      <a role="tab" class="tab"> 2 Dados do pedido </a>
-      <a role="tab" class="tab">3 Fechar Pedido</a>
+      <a role="tab" class="tab p-0 text-nowrap"> 2 Dados do pedido </a>
+      <a role="tab" class="tab text-nowrap">3 Fechar Pedido</a>
     </div>
   </header>
 
@@ -30,7 +24,7 @@
     </div>
 
     <div>
-      <h1>Subtotal: R$ {{ formatPrice(valorTotalCarrinho) }}</h1>
+      <h1>Subtotal: R${{ formatPrice(valorTotalCarrinho) }}</h1>
     </div>
 
     <ul class="mt-5 px-4 w-full">
@@ -39,7 +33,7 @@
         v-for="(item, index) in carrinho"
         :key="index"
         :class="[
-          'border-b border-gray-00 mb-6 p-2 shadow-md shadow-neutral-400',
+          'mb-6 p-2 rounded-md shadow-md shadow-neutral-400',
           index === carrinho.length - 1 ? 'mb-28' : '',
         ]"
       >
@@ -64,8 +58,9 @@
             <div>
               <p><span class="font-semibold">Cor:</span> {{ item.cor }}</p>
               <p>
-                <span class="font-semibold">Valor Unitário:</span> R$
-                {{ formatPrice(item.valorUnitario) }}
+                <span class="font-semibold">Valor Unitário:</span> R${{
+                  formatPrice(item.valorUnitario)
+                }}
               </p>
               <p>
                 <span class="font-semibold">Valor Total:</span> R${{
@@ -98,33 +93,32 @@
             </p>
           </div>
         </div>
-
-        
       </li>
     </ul>
   </div>
 
   <dialog ref="myModal" id="my_modal_2" class="modal">
-          <div class="modal-box">
-            <h3 class="text-lg font-bold">Confirmação de exclusão</h3>
-            <p class="py-4">
-              Confirma a exclusão do item {{ selectedItem?.numeroItem }} - {{ selectedItem?.nomeProduto}}?
-            </p>
-            <form method="dialog" class="mt-5">
-              <div class="flex">
-                <button
-                  class="border-neutral-200 border p-2 rounded-md"
-                  @click="removerDoCarrinho(index)"
-                >
-                  Confirmar
-                </button>
-                <button class="ml-auto border-neutral-200 border p-2 rounded-md">
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
-        </dialog>
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">Confirmação de exclusão</h3>
+      <p class="py-4">
+        Confirma a exclusão do item {{ selectedItem?.numeroItem }} -
+        {{ selectedItem?.nomeProduto }}?
+      </p>
+      <form method="dialog" class="mt-5">
+        <div class="flex">
+          <button
+            class="border-neutral-200 border p-2 rounded-md"
+            @click="removerDoCarrinho(index)"
+          >
+            Confirmar
+          </button>
+          <button class="ml-auto border-neutral-200 border p-2 rounded-md">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
 </template>
 
 <script setup>
@@ -147,8 +141,8 @@ carrinho.value.forEach((item, index) => {
 });
 
 const showModal = (item) => {
-    selectedItem.value = item;
-    myModal.value.showModal();
+  selectedItem.value = item;
+  myModal.value.showModal();
 };
 
 const somaQuantidade = (quantidadePorTamanho) => {
