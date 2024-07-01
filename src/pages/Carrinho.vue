@@ -26,19 +26,22 @@
       </a>
       <a role="tab" class="tab text-nowrap h-12 bg-neutral-200 text-black text-opacity-30"
         ><span
-          class="bg-blue-950 w-5 h-5 rounded-full text-white flex items-center justify-center  bg-opacity-30 mr-1"
+          class="bg-blue-950 w-5 h-5 rounded-full text-white flex items-center justify-center bg-opacity-30 mr-1"
         >
           3
         </span>
         Fechamento
       </a>
     </div>
+    <div class="flex justify-center">
+      <h1 class="font-bold text-xl border-b border-slate-400">Carrinho</h1>
+    </div>
   </header>
 
   <div class="flex flex-col justify-center items-center">
     <div
       v-if="carrinho.length === 0"
-      class="flex flex-col items-center justify-center h-lvh"
+      class="flex flex-col items-center justify-center pt-40"
     >
       <h1 class="font-semibold">SEU CARRINHO ESTÁ VAZIO</h1>
 
@@ -47,79 +50,82 @@
       </router-link>
     </div>
 
-    <div>
-      <h1>Carrinho</h1>
-      <h2>Subtotal: R${{ formatPrice(valorTotalCarrinho) }}</h2>
-    </div>
-
-    <ul class="mt-5 px-4 w-full">
-      <li
-        v-motion-fade-visible
-        v-for="(item, index) in carrinho"
-        :key="index"
-        :class="[
-          'mb-6 p-2 rounded-md shadow-md shadow-neutral-400',
-          index === carrinho.length - 1 ? 'mb-28' : '',
-        ]"
+    <div class="px-4 w-full">
+      <h2
+        v-if="carrinho.length !== 0"
+        class="text-center bg-blue-950 text-white p-3 rounded-md m-5"
       >
-        <div class="flex flex-col">
-          <div class="flex flex-row items-center justify-between">
-            <h2 class="text-lg">
-              <span class="font-bold"
-                >{{ item.numeroItem }} - {{ item.nomeProduto }}</span
-              >
-              ({{ item.codigoProduto }})
-            </h2>
-            <button @click="showModal(item)">
-              <Trash2 />
-            </button>
+        <span class="text-gray-400">Subtotal:</span> R${{ formatPrice(valorTotalCarrinho) }}
+      </h2>
+      <ul>
+        <li
+          v-motion-fade-visible
+          v-for="(item, index) in carrinho"
+          :key="index"
+          :class="[
+            'mb-6 p-2 rounded-md shadow-md shadow-neutral-400',
+            index === carrinho.length - 1 ? 'mb-28' : '',
+          ]"
+        >
+          <div class="flex flex-col">
+            <div class="flex flex-row items-center justify-between">
+              <h2 class="text-lg">
+                <span class="font-bold"
+                  >{{ item.numeroItem }} - {{ item.nomeProduto }}</span
+                >
+                ({{ item.codigoProduto }})
+              </h2>
+              <button @click="showModal(item)">
+                <Trash2 />
+              </button>
+            </div>
+            <div class="flex items-center">
+              <img
+                :src="item.imagem"
+                :alt="'Imagem ' + index"
+                class="w-28 h-28 object-contain mr-4"
+              />
+              <div>
+                <p><span class="font-semibold">Cor:</span> {{ item.cor }}</p>
+                <p>
+                  <span class="font-semibold">Valor Unitário:</span> R${{
+                    formatPrice(item.valorUnitario)
+                  }}
+                </p>
+                <p>
+                  <span class="font-semibold">Valor Total:</span> R${{
+                    formatPrice(item.valorTotal)
+                  }}
+                </p>
+              </div>
+            </div>
           </div>
+
           <div class="flex items-center">
-            <img
-              :src="item.imagem"
-              :alt="'Imagem ' + index"
-              class="w-28 h-28 object-contain mr-4"
-            />
-            <div>
-              <p><span class="font-semibold">Cor:</span> {{ item.cor }}</p>
-              <p>
-                <span class="font-semibold">Valor Unitário:</span> R${{
-                  formatPrice(item.valorUnitario)
-                }}
-              </p>
-              <p>
-                <span class="font-semibold">Valor Total:</span> R${{
-                  formatPrice(item.valorTotal)
-                }}
+            <div class="flex gap-4 py-2 px-2 w-[80%] overflow-x-auto">
+              <ul
+                v-for="(quantidade, tamanho) in item.quantidadePorTamanho"
+                :key="tamanho"
+                class="flex flex-col items-center justify-center"
+              >
+                <li class="font-">
+                  {{ tamanho }}
+                </li>
+                <li class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">
+                  {{ quantidade }}
+                </li>
+              </ul>
+            </div>
+            <div class="ml-auto py-2 pl-5 border-l-2 border-neutral-300">
+              <p>Total</p>
+              <p class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">
+                {{ somaQuantidade(item.quantidadePorTamanho) }}
               </p>
             </div>
           </div>
-        </div>
-
-        <div class="flex items-center">
-          <div class="flex gap-4 py-2 px-2 w-[80%] overflow-x-auto">
-            <ul
-              v-for="(quantidade, tamanho) in item.quantidadePorTamanho"
-              :key="tamanho"
-              class="flex flex-col items-center justify-center"
-            >
-              <li class="font-">
-                {{ tamanho }}
-              </li>
-              <li class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">
-                {{ quantidade }}
-              </li>
-            </ul>
-          </div>
-          <div class="ml-auto py-2 pl-5 border-l-2 border-neutral-300">
-            <p>Total</p>
-            <p class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">
-              {{ somaQuantidade(item.quantidadePorTamanho) }}
-            </p>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <dialog ref="myModal" id="my_modal_2" class="modal">

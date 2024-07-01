@@ -6,7 +6,6 @@
       <div>
         <button
           class="tooltip flex flex-col items-center"
-          data-tip="Menu"
           @click="toggleSidebar"
         >
           <Menu class="w-7 h-7" />
@@ -17,7 +16,6 @@
         <router-link
           to="/"
           class="tooltip flex flex-col items-center"
-          data-tip="Catálogo"
         >
           <BookImage class="w-7 h-7"/>
           <p>Catálogo</p>
@@ -27,7 +25,6 @@
         <router-link
           to="/carrinho"
           class="tooltip flex flex-col items-center"
-          data-tip="Carrinho"
         >
           <ShoppingCart class="w-7 h-7" />
           <span
@@ -43,7 +40,6 @@
         <a
           :href="whatsAppLink"
           class="tooltip flex flex-col items-center"
-          data-tip="WhatsApp"
           target="_blank"
         >
           <img class="w-7 h-7" :src="whatsIcon" alt="WhatsApp Icon" />
