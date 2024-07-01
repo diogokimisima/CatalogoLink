@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <ToastSuccess v-if="showToast" message="Produto excluído com sucesso" />
+    <ToastSuccess class="z-50" v-if="showToast" message="Produto excluído com sucesso" />
   </transition>
 
   <header>
@@ -51,7 +51,7 @@
               >
               ({{ item.codigoProduto }})
             </h2>
-            <button onclick="my_modal_2.showModal()">
+            <button @click="showModal(item)">
               <Trash2 />
             </button>
           </div>
@@ -76,14 +76,14 @@
           </div>
         </div>
 
-        <div class="flex items-center bg-[#f4f4f4]">
+        <div class="flex items-center">
           <div class="flex gap-4 py-2 px-2 w-[80%] overflow-x-auto">
             <ul
               v-for="(quantidade, tamanho) in item.quantidadePorTamanho"
               :key="tamanho"
               class="flex flex-col items-center justify-center"
             >
-              <li class="">
+              <li class="font-">
                 {{ tamanho }}
               </li>
               <li class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">
@@ -99,11 +99,16 @@
           </div>
         </div>
 
-        <dialog id="my_modal_2" class="modal">
+        
+      </li>
+    </ul>
+  </div>
+
+  <dialog ref="myModal" id="my_modal_2" class="modal">
           <div class="modal-box">
             <h3 class="text-lg font-bold">Confirmação de exclusão</h3>
             <p class="py-4">
-              Confirma a exclusão do item {{ item.numeroItem }} - {{ item.nomeProduto }}?
+              Confirma a exclusão do item {{ selectedItem?.numeroItem }} - {{ selectedItem?.nomeProduto}}?
             </p>
             <form method="dialog" class="mt-5">
               <div class="flex">
@@ -120,9 +125,6 @@
             </form>
           </div>
         </dialog>
-      </li>
-    </ul>
-  </div>
 </template>
 
 <script setup>
@@ -134,6 +136,8 @@ import { formatPrice } from "../utils/formatarValores.js";
 import ToastSuccess from "../components/toasts/ToastSuccess.vue";
 
 const showToast = ref(false);
+const selectedItem = ref(null);
+const myModal = ref(null);
 const store = useStore();
 
 const carrinho = computed(() => store.getters.cartItems);
@@ -141,6 +145,11 @@ const carrinho = computed(() => store.getters.cartItems);
 carrinho.value.forEach((item, index) => {
   item.numeroItem = index + 1;
 });
+
+const showModal = (item) => {
+    selectedItem.value = item;
+    myModal.value.showModal();
+};
 
 const somaQuantidade = (quantidadePorTamanho) => {
   return Object.values(quantidadePorTamanho).reduce(
