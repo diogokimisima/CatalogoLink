@@ -190,7 +190,7 @@
         </label>
         <label class="input input-bordered flex items-center gap-2">
           <Phone />
-          <input v-model="celular" type="text" class="grow" placeholder="Celular" />
+          <MaskInput  v-model="celular" type="text" mask="(##) ####-####" class="grow" placeholder="Celular"/>
         </label>
         <button @click="confirmarCarrinho" class="bg-blue-950 text-white p-2 rounded-md">
           Confirmar
@@ -204,6 +204,7 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { Trash2, User, Mail, Phone, X } from "lucide-vue-next";
+import { MaskInput } from 'vue-3-mask';
 
 import { formatPrice } from "../utils/formatarValores.js";
 import ToastSuccess from "../components/toasts/ToastSuccess.vue";
@@ -218,6 +219,10 @@ const store = useStore();
 const nome = ref("");
 const email = ref("");
 const celular = ref("");
+
+const maskOptions = {
+  mask: '(##) #####-####'
+}
 
 const carrinho = computed(() => store.getters.cartItems);
 
@@ -313,11 +318,12 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
       showToastError.value = false;
     }, 2000);
 
-    toastErrorMessage.value = "Preencha com um número de celular válido (11 dígitos)";
+    toastErrorMessage.value = "Preencha com um número de celular válido";
     return (showToastError.value = true);
   }
 
   window.open(urlWhatsApp, "_blank");
+
 };
 </script>
 

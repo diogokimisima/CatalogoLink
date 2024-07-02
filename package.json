@@ -12,6 +12,7 @@
     "@vueuse/motion": "^2.2.3",
     "lucide-vue-next": "^0.395.0",
     "vue": "^3.4.21",
+    "vue-3-mask": "^0.0.1-alpha",
     "vue-router": "^4.0.13",
     "vuex": "^4.0.2"
   },
