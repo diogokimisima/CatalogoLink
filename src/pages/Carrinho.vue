@@ -1,6 +1,10 @@
 <template>
   <transition name="slide">
-    <ToastSuccess class="z-50" v-if="showToast" message="Produto excluído com sucesso" />
+    <ToastSuccess
+      class="z-50"
+      v-if="showToastSuccess"
+      message="Produto excluído com sucesso"
+    />
   </transition>
 
   <header>
@@ -163,9 +167,16 @@
 
   <!-- modal para finalizar o carrinho -->
   <dialog id="my_modal_3" class="modal">
+    <transition name="slide">
+      <ToastError class="z-50" v-if="showToastError" message="Prencha todos os campos!" />
+    </transition>
     <div class="modal-box">
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        <button
+          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 border-none focus:outline-none"
+        >
+          <X class="size-8" />
+        </button>
       </form>
       <h3 class="text-lg font-bold">Finalização do carrinho</h3>
       <div class="flex flex-col gap-4 mt-5">
@@ -181,7 +192,9 @@
           <Phone />
           <input v-model="celular" type="text" class="grow" placeholder="Celular" />
         </label>
-        <button @click="confirmarCarrinho" class="bg-blue-950 text-white p-2 rounded-md">Confirmar</button>
+        <button @click="confirmarCarrinho" class="bg-blue-950 text-white p-2 rounded-md">
+          Confirmar
+        </button>
       </div>
     </div>
   </dialog>
@@ -190,18 +203,20 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { Trash2, User, Mail, Phone  } from "lucide-vue-next";
+import { Trash2, User, Mail, Phone, X } from "lucide-vue-next";
 
 import { formatPrice } from "../utils/formatarValores.js";
 import ToastSuccess from "../components/toasts/ToastSuccess.vue";
+import ToastError from "../components/toasts/ToastError.vue";
 
-const showToast = ref(false);
+const showToastSuccess = ref(false);
+const showToastError = ref(false);
 const selectedItem = ref(null);
 const myModal = ref(null);
 const store = useStore();
-const nome = ref('');
-const email = ref('');
-const celular = ref('');
+const nome = ref("");
+const email = ref("");
+const celular = ref("");
 
 const carrinho = computed(() => store.getters.cartItems);
 
@@ -222,9 +237,11 @@ const somaQuantidade = (quantidadePorTamanho) => {
 };
 
 const somaQuantidadeTotal = () => {
-  return carrinho.value.reduce((total, item) => total + somaQuantidade(item.quantidadePorTamanho), 0);
+  return carrinho.value.reduce(
+    (total, item) => total + somaQuantidade(item.quantidadePorTamanho),
+    0
+  );
 };
-
 
 const numeroAleatorio = () => {
   return Math.floor(Math.random() * 90000) + 10000;
@@ -237,9 +254,9 @@ const valorTotalCarrinho = computed(() => {
 const removerDoCarrinho = (index) => {
   store.dispatch("removeFromCart", index);
 
-  showToast.value = true;
+  showToastSuccess.value = true;
   setTimeout(() => {
-    showToast.value = false;
+    showToastSuccess.value = false;
   }, 2000);
 };
 
@@ -259,10 +276,18 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
   `;
 
   const mensagemCodificada = encodeURIComponent(mensagem.trim());
-  const numeroWhatsApp = '5511948256352';
+  const numeroWhatsApp = "5511948256352";
   const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
 
-  window.open(urlWhatsApp, '_blank');
+  if (nome.value === "") {
+    setTimeout(() => {
+      showToastError.value = false;
+    }, 2000);
+
+    return showToastError.value = true; 
+  }
+
+  window.open(urlWhatsApp, "_blank");
 };
 </script>
 
