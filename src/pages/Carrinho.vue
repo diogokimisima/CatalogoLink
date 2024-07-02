@@ -190,7 +190,7 @@
         </label>
         <label class="input input-bordered flex items-center gap-2">
           <Phone />
-          <MaskInput  v-model="celular" type="text" mask="(##) ####-####" class="grow" placeholder="Celular"/>
+          <MaskInput  v-model="celular" type="text" mask="(##) #####-####" class="grow" placeholder="Celular: (99) 99999-9999"/>
         </label>
         <button @click="confirmarCarrinho" class="bg-blue-950 text-white p-2 rounded-md">
           Confirmar
@@ -272,7 +272,7 @@ const validarEmail = (email) => {
 };
 
 const validarTelefone = (telefone) => {
-  const telefoneRegex = /^\d{11}$/;
+  const telefoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
   return telefoneRegex.test(telefone);
 };
 
