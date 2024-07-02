@@ -51,12 +51,19 @@
     </div>
 
     <div class="px-4 w-full">
-      <h2
-        v-if="carrinho.length !== 0"
-        class="text-center bg-blue-950 text-white p-3 rounded-md m-5"
-      >
-        <span class="text-gray-400">Subtotal:</span> R${{ formatPrice(valorTotalCarrinho) }}
-      </h2>
+      <div v-if="carrinho.length !== 0" class="flex my-5">
+        <h2 class="text-center bg-blue-950 text-white p-3 rounded-md">
+          <span class="text-gray-400">Subtotal:</span> R${{
+            formatPrice(valorTotalCarrinho)
+          }}
+        </h2>
+        <button
+          onclick="my_modal_3.showModal()"
+          class="text-center bg-blue-950 text-white p-3 rounded-md ml-auto"
+        >
+          Finalizar
+        </button>
+      </div>
       <ul>
         <li
           v-motion-fade-visible
@@ -128,12 +135,15 @@
     </div>
   </div>
 
+  <!-- modal para excluir um item do carrinho -->
   <dialog ref="myModal" id="my_modal_2" class="modal">
     <div class="modal-box">
       <h3 class="text-lg font-bold">Confirmação de exclusão</h3>
       <p class="py-4">
-        Confirma a exclusão do item {{ selectedItem?.numeroItem }} -
-        {{ selectedItem?.nomeProduto }}?
+        Confirma a exclusão do item
+        <span class="font-bold"
+          >{{ selectedItem?.numeroItem }} - {{ selectedItem?.nomeProduto }}?</span
+        >
       </p>
       <form method="dialog" class="mt-5">
         <div class="flex">
@@ -150,12 +160,37 @@
       </form>
     </div>
   </dialog>
+
+  <!-- modal para finalizar o carrinho -->
+  <dialog id="my_modal_3" class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      <h3 class="text-lg font-bold">Finalização do carrinho</h3>
+      <div class="flex flex-col gap-4 mt-5">
+        <label class="input input-bordered flex items-center gap-2">
+          <User />
+          <input v-model="nome" type="text" class="grow" placeholder="Nome" />
+        </label>
+        <label class="input input-bordered flex items-center gap-2">
+          <Mail />
+          <input v-model="email" type="text" class="grow" placeholder="Email" />
+        </label>
+        <label class="input input-bordered flex items-center gap-2">
+          <Phone />
+          <input v-model="celular" type="text" class="grow" placeholder="Celular" />
+        </label>
+        <button @click="confirmarCarrinho" class="bg-blue-950 text-white p-2 rounded-md">Confirmar</button>
+      </div>
+    </div>
+  </dialog>
 </template>
 
 <script setup>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { Trash2 } from "lucide-vue-next";
+import { Trash2, User, Mail, Phone  } from "lucide-vue-next";
 
 import { formatPrice } from "../utils/formatarValores.js";
 import ToastSuccess from "../components/toasts/ToastSuccess.vue";
@@ -164,6 +199,9 @@ const showToast = ref(false);
 const selectedItem = ref(null);
 const myModal = ref(null);
 const store = useStore();
+const nome = ref('');
+const email = ref('');
+const celular = ref('');
 
 const carrinho = computed(() => store.getters.cartItems);
 
@@ -183,6 +221,15 @@ const somaQuantidade = (quantidadePorTamanho) => {
   );
 };
 
+const somaQuantidadeTotal = () => {
+  return carrinho.value.reduce((total, item) => total + somaQuantidade(item.quantidadePorTamanho), 0);
+};
+
+
+const numeroAleatorio = () => {
+  return Math.floor(Math.random() * 90000) + 10000;
+};
+
 const valorTotalCarrinho = computed(() => {
   return carrinho.value.reduce((total, item) => total + item.valorTotal, 0);
 });
@@ -194,6 +241,28 @@ const removerDoCarrinho = (index) => {
   setTimeout(() => {
     showToast.value = false;
   }, 2000);
+};
+
+const confirmarCarrinho = () => {
+  const mensagem = `
+*Olá, gostaria de confirmar meu pedido do catálogo:*
+
+*Nome:* ${nome.value}
+*Email:* ${email.value}
+*Celular:* ${celular.value}
+
+*Resumo do Carrinho:*
+
+_Carrinho:_ #${numeroAleatorio()}
+_Total de Quantidades:_ ${somaQuantidadeTotal()}
+_Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
+  `;
+
+  const mensagemCodificada = encodeURIComponent(mensagem.trim());
+  const numeroWhatsApp = '5511948256352';
+  const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+
+  window.open(urlWhatsApp, '_blank');
 };
 </script>
 
