@@ -108,7 +108,7 @@
                 :key="tamanho"
                 class="flex flex-col items-center justify-center"
               >
-                <li class="font-">
+                <li class="italic">
                   {{ tamanho }}
                 </li>
                 <li class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">

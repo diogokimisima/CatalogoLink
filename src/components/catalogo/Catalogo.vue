@@ -92,7 +92,7 @@
         </form>
 
         <div class="my-5 px-4">
-          <img :src="selectedItem?.imagem" alt="imagem" />
+          <img :src="selectedItem?.imagem" alt="imagem"  @click="openImageModal"/>
         </div>
 
         <h2 class="my-3 text-center font-bold">Cores e modelos</h2>
@@ -169,6 +169,20 @@
         </div>
       </div>
     </dialog>
+
+    <dialog ref="imageModal" class="modal py-5">
+      <div class="modal-box max-w-5xl max-h-screen p-0">
+        <div class="flex justify-end p-2">
+          <button
+            class="btn btn-sm btn-circle btn-ghost border-none focus:outline-none"
+            @click="closeImageModal"
+          >
+            <X class="size-8" />
+          </button>
+        </div>
+        <img :src="selectedItem?.imagem" class="w-full h-auto" alt="imagem" />
+      </div>
+    </dialog>
   </div>
 </template>
 
@@ -195,6 +209,7 @@ const props = defineProps({
 
 const selectedItem = ref(null);
 const myModal = ref(null);
+const imageModal = ref(null);
 const selectedCategory = ref("Todos");
 const searchQuery = ref("");
 const sortByCriteria = ref(null);
@@ -343,6 +358,14 @@ const showModal = (item) => {
   selectedItem.value = item;
   myModal.value.showModal();
   scrollToTop();
+};
+
+const openImageModal = () => {
+  imageModal.value.showModal();
+};
+
+const closeImageModal = () => {
+  imageModal.value.close();
 };
 
 const scrollToTop = () => {
