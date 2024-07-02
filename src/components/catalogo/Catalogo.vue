@@ -155,10 +155,10 @@
         </div>
 
         <div class="bg-white border-t border-gray-400 mt-10 sticky bottom-0 px-4 py-2">
-          <div>
+          <!-- <div>
             <p>Valor Unitário: R${{ selectedItem?.valor }}</p>
             <p>Quantidade selecionada:</p>
-          </div>
+          </div> -->
           <div
             class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md"
           >
