@@ -168,7 +168,7 @@
   <!-- modal para finalizar o carrinho -->
   <dialog id="my_modal_3" class="modal">
     <transition name="slide">
-      <ToastError class="z-50" v-if="showToastError" message="Prencha todos os campos!" />
+      <ToastError class="z-50" v-if="showToastError" :message="toastErrorMessage" />
     </transition>
     <div class="modal-box">
       <form method="dialog">
@@ -211,6 +211,7 @@ import ToastError from "../components/toasts/ToastError.vue";
 
 const showToastSuccess = ref(false);
 const showToastError = ref(false);
+const toastErrorMessage = ref("");
 const selectedItem = ref(null);
 const myModal = ref(null);
 const store = useStore();
@@ -260,6 +261,16 @@ const removerDoCarrinho = (index) => {
   }, 2000);
 };
 
+const validarEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const validarTelefone = (telefone) => {
+  const telefoneRegex = /^\d{11}$/;
+  return telefoneRegex.test(telefone);
+};
+
 const confirmarCarrinho = () => {
   const mensagem = `
 *Olá, gostaria de confirmar meu pedido do catálogo:*
@@ -271,7 +282,7 @@ const confirmarCarrinho = () => {
 *Resumo do Carrinho:*
 
 _Carrinho:_ #${numeroAleatorio()}
-_Total de Quantidades:_ ${somaQuantidadeTotal()}
+_Quantidades Total:_ ${somaQuantidadeTotal()}
 _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
   `;
 
@@ -284,7 +295,26 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
       showToastError.value = false;
     }, 2000);
 
-    return showToastError.value = true; 
+    toastErrorMessage.value = "Preencha o campo nome!";
+    return (showToastError.value = true);
+  }
+
+  if (!validarEmail(email.value)) {
+    setTimeout(() => {
+      showToastError.value = false;
+    }, 2000);
+
+    toastErrorMessage.value = "Preencha com um email válido";
+    return (showToastError.value = true);
+  }
+
+  if (!validarTelefone(celular.value)) {
+    setTimeout(() => {
+      showToastError.value = false;
+    }, 2000);
+
+    toastErrorMessage.value = "Preencha com um número de celular válido (11 dígitos)";
+    return (showToastError.value = true);
   }
 
   window.open(urlWhatsApp, "_blank");
