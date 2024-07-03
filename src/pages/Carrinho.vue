@@ -27,72 +27,15 @@
       </div>
 
       <ul>
-        <li
-          v-motion-fade-visible
+        <CarrinhoItens
           v-for="(item, index) in carrinho"
           :key="index"
-          :class="[
-            'mb-6 p-2 rounded-md shadow-md shadow-neutral-400',
-            index === carrinho.length - 1 ? 'mb-32' : '',
-          ]"
-        >
-          <div class="flex flex-col">
-            <div class="flex flex-row items-center justify-between">
-              <h2 class="text-lg">
-                <span class="font-bold"
-                  >{{ item.numeroItem }} - {{ item.nomeProduto }}</span
-                >
-                ({{ item.codigoProduto }})
-              </h2>
-              <button @click="showModal(item)">
-                <Trash2 />
-              </button>
-            </div>
-            <div class="flex items-center">
-              <img
-                :src="item.imagem"
-                :alt="'Imagem ' + index"
-                class="w-28 h-28 object-contain mr-4"
-              />
-              <div>
-                <p><span class="font-semibold">Cor:</span> {{ item.cor }}</p>
-                <p>
-                  <span class="font-semibold">Valor Unitário:</span> R${{
-                    formatPrice(item.valorUnitario)
-                  }}
-                </p>
-                <p>
-                  <span class="font-semibold">Valor Total:</span> R${{
-                    formatPrice(item.valorTotal)
-                  }}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-center">
-            <div class="flex gap-4 py-2 px-2 w-[80%] overflow-x-auto">
-              <ul
-                v-for="(quantidade, tamanho) in item.quantidadePorTamanho"
-                :key="tamanho"
-                class="flex flex-col items-center justify-center"
-              >
-                <li class="italic">
-                  {{ tamanho }}
-                </li>
-                <li class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">
-                  {{ quantidade }}
-                </li>
-              </ul>
-            </div>
-            <div class="ml-auto py-2 pl-5 border-l-2 border-neutral-300">
-              <p>Total</p>
-              <p class="py-0.5 px-3 bg-white shadow-md shadow-slate-500">
-                {{ somaQuantidade(item.quantidadePorTamanho) }}
-              </p>
-            </div>
-          </div>
-        </li>
+          :item="item"
+          :index="index"
+          :isLastItem="index === carrinho.length - 1"
+          :showModal="showModal"
+          :somaQuantidade="somaQuantidade"
+        />
       </ul>
     </div>
   </div>
@@ -165,26 +108,27 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
-import { Trash2, User, Mail, Phone, X } from "lucide-vue-next";
-import { MaskInput } from "vue-3-mask";
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { X, User, Mail, Phone } from 'lucide-vue-next';
+import { MaskInput } from 'vue-3-mask';
 
-import { formatPrice } from "../utils/formatarValores.js";
-import ToastSuccess from "../components/toasts/ToastSuccess.vue";
-import ToastError from "../components/toasts/ToastError.vue";
-import CarrinhoVazio from "../components/carrinho/CarrinhoVazio.vue";
-import CarrinhoHeader from "../components/carrinho/CarrinhoHeader.vue";
+import { formatPrice } from '../utils/formatarValores.js';
+import ToastSuccess from '../components/toasts/ToastSuccess.vue';
+import ToastError from '../components/toasts/ToastError.vue';
+import CarrinhoVazio from '../components/carrinho/CarrinhoVazio.vue';
+import CarrinhoHeader from '../components/carrinho/CarrinhoHeader.vue';
+import CarrinhoItens from '../components/carrinho/CarrinhoItens.vue';
 
 const showToastSuccess = ref(false);
 const showToastError = ref(false);
-const toastErrorMessage = ref("");
+const toastErrorMessage = ref('');
 const selectedItem = ref(null);
 const myModal = ref(null);
 const store = useStore();
-const nome = ref("");
-const email = ref("");
-const celular = ref("");
+const nome = ref('');
+const email = ref('');
+const celular = ref('');
 
 const carrinho = computed(() => store.getters.cartItems);
 
@@ -220,7 +164,7 @@ const valorTotalCarrinho = computed(() => {
 });
 
 const removerDoCarrinho = (index) => {
-  store.dispatch("removeFromCart", index);
+  store.dispatch('removeFromCart', index);
 
   showToastSuccess.value = true;
   setTimeout(() => {
@@ -254,15 +198,15 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
   `;
 
   const mensagemCodificada = encodeURIComponent(mensagem.trim());
-  const numeroWhatsApp = "5511948256352";
+  const numeroWhatsApp = '5511948256352';
   const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
 
-  if (nome.value === "") {
+  if (nome.value === '') {
     setTimeout(() => {
       showToastError.value = false;
     }, 2000);
 
-    toastErrorMessage.value = "Preencha o campo nome!";
+    toastErrorMessage.value = 'Preencha o campo nome!';
     return (showToastError.value = true);
   }
 
@@ -271,7 +215,7 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
       showToastError.value = false;
     }, 2000);
 
-    toastErrorMessage.value = "Preencha com um email válido";
+    toastErrorMessage.value = 'Preencha com um email válido';
     return (showToastError.value = true);
   }
 
@@ -280,29 +224,10 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
       showToastError.value = false;
     }, 2000);
 
-    toastErrorMessage.value = "Preencha com um número de celular válido";
+    toastErrorMessage.value = 'Preencha com um número de celular válido';
     return (showToastError.value = true);
   }
 
-  window.open(urlWhatsApp, "_blank");
+  window.open(urlWhatsApp, '_blank');
 };
 </script>
-
-<style scoped>
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.5s, opacity 0.5s;
-}
-
-.slide-enter-from,
-.slide-leave-to {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
-.slide-enter-to,
-.slide-leave-from {
-  opacity: 1;
-  transform: translateX(0);
-}
-</style>
