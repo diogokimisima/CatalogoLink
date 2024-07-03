@@ -194,7 +194,7 @@ import {
   Trash2,
   Trash,
 } from "lucide-vue-next";
-import { catalogo } from "../../data/catalogo.js";
+import { catalogo } from "../../../data/catalogo.js";
 
 import HeaderBanner from "./HeaderBanner.vue";
 import HeaderCategorias from "./HeaderCategorias.vue";

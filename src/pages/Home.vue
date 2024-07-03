@@ -17,10 +17,10 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-import Header from "../components/header/Header.vue";
-import Catalogo from "../components/catalogo/Catalogo.vue";
-import ToolBar from "../components/toolbar/ToolBar.vue";
-import BackTop from "../components/backTop/BackTop.vue";
+import Header from "../components/home/header/Header.vue";
+import Catalogo from "../components/home/catalogo/Catalogo.vue";
+import ToolBar from "../components/ToolBar.vue";
+import BackTop from "../components/BackTop.vue"
 
 const selectedCategory = ref("Todos");
 

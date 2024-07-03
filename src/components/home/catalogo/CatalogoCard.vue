@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { formatPrice, formatPercentage } from "../../utils/formatarValores.js";
+import { formatPrice, formatPercentage } from "../../../utils/formatarValores.js";
 
 const props = defineProps({
   item: {

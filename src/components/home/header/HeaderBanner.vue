@@ -29,5 +29,5 @@
 </template>
 
 <script setup>
-import { banner } from "../../data/banner.js";
+import { banner } from "../../../data/banner.js";
 </script>

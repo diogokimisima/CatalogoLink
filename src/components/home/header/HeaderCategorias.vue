@@ -33,7 +33,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import { catalogo } from "../../data/catalogo.js";
+import { catalogo } from "../../../data/catalogo.js";
 
 const categorias = ref([]);
 const selectedCategory = ref("Todos");

@@ -87,8 +87,8 @@
 <script setup>
 import { ref, watch } from "vue";
 import { Menu, ShoppingCart, X, BookImage } from "lucide-vue-next";
-import whatsIcon from "../../assets/images/whats.svg";
-import LogoTrovata from "../../assets/images/logo.png";
+import whatsIcon from "../assets/images/whats.svg";
+import LogoTrovata from "../assets/images/logo.png";
 
 const phoneNumber = "5511948256352";
 const whatsAppLink = `https://wa.me/${phoneNumber}`;

@@ -161,11 +161,11 @@ import {
   formatPrice,
   formatPercentage,
   removeDiacritics,
-} from "../../utils/formatarValores.js";
-import { catalogo } from "../../data/catalogo.js";
+} from "../../../utils/formatarValores.js";
+import { catalogo } from "../../../data/catalogo.js";
 import InputNumber from "./CatalogoInputNumber.vue";
-import ToastSuccess from "../toasts/ToastSuccess.vue";
-import CatalogoCard from "../catalogo/CatalogoCard.vue"
+import ToastSuccess from "../../toasts/ToastSuccess.vue";
+import CatalogoCard from "./CatalogoCard.vue";
 
 const props = defineProps({
   selectedCategory: {
