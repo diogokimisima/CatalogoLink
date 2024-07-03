@@ -21,6 +21,7 @@
         placeholder="0"
         required
         v-model="quantidade"
+        @input="handleInput"
       />
 
       <button
@@ -59,6 +60,10 @@ const decrement = () => {
     quantidade.value--;
     emit("input", quantidade.value);
   }
+};
+
+const handleInput = () => {
+  emit("input", parseInt(quantidade.value, 10) || 0);
 };
 
 watch(

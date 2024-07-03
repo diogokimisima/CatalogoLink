@@ -4,7 +4,7 @@
   <div class="relative pb-40">
     <ToolBar class="fixed bottom-0 z-30" />
     <Header class="z-20" />
-    <Catalogo
+    <Catalogoo
       :selectedCategory="selectedCategory"
       @adicionarAoCarrinho="adicionarAoCarrinho"
     />
@@ -18,7 +18,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
 import Header from "../components/header/Header.vue";
-import Catalogo from "../components/catalogo/Catalogo.vue";
+import Catalogoo from "../components/catalogo/Catalogoo.vue";
 import ToolBar from "../components/toolbar/ToolBar.vue";
 import BackTop from "../components/backTop/BackTop.vue";
 

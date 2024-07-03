@@ -98,7 +98,7 @@
         <h2 class="my-3 text-center font-bold">Cores e modelos</h2>
 
         <div
-          class="overflow-y-auto flex items-center font-bold h-26 w-full my-10 mt-5 px-4"
+          class="overflow-y-auto flex items-center font-bold h-26 w-full my-5 px-4"
           id="categoriaIgual"
         >
           <ul class="flex flex-row space-x-2 gap-5 py-5">
@@ -122,7 +122,7 @@
           </ul>
         </div>
 
-        <div class="flex justify-center px-4">
+        <div class="flex justify-center">
           <table>
             <thead>
               <tr>
@@ -140,7 +140,7 @@
             </thead>
             <tbody>
               <tr v-for="tamanho in selectedItem?.tamanho" :key="tamanho">
-                <td class="p-4">{{ tamanho }}</td>
+                <td class="p-4 italic">{{ tamanho }}</td>
                 <td>
                   <div class="flex justify-center items-center">
                     <InputNumber
@@ -154,11 +154,12 @@
           </table>
         </div>
 
-        <div class="bg-white border-t border-gray-400 mt-10 sticky bottom-0 px-4 py-2">
-          <!-- <div>
-            <p>Valor Unitário: R${{ selectedItem?.valor }}</p>
-            <p>Quantidade selecionada:</p>
-          </div> -->
+        <div class="px-4 mt-4">
+          <p class="italic"><span class="font-semibold">Valor Unitário:</span> R${{ selectedItem?.valor }}</p>
+          <p class="italic"><span class="font-semibold">Quantidade Total:</span> {{ totalQuantidadeSelecionada }}</p>
+        </div>
+
+        <div class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
           <div
             class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md"
           >
@@ -262,6 +263,16 @@ const updateQuantidade = (id, tamanho, quantidade) => {
   }
   quantidades[id][tamanho] = quantidade;
 };
+
+const totalQuantidadeSelecionada = computed(() => {
+  if (!selectedItem.value || !quantidades[selectedItem.value.id]) {
+    return 0;
+  }
+  return Object.values(quantidades[selectedItem.value.id]).reduce(
+    (total, quantidade) => total + quantidade,
+    0
+  );
+});
 
 const somaTotal = (id) => {
   if (!quantidades[id]) {

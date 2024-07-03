@@ -68,6 +68,7 @@
           Finalizar
         </button>
       </div>
+      
       <ul>
         <li
           v-motion-fade-visible
@@ -75,7 +76,7 @@
           :key="index"
           :class="[
             'mb-6 p-2 rounded-md shadow-md shadow-neutral-400',
-            index === carrinho.length - 1 ? 'mb-28' : '',
+            index === carrinho.length - 1 ? 'mb-32' : '',
           ]"
         >
           <div class="flex flex-col">
