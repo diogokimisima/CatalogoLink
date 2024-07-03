@@ -8,41 +8,11 @@
     </div>
 
     <div v-for="(item, index) in filteredCatalogo" :key="item.id">
-      <button
-        @click="showModal(item)"
-        :class="[
-          'card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl',
-          { 'mb-0': index === filteredCatalogo.length - 1 },
-        ]"
-      >
-        <figure>
-          <img :src="item.imagem" :alt="'Image ' + item.id" />
-        </figure>
-
-        <div class="card-body flex-row items-center gap-12">
-          <div class="flex flex-col flex-grow">
-            <h2 class="card-title font-semibold text-lg whitespace-nowrap">
-              {{ item.title }}
-            </h2>
-            <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
-          </div>
-
-          <div class="flex flex-col">
-            <h3
-              class="text-base text-gray-400 whitespace-nowrap"
-              v-if="item.valor_antigo"
-            >
-              <span class="line-through mr-2">
-                R${{ formatPrice(item.valor_antigo) }}
-              </span>
-              <span class="text-emerald-600">
-                {{ formatPercentage(item.valor_antigo, item.valor) }}% off
-              </span>
-            </h3>
-            <h4 class="card-title whitespace-nowrap">R$ {{ formatPrice(item.valor) }}</h4>
-          </div>
-        </div>
-      </button>
+      <CatalogoCard
+        :item="item"
+        :is-last-card="index === filteredCatalogo.length - 1"
+        @showModal="showModal"
+      />
     </div>
 
     <transition name="slide">
@@ -155,8 +125,13 @@
         </div>
 
         <div class="px-4 mt-4">
-          <p class="italic"><span class="font-semibold">Valor Unitário:</span> R${{ selectedItem?.valor }}</p>
-          <p class="italic"><span class="font-semibold">Quantidade Total:</span> {{ totalQuantidadeSelecionada }}</p>
+          <p class="italic">
+            <span class="font-semibold">Valor Unitário:</span> R${{ selectedItem?.valor }}
+          </p>
+          <p class="italic">
+            <span class="font-semibold">Quantidade Total:</span>
+            {{ totalQuantidadeSelecionada }}
+          </p>
         </div>
 
         <div class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
@@ -190,6 +165,7 @@ import {
 import { catalogo } from "../../data/catalogo.js";
 import InputNumber from "./CatalogoInputNumber.vue";
 import ToastSuccess from "../toasts/ToastSuccess.vue";
+import CatalogoCard from "../catalogo/CatalogoCard.vue"
 
 const props = defineProps({
   selectedCategory: {
