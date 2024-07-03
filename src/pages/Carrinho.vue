@@ -26,13 +26,12 @@
         </button>
       </div>
 
-      <ul>
+      <ul class="mb-24">
         <CarrinhoItens
           v-for="(item, index) in carrinho"
           :key="index"
           :item="item"
           :index="index"
-          :isLastItem="index === carrinho.length - 1"
           :showModal="showModal"
           :somaQuantidade="somaQuantidade"
         />

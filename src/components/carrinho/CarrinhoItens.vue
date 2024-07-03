@@ -1,10 +1,7 @@
 <template>
   <li
     v-motion-fade-visible
-    :class="[
-      'mb-6 p-2 rounded-md shadow-md shadow-neutral-400',
-      isLastItem ? 'mb-32' : '',
-    ]"
+    class="mb-6 p-2 rounded-md shadow-md shadow-neutral-400"
   >
     <div class="flex flex-col">
       <div class="flex flex-row items-center justify-between">
@@ -72,7 +69,6 @@ import { formatPrice } from '../../utils/formatarValores';
 const props = defineProps({
   item: Object,
   index: Number,
-  isLastItem: Boolean,
   showModal: Function,
   somaQuantidade: Function,
 });
