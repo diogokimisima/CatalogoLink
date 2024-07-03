@@ -231,3 +231,22 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
   window.open(urlWhatsApp, '_blank');
 };
 </script>
+
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+</style>
