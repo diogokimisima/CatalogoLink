@@ -84,8 +84,8 @@
 </template>
 
 <script setup>
-import { useStore } from "vuex";
 import { Trash2 } from "lucide-vue-next";
+import { formatPrice } from "../../utils/formatarValores";
 
 const props = defineProps({
   carrinho: Array,
