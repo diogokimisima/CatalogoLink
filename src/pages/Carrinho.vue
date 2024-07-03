@@ -53,12 +53,12 @@
       <form method="dialog" class="mt-5">
         <div class="flex">
           <button
-            class="border-neutral-200 border p-2 rounded-md"
+            class="border-neutral-200 border p-2 rounded-md focus:outline-none"
             @click="removerDoCarrinho(index)"
           >
             Confirmar
           </button>
-          <button class="ml-auto border-neutral-200 border p-2 rounded-md">
+          <button class="ml-auto border-neutral-200 border p-2 rounded-md focus:outline-none">
             Cancelar
           </button>
         </div>
