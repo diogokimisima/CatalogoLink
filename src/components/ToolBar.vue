@@ -4,28 +4,19 @@
       class="menu menu-horizontal bg-slate-200 w-full justify-evenly items-center pt-1 pb-0.5"
     >
       <div>
-        <button
-          class="tooltip flex flex-col items-center"
-          @click="toggleSidebar"
-        >
+        <button class="tooltip flex flex-col items-center" @click="toggleSidebar">
           <Menu class="w-7 h-7" />
           <p>Menu</p>
         </button>
       </div>
       <div class="flex flex-col items-center">
-        <router-link
-          to="/"
-          class="tooltip flex flex-col items-center"
-        >
-          <BookImage class="w-7 h-7"/>
+        <router-link to="/" class="tooltip flex flex-col items-center">
+          <BookImage class="w-7 h-7" />
           <p>Catálogo</p>
         </router-link>
       </div>
       <div>
-        <router-link
-          to="/carrinho"
-          class="tooltip flex flex-col items-center"
-        >
+        <router-link to="/carrinho" class="tooltip flex flex-col items-center">
           <ShoppingCart class="w-7 h-7" />
           <span
             class="absolute -top-1 right-1 bg-red-500 rounded-full text-white text-xs px-1"
@@ -74,10 +65,12 @@
           </button>
         </div>
         <ul>
-          <li class="mb-2"><a href="#">Home</a></li>
-          <li class="mb-2"><a href="#">About</a></li>
-          <li class="mb-2"><a href="#">Services</a></li>
-          <li class="mb-2"><a href="#">Contact</a></li>
+          <li class="mb-2">
+            <button @click="selectLayout('layout1')">Layout 1</button>
+          </li>
+          <li class="mb-2">
+            <button @click="selectLayout('layout2')">Layout 2</button>
+          </li>
         </ul>
       </div>
     </transition>
@@ -96,6 +89,14 @@ const isSidebarOpen = ref(false);
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const selectLayout = (layout) => {
+  if (layout === 'layout1') {
+    window.dispatchEvent(new CustomEvent('layout-changed', { detail: 'layout1' }));
+  } else if (layout === 'layout2') {
+    window.dispatchEvent(new CustomEvent('layout-changed', { detail: 'layout2' }));
+  }
 };
 
 watch(isSidebarOpen, (newValue) => {

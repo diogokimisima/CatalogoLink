@@ -7,8 +7,6 @@
 
     <!-- Card -->
     <div v-for="(categoryItems, category) in groupedCatalogo" :key="category">
-      <h2 class="text-center font-bold text-xl mt-10 mb-5">{{ category }}</h2>
-
       <div class="carousel carousel-center flex-row items-center bg-neutral-200 rounded-box max-w-[390px] space-x-4 px-2 mx-auto h-auto">
         <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col">
           <button
