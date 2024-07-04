@@ -11,7 +11,7 @@
         <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col">
           <button
             @click="showModal(item)"
-            class="card card-compact w-80 bg-base-100 shadow-xl mx-auto"
+            class="card card-compact w-80 bg-base-100 shadow-lg mx-auto"
           >
             <figure class="rounded-box w-72">
               <img class="object-cover" :src="item.imagem" :alt="'Image ' + item.id" />
