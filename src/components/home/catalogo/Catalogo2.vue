@@ -1,17 +1,17 @@
 <template>
   <div>
 
-    <!-- <div v-if="groupedCatalogo.length === 0" class="text-center mt-5">
+    <div v-if="groupedCatalogo.length === 0" class="text-center mt-5">
       <h1 class="font-semibold">NENHUM PRODUTO ENCONTRADO.</h1>
-    </div> -->
+    </div>
 
     <!-- Card -->
-    <div v-for="(categoryItems, category) in groupedCatalogo" :key="category">
-      <div class="carousel carousel-center flex-row items-center bg-neutral-200 rounded-box max-w-[390px] space-x-4 px-2 mx-auto h-auto">
-        <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col">
+    <div v-for="(categoryItems, category) in groupedCatalogo" :key="category" class="flex">
+      <div class="carousel carousel-center flex-row items-center bg-neutral-200 rounded-box max-w-[390px] space-x-4 px-2 mx-auto h-[300px] my-4">
+        <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col ">
           <button
             @click="showModal(item)"
-            class="card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl"
+            class="card card-compact w-80 bg-base-100 shadow-xl mx-autorounded-2xl"
           >
             <figure class="rounded-box w-72">
               <img class="object-cover" :src="item.imagem" :alt="'Image ' + item.id" />
