@@ -1,22 +1,22 @@
 <template>
   <div>
-    <!-- Card -->
-    <!-- <div v-if="filteredCatalogo.length === 0" class="text-center mt-5">
+
+    <!-- <div v-if="groupedCatalogo.length === 0" class="text-center mt-5">
       <h1 class="font-semibold">NENHUM PRODUTO ENCONTRADO.</h1>
     </div> -->
 
-    <!-- Loop through each category -->
+    <!-- Card -->
     <div v-for="(categoryItems, category) in groupedCatalogo" :key="category">
       <h2 class="text-center font-bold text-xl mt-10 mb-5">{{ category }}</h2>
 
-      <div class="flex overflow-x-auto space-x-4">
-        <div v-for="item in categoryItems" :key="item.id">
+      <div class="carousel carousel-center flex-row items-center bg-neutral-200 rounded-box max-w-[390px] space-x-4 px-2 mx-auto h-auto">
+        <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col">
           <button
             @click="showModal(item)"
             class="card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl"
           >
-            <figure>
-              <img :src="item.imagem" :alt="'Image ' + item.id" />
+            <figure class="rounded-box w-72">
+              <img class="object-cover" :src="item.imagem" :alt="'Image ' + item.id" />
             </figure>
 
             <div class="card-body flex-row items-center gap-12">
@@ -210,9 +210,59 @@ const showToast = ref(false);
 const store = useStore();
 const emit = defineEmits(["adicionarAoCarrinho"]);
 
-// Function to group items by category
 const groupedCatalogo = computed(() => {
-  return catalogo.reduce((acc, item) => {
+  let filteredItems = catalogo;
+
+  if (props.selectedCategory !== "Todos") {
+    filteredItems = filteredItems.filter(
+      (item) => item.categoria === props.selectedCategory
+    );
+  }
+
+  if (searchQuery.value.trim() !== "") {
+    const query = removeDiacritics(searchQuery.value.trim().toLowerCase());
+    filteredItems = filteredItems.filter(
+      (item) =>
+        removeDiacritics(item.title.toLowerCase()).includes(query) ||
+        removeDiacritics(item.id_produto.toLowerCase()).includes(query) ||
+        removeDiacritics(item.cor.toLowerCase()).includes(query)
+    );
+  }
+
+  if (sortByCriteria.value === "highPrice") {
+    filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
+  } else if (sortByCriteria.value === "lowPrice") {
+    filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
+  } else if (sortByCriteria.value === "highDiscount") {
+    filteredItems = filteredItems.filter((item) => item.valor_antigo);
+    filteredItems = [...filteredItems].sort((a, b) => {
+      const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
+      const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
+      return discountPercentB - discountPercentA;
+    });
+  } else if (sortByCriteria.value === "lowDiscount") {
+    filteredItems = filteredItems.filter((item) => item.valor_antigo);
+    filteredItems = [...filteredItems].sort((a, b) => {
+      const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
+      const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
+      return discountPercentA - discountPercentB;
+    });
+  }
+
+  if (selectedColors.value.length > 0) {
+    filteredItems = filteredItems.filter((item) =>
+      selectedColors.value.includes(item.cor.toLowerCase())
+    );
+  }
+
+  if (selectedSizes.value.length > 0) {
+    filteredItems = filteredItems.filter((item) =>
+      selectedSizes.value.some((size) => item.tamanho.includes(size))
+    );
+  }
+
+  // Agrupa os itens filtrados por categoria
+  return filteredItems.reduce((acc, item) => {
     if (!acc[item.categoria]) {
       acc[item.categoria] = [];
     }
@@ -292,6 +342,112 @@ const somaTotal = (productId) => {
     return total;
   }, 0);
 };
+
+const clearAllFilters = () => {
+  selectedSizes.value = [];
+  selectedColors.value = [];
+  sortByCriteria.value = null;
+
+  const event = new CustomEvent("clear-filters");
+  window.dispatchEvent(event);
+};
+//   let filteredItems = catalogo;
+
+//   if (props.selectedCategory !== "Todos") {
+//     filteredItems = filteredItems.filter(
+//       (item) => item.categoria === props.selectedCategory
+//     );
+//   }
+
+//   if (searchQuery.value.trim() !== "") {
+//     const query = removeDiacritics(searchQuery.value.trim().toLowerCase());
+//     filteredItems = filteredItems.filter(
+//       (item) =>
+//         removeDiacritics(item.title.toLowerCase()).includes(query) ||
+//         removeDiacritics(item.id_produto.toLowerCase()).includes(query) ||
+//         removeDiacritics(item.cor.toLowerCase()).includes(query)
+//     );
+//   }
+
+//   if (sortByCriteria.value === "highPrice") {
+//     filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
+//   } else if (sortByCriteria.value === "lowPrice") {
+//     filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
+//   } else if (sortByCriteria.value === "highDiscount") {
+//     filteredItems = filteredItems.filter((item) => item.valor_antigo);
+//     filteredItems = [...filteredItems].sort((a, b) => {
+//       const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
+//       const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
+//       return discountPercentB - discountPercentA;
+//     });
+//   } else if (sortByCriteria.value === "lowDiscount") {
+//     filteredItems = filteredItems.filter((item) => item.valor_antigo);
+//     filteredItems = [...filteredItems].sort((a, b) => {
+//       const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
+//       const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
+//       return discountPercentA - discountPercentB;
+//     });
+//   }
+
+//   if (selectedColors.value.length > 0) {
+//     filteredItems = filteredItems.filter((item) =>
+//       selectedColors.value.includes(item.cor.toLowerCase())
+//     );
+//   }
+
+//   if (selectedSizes.value.length > 0) {
+//     filteredItems = filteredItems.filter((item) =>
+//       selectedSizes.value.some((size) => item.tamanho.includes(size))
+//     );
+//   }
+//   return filteredItems;
+// });
+
+const relatedItems = computed(() => {
+  if (!selectedItem.value) return [];
+  return catalogo.filter((item) => item.id_categoria === selectedItem.value.id_categoria);
+});
+
+
+const scrollToTop = () => {
+  const modalBox = myModal.value.querySelector(".modal-box");
+  if (modalBox) {
+    modalBox.scrollTop = 0;
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("category-selected", (event) => {
+    updateCategory(event.detail);
+  });
+
+  window.addEventListener("search-input", (event) => {
+    handleSearchInput(event.detail);
+  });
+
+  window.addEventListener("sort-selected", (event) => {
+    handleSortSelected(event.detail);
+  });
+
+  window.addEventListener("sizes-selected", (event) => {
+    handleSizeSelected(event.detail);
+  });
+
+  window.addEventListener("colors-selected", (event) => {
+    handleColorSelected(event.detail);
+  });
+
+  window.addEventListener("clear-filters", clearAllFilters);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("category-selected", updateCategory);
+  window.removeEventListener("search-input", handleSearchInput);
+  window.removeEventListener("sort-selected", handleSortSelected);
+  window.removeEventListener("sizes-selected", handleSizeSelected);
+  window.removeEventListener("colors-selected", handleColorSelected);
+  window.removeEventListener("clear-filters", clearAllFilters);
+});
 </script>
 
 <style scoped>
