@@ -1,7 +1,7 @@
 //home.vue
 
 <template>
-  <div class="relative pb-40">
+  <div class="relative pb-40  mx-auto">
     <ToolBar class="fixed bottom-0 z-30" />
     <Header class="z-20" />
     <Catalogo

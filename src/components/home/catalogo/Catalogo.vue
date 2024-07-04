@@ -7,12 +7,14 @@
       <h1 class="font-semibold">NENHUM PRODUTO ENCONTRADO.</h1>
     </div>
 
-    <div v-for="(item, index) in filteredCatalogo" :key="item.id">
-      <CatalogoCard
-        :item="item"
-        :is-last-card="index === filteredCatalogo.length - 1"
-        @showModal="showModal"
-      />
+    <div class="flex flex-row flex-wrap justify-center items-center gap-10">
+      <div v-for="(item, index) in filteredCatalogo" :key="item.id">
+        <CatalogoCard
+          :item="item"
+          :is-last-card="index === filteredCatalogo.length - 1"
+          @showModal="showModal"
+        />
+      </div>
     </div>
 
     <transition name="slide">
@@ -157,11 +159,7 @@ import { ref, computed, onMounted, onBeforeUnmount, reactive } from "vue";
 import { useStore } from "vuex";
 import { X, CandlestickChart, Ruler, ShoppingCart } from "lucide-vue-next";
 
-import {
-  formatPrice,
-  formatPercentage,
-  removeDiacritics,
-} from "../../../utils/formatarValores.js";
+import { formatPrice, removeDiacritics } from "../../../utils/formatarValores.js";
 import { catalogo } from "../../../data/catalogo.js";
 import InputNumber from "./CatalogoInputNumber.vue";
 import ToastSuccess from "../../toasts/ToastSuccess.vue";

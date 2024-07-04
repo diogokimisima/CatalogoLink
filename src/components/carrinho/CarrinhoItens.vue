@@ -73,4 +73,5 @@ const props = defineProps({
   somaQuantidade: Function,
 });
 
+
 </script>
