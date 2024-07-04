@@ -8,8 +8,10 @@
         class="border-none p-3 h-11"
       >
         <Minus
-          :class="quantidade < 1 ? 'opacity-15' : ''"
-          class="rounded-lg text-white bg-red-600"
+          :class="[
+            quantidade < 1 ? 'opacity-15' : '',
+            'rounded-lg text-white bg-red-600',
+          ]"
         />
       </button>
 

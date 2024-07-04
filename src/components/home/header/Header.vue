@@ -10,7 +10,12 @@
       <HeaderCategorias @category-selected="updateCategory" />
     </div>
 
-    <div class="m-3 flex items-center gap-2 z-50" :class="{ 'pt-20': isSticky }">
+    <div
+      :class="[
+        { 'pt-20': isSticky },
+        'my-3 mx-auto flex items-center gap-2 z-50 max-w-screen-2xl',
+      ]"
+    >
       <div class="w-4/5">
         <label class="input input-bordered flex items-center gap-2 mr-auto">
           <Search class="text-gray-400 size-5" />
