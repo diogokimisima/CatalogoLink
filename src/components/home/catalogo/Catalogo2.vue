@@ -7,7 +7,7 @@
 
     <!-- Card -->
     <div v-for="(categoryItems, category) in groupedCatalogo" :key="category" class="flex">
-      <div class="carousel carousel-center flex-row items-center rounded-none max-w-[390px] space-x-4 p-4 mx-auto h-auto my-4">
+      <div class="carousel carousel-center flex-row items-center rounded-none max-w-[390px] space-x-4 p-4 mx-auto h-auto my-2">
         <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col">
           <button
             @click="showModal(item)"
@@ -156,7 +156,17 @@
           </table>
         </div>
 
-        <div class="bg-white border-t border-gray-400 mt-10 sticky bottom-0 px-4 py-2">
+        <div class="px-4 mt-4">
+          <p class="italic">
+            <span class="font-semibold">Valor Unitário:</span> R${{ selectedItem?.valor }}
+          </p>
+          <p class="italic">
+            <span class="font-semibold">Quantidade Total:</span>
+            {{ totalQuantidadeSelecionada }}
+          </p>
+        </div>
+
+        <div class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
           <div
             class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md"
           >
@@ -319,6 +329,16 @@ const updateQuantidade = (productId, size, quantity) => {
   }
   quantidades[productId][size] = quantity;
 };
+
+const totalQuantidadeSelecionada = computed(() => {
+  if (!selectedItem.value || !quantidades[selectedItem.value.id]) {
+    return 0;
+  }
+  return Object.values(quantidades[selectedItem.value.id]).reduce(
+    (total, quantidade) => total + quantidade,
+    0
+  );
+});
 
 const showModal = (item) => {
   selectedItem.value = item;
