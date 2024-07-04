@@ -16,7 +16,7 @@
         'my-3 mx-auto flex items-center gap-2 z-50 max-w-screen-2xl',
       ]"
     >
-      <div class="w-4/5">
+      <div class="w-4/5 px-2">
         <label class="input input-bordered flex items-center gap-2 mr-auto">
           <Search class="text-gray-400 size-5" />
           <input

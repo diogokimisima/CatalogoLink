@@ -1,74 +1,51 @@
-<!-- Catalogo.vue -->
-
 <template>
   <div>
     <!-- Card -->
-    <div v-if="filteredCatalogo.length === 0" class="text-center mt-5">
+    <!-- <div v-if="filteredCatalogo.length === 0" class="text-center mt-5">
       <h1 class="font-semibold">NENHUM PRODUTO ENCONTRADO.</h1>
-    </div>
-
-    <!-- <div
-      class="max-w-screen-2xl flex flex-row flex-wrap justify-center items-center gap-10 mx-auto"
-    >
-      <div v-for="(item, index) in filteredCatalogo" :key="item.id">
-        <CatalogoCard
-          :item="item"
-          :is-last-card="index === filteredCatalogo.length - 1"
-          @showModal="showModal"
-        />
-      </div>
     </div> -->
 
-    <!-- <button
-      @click="showModal(item)"
-      :class="[
-        'card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl',
-        { 'mb-0': isLastCard },
-      ]"
-    >
-      <figure>
-        <img :src="item.imagem" :alt="'Image ' + item.id" />
-      </figure>
+    <!-- Loop through each category -->
+    <div v-for="(categoryItems, category) in groupedCatalogo" :key="category">
+      <h2 class="text-center font-bold text-xl mt-10 mb-5">{{ category }}</h2>
 
-      <div class="card-body flex-row items-center gap-12">
-        <div class="flex flex-col flex-grow">
-          <h2 class="card-title font-semibold text-lg whitespace-nowrap">
-            {{ item.title }}
-          </h2>
-          <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
+      <div class="flex overflow-x-auto space-x-4">
+        <div v-for="item in categoryItems" :key="item.id">
+          <button
+            @click="showModal(item)"
+            class="card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl"
+          >
+            <figure>
+              <img :src="item.imagem" :alt="'Image ' + item.id" />
+            </figure>
+
+            <div class="card-body flex-row items-center gap-12">
+              <div class="flex flex-col flex-grow">
+                <h2 class="card-title font-semibold text-lg whitespace-nowrap">
+                  {{ item.title }}
+                </h2>
+                <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
+              </div>
+
+              <div class="flex flex-col">
+                <h3
+                  class="text-base text-gray-400 whitespace-nowrap"
+                  v-if="item.valor_antigo"
+                >
+                  <span class="line-through mr-2">
+                    R${{ formatPrice(item.valor_antigo) }}
+                  </span>
+                  <span class="text-emerald-600">
+                    {{ formatPercentage(item.valor_antigo, item.valor) }}% off
+                  </span>
+                </h3>
+                <h4 class="card-title whitespace-nowrap">
+                  R$ {{ formatPrice(item.valor) }}
+                </h4>
+              </div>
+            </div>
+          </button>
         </div>
-
-        <div class="flex flex-col">
-          <h3 class="text-base text-gray-400 whitespace-nowrap" v-if="item.valor_antigo">
-            <span class="line-through mr-2">
-              R${{ formatPrice(item.valor_antigo) }}
-            </span>
-            <span class="text-emerald-600">
-              {{ formatPercentage(item.valor_antigo, item.valor) }}% off
-            </span>
-          </h3>
-          <h4 class="card-title whitespace-nowrap">R$ {{ formatPrice(item.valor) }}</h4>
-        </div>
-      </div>
-    </button> -->
-
-    <div  class="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">
-      <div class="carousel-item h-80 w-auto">
-        <figure class="rounded-box">
-            <img >
-        </figure>
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg"
-          class="rounded-box"
-        />
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg"
-          class="rounded-box"
-        />
       </div>
     </div>
 
@@ -125,7 +102,7 @@
         <h2 class="my-3 text-center font-bold">Cores e modelos</h2>
 
         <div
-          class="overflow-y-auto flex items-center font-bold h-26 w-full my-5 px-4"
+          class="overflow-y-auto flex items-center font-bold h-26 w-full my-10 mt-5 px-4"
           id="categoriaIgual"
         >
           <ul class="flex flex-row space-x-2 gap-5 py-5">
@@ -149,7 +126,7 @@
           </ul>
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-center px-4">
           <table>
             <thead>
               <tr>
@@ -167,7 +144,7 @@
             </thead>
             <tbody>
               <tr v-for="tamanho in selectedItem?.tamanho" :key="tamanho">
-                <td class="p-4 italic">{{ tamanho }}</td>
+                <td class="p-4">{{ tamanho }}</td>
                 <td>
                   <div class="flex justify-center items-center">
                     <InputNumber
@@ -181,17 +158,7 @@
           </table>
         </div>
 
-        <div class="px-4 mt-4">
-          <p class="italic">
-            <span class="font-semibold">Valor Unitário:</span> R${{ selectedItem?.valor }}
-          </p>
-          <p class="italic">
-            <span class="font-semibold">Quantidade Total:</span>
-            {{ totalQuantidadeSelecionada }}
-          </p>
-        </div>
-
-        <div class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
+        <div class="bg-white border-t border-gray-400 mt-10 sticky bottom-0 px-4 py-2">
           <div
             class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md"
           >
@@ -214,11 +181,14 @@ import { ref, computed, onMounted, onBeforeUnmount, reactive } from "vue";
 import { useStore } from "vuex";
 import { X, CandlestickChart, Ruler, ShoppingCart } from "lucide-vue-next";
 
-import { formatPrice, removeDiacritics } from "../../../utils/formatarValores.js";
+import {
+  formatPrice,
+  formatPercentage,
+  removeDiacritics,
+} from "../../../utils/formatarValores.js";
 import { catalogo } from "../../../data/catalogo.js";
 import InputNumber from "./CatalogoInputNumber.vue";
 import ToastSuccess from "../../toasts/ToastSuccess.vue";
-import CatalogoCard from "./CatalogoCard.vue";
 
 const props = defineProps({
   selectedCategory: {
@@ -239,6 +209,17 @@ const showToast = ref(false);
 
 const store = useStore();
 const emit = defineEmits(["adicionarAoCarrinho"]);
+
+// Function to group items by category
+const groupedCatalogo = computed(() => {
+  return catalogo.reduce((acc, item) => {
+    if (!acc[item.categoria]) {
+      acc[item.categoria] = [];
+    }
+    acc[item.categoria].push(item);
+    return acc;
+  }, {});
+});
 
 const updateCategory = (categoria) => {
   selectedCategory.value = categoria;
@@ -279,155 +260,38 @@ const handleAddToCart = () => {
   }, 3000);
 };
 
-const getQuantidade = (id, tamanho) => {
-  if (!quantidades[id]) {
-    return 0;
-  }
-  return quantidades[id][tamanho] || 0;
+const getQuantidade = (productId, size) => {
+  return quantidades[productId] && quantidades[productId][size]
+    ? quantidades[productId][size]
+    : 0;
 };
 
-const updateQuantidade = (id, tamanho, quantidade) => {
-  if (!quantidades[id]) {
-    quantidades[id] = {};
+const updateQuantidade = (productId, size, quantity) => {
+  if (!quantidades[productId]) {
+    quantidades[productId] = {};
   }
-  quantidades[id][tamanho] = quantidade;
+  quantidades[productId][size] = quantity;
 };
 
-const totalQuantidadeSelecionada = computed(() => {
-  if (!selectedItem.value || !quantidades[selectedItem.value.id]) {
-    return 0;
-  }
-  return Object.values(quantidades[selectedItem.value.id]).reduce(
-    (total, quantidade) => total + quantidade,
-    0
-  );
-});
-
-const somaTotal = (id) => {
-  if (!quantidades[id]) {
-    return 0;
-  }
-  return Object.entries(quantidades[id]).reduce((total, [tamanho, quantidade]) => {
-    return total + selectedItem.value.valor * quantidade;
-  }, 0);
+const showModal = (item) => {
+  selectedItem.value = item;
+  myModal.value.showModal();
 };
 
 const selectRelatedItem = (item) => {
   selectedItem.value = item;
 };
 
-const clearAllFilters = () => {
-  selectedSizes.value = [];
-  selectedColors.value = [];
-  sortByCriteria.value = null;
-
-  const event = new CustomEvent("clear-filters");
-  window.dispatchEvent(event);
+const somaTotal = (productId) => {
+  const itemQuantities = quantidades[productId] || {};
+  return Object.entries(itemQuantities).reduce((total, [size, quantity]) => {
+    const product = catalogo.find((prod) => prod.id === productId);
+    if (product) {
+      total += product.valor * quantity;
+    }
+    return total;
+  }, 0);
 };
-
-const filteredCatalogo = computed(() => {
-  let filteredItems = catalogo;
-
-  if (props.selectedCategory !== "Todos") {
-    filteredItems = filteredItems.filter(
-      (item) => item.categoria === props.selectedCategory
-    );
-  }
-
-  if (searchQuery.value.trim() !== "") {
-    const query = removeDiacritics(searchQuery.value.trim().toLowerCase());
-    filteredItems = filteredItems.filter(
-      (item) =>
-        removeDiacritics(item.title.toLowerCase()).includes(query) ||
-        removeDiacritics(item.id_produto.toLowerCase()).includes(query) ||
-        removeDiacritics(item.cor.toLowerCase()).includes(query)
-    );
-  }
-
-  if (sortByCriteria.value === "highPrice") {
-    filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
-  } else if (sortByCriteria.value === "lowPrice") {
-    filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
-  } else if (sortByCriteria.value === "highDiscount") {
-    filteredItems = filteredItems.filter((item) => item.valor_antigo);
-    filteredItems = [...filteredItems].sort((a, b) => {
-      const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
-      const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
-      return discountPercentB - discountPercentA;
-    });
-  } else if (sortByCriteria.value === "lowDiscount") {
-    filteredItems = filteredItems.filter((item) => item.valor_antigo);
-    filteredItems = [...filteredItems].sort((a, b) => {
-      const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
-      const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
-      return discountPercentA - discountPercentB;
-    });
-  }
-
-  if (selectedColors.value.length > 0) {
-    filteredItems = filteredItems.filter((item) =>
-      selectedColors.value.includes(item.cor.toLowerCase())
-    );
-  }
-
-  if (selectedSizes.value.length > 0) {
-    filteredItems = filteredItems.filter((item) =>
-      selectedSizes.value.some((size) => item.tamanho.includes(size))
-    );
-  }
-  return filteredItems;
-});
-
-const relatedItems = computed(() => {
-  if (!selectedItem.value) return [];
-  return catalogo.filter((item) => item.id_categoria === selectedItem.value.id_categoria);
-});
-
-const showModal = (item) => {
-  selectedItem.value = item;
-  myModal.value.showModal();
-  scrollToTop();
-};
-
-const scrollToTop = () => {
-  const modalBox = myModal.value.querySelector(".modal-box");
-  if (modalBox) {
-    modalBox.scrollTop = 0;
-  }
-};
-
-onMounted(() => {
-  window.addEventListener("category-selected", (event) => {
-    updateCategory(event.detail);
-  });
-
-  window.addEventListener("search-input", (event) => {
-    handleSearchInput(event.detail);
-  });
-
-  window.addEventListener("sort-selected", (event) => {
-    handleSortSelected(event.detail);
-  });
-
-  window.addEventListener("sizes-selected", (event) => {
-    handleSizeSelected(event.detail);
-  });
-
-  window.addEventListener("colors-selected", (event) => {
-    handleColorSelected(event.detail);
-  });
-
-  window.addEventListener("clear-filters", clearAllFilters);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("category-selected", updateCategory);
-  window.removeEventListener("search-input", handleSearchInput);
-  window.removeEventListener("sort-selected", handleSortSelected);
-  window.removeEventListener("sizes-selected", handleSizeSelected);
-  window.removeEventListener("colors-selected", handleColorSelected);
-  window.removeEventListener("clear-filters", clearAllFilters);
-});
 </script>
 
 <style scoped>
