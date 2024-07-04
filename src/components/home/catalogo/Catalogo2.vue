@@ -7,11 +7,11 @@
 
     <!-- Card -->
     <div v-for="(categoryItems, category) in groupedCatalogo" :key="category" class="flex">
-      <div class="carousel carousel-center flex-row items-center bg-neutral-200 rounded-box max-w-[390px] space-x-4 px-2 mx-auto h-[300px] my-4">
-        <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col ">
+      <div class="carousel carousel-center flex-row items-center rounded-none max-w-[390px] space-x-4 p-4 mx-auto h-auto my-4 bg-base-200">
+        <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col">
           <button
             @click="showModal(item)"
-            class="card card-compact w-80 bg-base-100 shadow-xl mx-autorounded-2xl"
+            class="card card-compact w-80 bg-base-100 shadow-xl mx-auto"
           >
             <figure class="rounded-box w-72">
               <img class="object-cover" :src="item.imagem" :alt="'Image ' + item.id" />
@@ -259,7 +259,6 @@ const groupedCatalogo = computed(() => {
     );
   }
 
-  // Agrupa os itens filtrados por categoria
   return filteredItems.reduce((acc, item) => {
     if (!acc[item.categoria]) {
       acc[item.categoria] = [];
@@ -349,57 +348,6 @@ const clearAllFilters = () => {
   const event = new CustomEvent("clear-filters");
   window.dispatchEvent(event);
 };
-//   let filteredItems = catalogo;
-
-//   if (props.selectedCategory !== "Todos") {
-//     filteredItems = filteredItems.filter(
-//       (item) => item.categoria === props.selectedCategory
-//     );
-//   }
-
-//   if (searchQuery.value.trim() !== "") {
-//     const query = removeDiacritics(searchQuery.value.trim().toLowerCase());
-//     filteredItems = filteredItems.filter(
-//       (item) =>
-//         removeDiacritics(item.title.toLowerCase()).includes(query) ||
-//         removeDiacritics(item.id_produto.toLowerCase()).includes(query) ||
-//         removeDiacritics(item.cor.toLowerCase()).includes(query)
-//     );
-//   }
-
-//   if (sortByCriteria.value === "highPrice") {
-//     filteredItems = [...filteredItems].sort((a, b) => b.valor - a.valor);
-//   } else if (sortByCriteria.value === "lowPrice") {
-//     filteredItems = [...filteredItems].sort((a, b) => a.valor - b.valor);
-//   } else if (sortByCriteria.value === "highDiscount") {
-//     filteredItems = filteredItems.filter((item) => item.valor_antigo);
-//     filteredItems = [...filteredItems].sort((a, b) => {
-//       const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
-//       const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
-//       return discountPercentB - discountPercentA;
-//     });
-//   } else if (sortByCriteria.value === "lowDiscount") {
-//     filteredItems = filteredItems.filter((item) => item.valor_antigo);
-//     filteredItems = [...filteredItems].sort((a, b) => {
-//       const discountPercentA = ((a.valor_antigo - a.valor) / a.valor_antigo) * 100;
-//       const discountPercentB = ((b.valor_antigo - b.valor) / b.valor_antigo) * 100;
-//       return discountPercentA - discountPercentB;
-//     });
-//   }
-
-//   if (selectedColors.value.length > 0) {
-//     filteredItems = filteredItems.filter((item) =>
-//       selectedColors.value.includes(item.cor.toLowerCase())
-//     );
-//   }
-
-//   if (selectedSizes.value.length > 0) {
-//     filteredItems = filteredItems.filter((item) =>
-//       selectedSizes.value.some((size) => item.tamanho.includes(size))
-//     );
-//   }
-//   return filteredItems;
-// });
 
 const relatedItems = computed(() => {
   if (!selectedItem.value) return [];
@@ -463,4 +411,6 @@ onBeforeUnmount(() => {
   opacity: 1;
   transform: translateX(0);
 }
+
+
 </style>
