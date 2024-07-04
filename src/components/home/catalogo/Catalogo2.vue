@@ -7,7 +7,7 @@
 
     <!-- Card -->
     <div v-for="(categoryItems, category) in groupedCatalogo" :key="category" class="flex">
-      <div class="carousel carousel-center flex-row items-center rounded-none max-w-[390px] space-x-4 p-4 mx-auto h-auto my-4 bg-base-200">
+      <div class="carousel carousel-center flex-row items-center rounded-none max-w-[390px] space-x-4 p-4 mx-auto h-auto my-4">
         <div v-for="item in categoryItems" :key="item.id" class="carousel-item flex flex-col">
           <button
             @click="showModal(item)"

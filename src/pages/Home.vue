@@ -13,7 +13,7 @@
       v-if="currentLayout === 'layout2'"
       :selectedCategory="selectedCategory"
       @adicionarAoCarrinho="adicionarAoCarrinho"
-      class="bg-base-200"
+      
     />
     <BackTop />
   </div>
