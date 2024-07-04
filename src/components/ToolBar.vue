@@ -64,12 +64,26 @@
             <X class="w-7 h-7" />
           </button>
         </div>
-        <ul>
-          <li class="mb-2">
-            <button @click="selectLayout('layout1')">Layout 1</button>
+        <ul class="flex flex-col gap-1">
+          <li class="flex mb-2 gap-1">
+            <button @click="selectLayout('layout1')">
+              <CircleDot
+                class="text-white bg-black rounded-full"
+                v-if="selectedLayout === 'layout1'"
+              />
+              <Circle v-else />
+            </button>
+            <label>Layout 1</label>
           </li>
-          <li class="mb-2">
-            <button @click="selectLayout('layout2')">Layout 2</button>
+          <li class="flex mb-2 gap-1">
+            <button @click="selectLayout('layout2')">
+              <CircleDot
+                class="text-white bg-black rounded-full"
+                v-if="selectedLayout === 'layout2'"
+              />
+              <Circle v-else />
+            </button>
+            <label>Layout 2</label>
           </li>
         </ul>
       </div>
@@ -79,24 +93,22 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import { Menu, ShoppingCart, X, BookImage } from "lucide-vue-next";
+import { Menu, ShoppingCart, X, BookImage, Circle, CircleDot } from "lucide-vue-next";
 import whatsIcon from "../assets/images/whats.svg";
 import LogoTrovata from "../assets/images/logo.png";
 
 const phoneNumber = "5511948256352";
 const whatsAppLink = `https://wa.me/${phoneNumber}`;
 const isSidebarOpen = ref(false);
+const selectedLayout = ref("layout1");
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
 };
 
 const selectLayout = (layout) => {
-  if (layout === 'layout1') {
-    window.dispatchEvent(new CustomEvent('layout-changed', { detail: 'layout1' }));
-  } else if (layout === 'layout2') {
-    window.dispatchEvent(new CustomEvent('layout-changed', { detail: 'layout2' }));
-  }
+  selectedLayout.value = layout;
+  window.dispatchEvent(new CustomEvent("layout-changed", { detail: layout }));
 };
 
 watch(isSidebarOpen, (newValue) => {
