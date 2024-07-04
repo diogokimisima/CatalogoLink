@@ -3,7 +3,7 @@
   <button
     @click="showModal(item)"
     :class="[
-      'card card-compact w-80 bg-base-100 shadow-xl mx-auto my-10 rounded-2xl',
+      'card card-compact w-80 bg-base-100 shadow-xl mx-auto my-4 rounded-2xl',
       { 'mb-0': isLastCard },
     ]"
   >

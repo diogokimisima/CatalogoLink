@@ -7,7 +7,7 @@
       <h1 class="font-semibold">NENHUM PRODUTO ENCONTRADO.</h1>
     </div>
 
-    <div class="max-w-screen-2xl flex flex-row flex-wrap justify-center items-center gap-10 mx-auto">
+    <div class="max-w-screen-2xl flex flex-row flex-wrap justify-center items-center gap-0 mx-auto">
       <div v-for="(item, index) in filteredCatalogo" :key="item.id">
         <CatalogoCard
           :item="item"
