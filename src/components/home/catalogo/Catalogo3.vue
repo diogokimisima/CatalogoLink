@@ -6,53 +6,71 @@
 
     <!-- Card -->
     <div
-      v-for="(categoryItems, category) in groupedCatalogo"
+      v-for="(data, category) in groupedCatalogo"
       :key="category"
-      class="flex"
+      class="flex flex-col items-center rounded-none max-w-[390px] space-y-4 p-4 mx-auto h-auto my-2"
     >
-      <div
-        class="carousel carousel-center flex-row items-center rounded-none max-w-[390px] space-x-4 p-4 mx-auto h-auto my-2"
+      <!-- Exibe apenas o primeiro item da categoria -->
+      <button
+        v-if="data.items.length > 0"
+        @click="showModal(data.selectedCard)"
+        class="card card-compact w-80 bg-base-100 shadow-lg mx-auto"
       >
-        <div
-          v-for="item in categoryItems"
-          :key="item.id"
-          class="carousel-item flex flex-col"
-        >
-          <button
-            @click="showModal(item)"
-            class="card card-compact w-80 bg-base-100 shadow-lg mx-auto"
-          >
-            <figure class="rounded-box w-72">
-              <img class="object-cover" :src="item.imagem" :alt="'Image ' + item.id" />
-            </figure>
+        <figure class="rounded-box w-72">
+          <img
+            class="object-cover"
+            :src="data.selectedCard.imagem"
+            :alt="'Image ' + data.selectedCard.id"
+          />
+        </figure>
 
-            <div class="card-body flex-row items-center gap-12">
-              <div class="flex flex-col flex-grow">
-                <h2 class="card-title font-semibold text-lg whitespace-nowrap">
-                  {{ item.title }}
-                </h2>
-                <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
-              </div>
+        <div class="card-body flex-row items-center gap-12">
+          <div class="flex flex-col flex-grow">
+            <h2 class="card-title font-semibold text-lg whitespace-nowrap">
+              {{ data.selectedCard.title }}
+            </h2>
+            <h3 class="card-title font-normal text-base">
+              {{ data.selectedCard.id_produto }}
+            </h3>
+          </div>
 
-              <div class="flex flex-col">
-                <h3
-                  class="text-base text-gray-400 whitespace-nowrap"
-                  v-if="item.valor_antigo"
-                >
-                  <span class="line-through mr-2">
-                    R${{ formatPrice(item.valor_antigo) }}
-                  </span>
-                  <span class="text-emerald-600">
-                    {{ formatPercentage(item.valor_antigo, item.valor) }}% off
-                  </span>
-                </h3>
-                <h4 class="card-title whitespace-nowrap">
-                  R$ {{ formatPrice(item.valor) }}
-                </h4>
-              </div>
-            </div>
-          </button>
+          <div class="flex flex-col">
+            <h3
+              class="text-base text-gray-400 whitespace-nowrap"
+              v-if="data.selectedCard.valor_antigo"
+            >
+              <span class="line-through mr-2">
+                R${{ formatPrice(data.selectedCard.valor_antigo) }}
+              </span>
+              <span class="text-emerald-600">
+                {{
+                  formatPercentage(
+                    data.selectedCard.valor_antigo,
+                    data.selectedCard.valor
+                  )
+                }}% off
+              </span>
+            </h3>
+            <h4 class="card-title whitespace-nowrap">
+              R$ {{ formatPrice(data.selectedCard.valor) }}
+            </h4>
+          </div>
         </div>
+      </button>
+
+      <!-- Imagens da mesma categoria -->
+      <div class="flex flex-row space-x-2 mt-2">
+        <img
+          v-for="item in data.items"
+          :key="item.id"
+          :src="item.imagem"
+          :alt="'Image ' + item.id"
+          class="w-16 h-16 object-cover cursor-pointer"
+          @click="selectRelatedItem(item, category)"
+          :class="{
+            'border-4 border-blue-500': item.imagem === data.selectedCard.imagem,
+          }"
+        />
       </div>
     </div>
 
@@ -127,7 +145,7 @@
                 class="object-contain"
                 :src="relatedItem.imagem"
                 :alt="'Image ' + relatedItem.id"
-                @click="selectRelatedItem(relatedItem)"
+                @click="selectRelatedItems(relatedItem)"
               />
             </li>
           </ul>
@@ -280,9 +298,12 @@ const groupedCatalogo = computed(() => {
 
   return filteredItems.reduce((acc, item) => {
     if (!acc[item.categoria]) {
-      acc[item.categoria] = [];
+      acc[item.categoria] = {
+        items: [],
+        selectedCard: item, // Inicializa com o primeiro item
+      };
     }
-    acc[item.categoria].push(item);
+    acc[item.categoria].items.push(item);
     return acc;
   }, {});
 });
@@ -305,6 +326,15 @@ const handleSortSelected = (criteria) => {
 
 const handleColorSelected = (color) => {
   selectedColors.value = color;
+};
+
+const selectRelatedItem = (item, category) => {
+  groupedCatalogo.value[category].selectedCard = item;
+  selectedItem.value = item; // Se você ainda precisar de selectedItem para outras funções
+};
+
+const selectRelatedItems = (item) => {
+  selectedItem.value = item;
 };
 
 const handleAddToCart = () => {
@@ -348,10 +378,6 @@ const totalQuantidadeSelecionada = computed(() => {
     0
   );
 });
-
-const selectRelatedItem = (item) => {
-  selectedItem.value = item;
-};
 
 const somaTotal = (productId) => {
   const itemQuantities = quantidades[productId] || {};
