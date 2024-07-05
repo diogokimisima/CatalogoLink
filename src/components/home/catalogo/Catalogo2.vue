@@ -340,10 +340,6 @@ const totalQuantidadeSelecionada = computed(() => {
   );
 });
 
-const showModal = (item) => {
-  selectedItem.value = item;
-  myModal.value.showModal();
-};
 
 const selectRelatedItem = (item) => {
   selectedItem.value = item;
@@ -373,6 +369,12 @@ const relatedItems = computed(() => {
   if (!selectedItem.value) return [];
   return catalogo.filter((item) => item.id_categoria === selectedItem.value.id_categoria);
 });
+
+const showModal = (item) => {
+  selectedItem.value = item;
+  myModal.value.showModal();
+  scrollToTop();
+};
 
 
 const scrollToTop = () => {
