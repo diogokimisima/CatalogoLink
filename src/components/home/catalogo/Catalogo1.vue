@@ -183,7 +183,7 @@ const quantidades = reactive({});
 const showToast = ref(false);
 
 const store = useStore();
-const emit = defineEmits(["adicionarAoCarrinho"]);
+const emit = defineEmits(["adicionarAoCarrinho", "clear-filters"]);
 
 const updateCategory = (categoria) => {
   selectedCategory.value = categoria;
@@ -266,8 +266,7 @@ const clearAllFilters = () => {
   selectedColors.value = [];
   sortByCriteria.value = null;
 
-  const event = new CustomEvent("clear-filters");
-  window.dispatchEvent(event);
+  emit("clear-filters");
 };
 
 const filteredCatalogo = computed(() => {

@@ -117,8 +117,10 @@ const toggleSidebar = () => {
 };
 
 const selectLayout = (layout) => {
-  selectedLayout.value = layout;
-  window.dispatchEvent(new CustomEvent("layout-changed", { detail: layout }));
+  if (selectedLayout.value !== layout) {
+    selectedLayout.value = layout;
+    window.dispatchEvent(new CustomEvent("layout-changed", { detail: layout }));
+  }
 };
 
 watch(isSidebarOpen, (newValue) => {
