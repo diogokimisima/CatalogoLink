@@ -13,7 +13,11 @@
       v-if="currentLayout === 'layout2'"
       :selectedCategory="selectedCategory"
       @adicionarAoCarrinho="adicionarAoCarrinho"
-      
+    />
+    <Catalogo3
+      v-if="currentLayout === 'layout3'"
+      :selectedCategory="selectedCategory"
+      @adicionarAoCarrinho="adicionarAoCarrinho"
     />
     <BackTop />
   </div>
@@ -27,6 +31,7 @@ import { useRouter } from "vue-router";
 import Header from "../components/home/header/Header.vue";
 import Catalogo from "../components/home/catalogo/Catalogo.vue";
 import Catalogo2 from "../components/home/catalogo/Catalogo2.vue";
+import Catalogo3 from "../components/home/catalogo/Catalogo3.vue";
 import ToolBar from "../components/ToolBar.vue";
 import BackTop from "../components/BackTop.vue";
 

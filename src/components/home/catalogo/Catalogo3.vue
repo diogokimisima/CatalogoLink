@@ -59,16 +59,16 @@
       </button>
 
       <!-- Imagens da mesma categoria -->
-      <div class="flex flex-row space-x-2 mt-2">
+      <div class="flex flex-row space-x-4 mt-2 mx-auto px-9 overflow-x-auto w-full">
         <img
           v-for="item in data.items"
           :key="item.id"
           :src="item.imagem"
           :alt="'Image ' + item.id"
-          class="w-16 h-16 object-cover cursor-pointer"
-          @click="selectRelatedItem(item, category)"
+          class="w-24 h-16 object-contain cursor-pointer"
+          @click="selectRelatedItemCard(item, category)"
           :class="{
-            'border-4 border-blue-500': item.imagem === data.selectedCard.imagem,
+            'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out': item.imagem === data.selectedCard.imagem,
           }"
         />
       </div>
@@ -145,7 +145,7 @@
                 class="object-contain"
                 :src="relatedItem.imagem"
                 :alt="'Image ' + relatedItem.id"
-                @click="selectRelatedItems(relatedItem)"
+                @click="selectRelatedItemModal(relatedItem)"
               />
             </li>
           </ul>
@@ -328,12 +328,12 @@ const handleColorSelected = (color) => {
   selectedColors.value = color;
 };
 
-const selectRelatedItem = (item, category) => {
+const selectRelatedItemCard = (item, category) => {
   groupedCatalogo.value[category].selectedCard = item;
-  selectedItem.value = item; // Se você ainda precisar de selectedItem para outras funções
+  selectedItem.value = item; 
 };
 
-const selectRelatedItems = (item) => {
+const selectRelatedItemModal = (item) => {
   selectedItem.value = item;
 };
 

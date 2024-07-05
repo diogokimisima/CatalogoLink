@@ -85,6 +85,16 @@
             </button>
             <label>Layout 2</label>
           </li>
+          <li class="flex mb-2 gap-1">
+            <button @click="selectLayout('layout3')">
+              <CircleDot
+                class="text-white bg-black rounded-full"
+                v-if="selectedLayout === 'layout3'"
+              />
+              <Circle v-else />
+            </button>
+            <label>Layout 3</label>
+          </li>
         </ul>
       </div>
     </transition>
