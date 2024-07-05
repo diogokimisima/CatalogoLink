@@ -207,6 +207,7 @@ import HeaderCategorias from "./HeaderCategorias.vue";
 const isSticky = ref(false);
 const showSideFilter = ref(false);
 const headerBanner = ref(null);
+const currentLayout = ref("layout1");
 
 const uniqueSizes = ref([]);
 const uniqueColors = ref([]);
@@ -294,16 +295,6 @@ const handleSearchInput = (query) => {
   window.dispatchEvent(event);
 };
 
-onMounted(() => {
-  uniqueSizes.value = extractUniqueSizes(catalogo);
-  uniqueColors.value = extractUniqueColors(catalogo);
-  window.addEventListener("scroll", handleScroll);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
-
 const handleScroll = () => {
   if (headerBanner.value) {
     const bannerBottom = headerBanner.value.getBoundingClientRect().bottom;
@@ -318,6 +309,22 @@ const toggleDisplay = (section) => {
 const toggleSideFilter = () => {
   showSideFilter.value = !showSideFilter.value;
 };
+
+window.addEventListener("layout-changed", (event) => {
+  currentLayout.value = event.detail;
+  clearAllFilters();
+});
+
+onMounted(() => {
+  uniqueSizes.value = extractUniqueSizes(catalogo);
+  uniqueColors.value = extractUniqueColors(catalogo);
+  window.addEventListener("scroll", handleScroll);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+
 
 watch(showSideFilter, (newValue) => {
   if (newValue) {
