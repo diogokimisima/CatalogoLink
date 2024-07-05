@@ -11,66 +11,69 @@
       class="flex flex-col items-center rounded-none max-w-[390px] space-y-4 p-4 mx-auto h-auto my-2"
     >
       <!-- Exibe apenas o primeiro item da categoria -->
-      <button
-        v-if="data.items.length > 0"
-        @click="showModal(data.selectedCard)"
-        class="card card-compact w-80 bg-base-100 shadow-lg mx-auto"
-      >
-        <figure class="rounded-box w-72">
+      <div class=" shadow-xl">
+        <button
+          v-if="data.items.length > 0"
+          @click="showModal(data.selectedCard)"
+          class="card card-compact w-80 bg-base-100 shadow-lg mx-auto"
+        >
+          <figure class="rounded-box w-72">
+            <img
+              class="object-cover"
+              :src="data.selectedCard.imagem"
+              :alt="'Image ' + data.selectedCard.id"
+            />
+          </figure>
+
+          <div class="card-body flex-row items-center gap-12">
+            <div class="flex flex-col flex-grow">
+              <h2 class="card-title font-semibold text-lg whitespace-nowrap">
+                {{ data.selectedCard.title }}
+              </h2>
+              <h3 class="card-title font-normal text-base">
+                {{ data.selectedCard.id_produto }}
+              </h3>
+            </div>
+
+            <div class="flex flex-col">
+              <h3
+                class="text-base text-gray-400 whitespace-nowrap"
+                v-if="data.selectedCard.valor_antigo"
+              >
+                <span class="line-through mr-2">
+                  R${{ formatPrice(data.selectedCard.valor_antigo) }}
+                </span>
+                <span class="text-emerald-600">
+                  {{
+                    formatPercentage(
+                      data.selectedCard.valor_antigo,
+                      data.selectedCard.valor
+                    )
+                  }}% off
+                </span>
+              </h3>
+              <h4 class="card-title whitespace-nowrap">
+                R$ {{ formatPrice(data.selectedCard.valor) }}
+              </h4>
+            </div>
+          </div>
+        </button>
+
+        <!-- Imagens da mesma categoria -->
+        <div class="flex flex-row space-x-4 p-6 mx-auto overflow-x-auto">
           <img
-            class="object-cover"
-            :src="data.selectedCard.imagem"
-            :alt="'Image ' + data.selectedCard.id"
+            v-for="item in data.items"
+            :key="item.id"
+            :src="item.imagem"
+            :alt="'Image ' + item.id"
+            @click="selectRelatedItemCard(item, category)"
+            class="w-28 h-16 object-contain cursor-pointer"
+            :class="{
+              'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out':
+                item.imagem === data.selectedCard.imagem,
+            }"
           />
-        </figure>
-
-        <div class="card-body flex-row items-center gap-12">
-          <div class="flex flex-col flex-grow">
-            <h2 class="card-title font-semibold text-lg whitespace-nowrap">
-              {{ data.selectedCard.title }}
-            </h2>
-            <h3 class="card-title font-normal text-base">
-              {{ data.selectedCard.id_produto }}
-            </h3>
-          </div>
-
-          <div class="flex flex-col">
-            <h3
-              class="text-base text-gray-400 whitespace-nowrap"
-              v-if="data.selectedCard.valor_antigo"
-            >
-              <span class="line-through mr-2">
-                R${{ formatPrice(data.selectedCard.valor_antigo) }}
-              </span>
-              <span class="text-emerald-600">
-                {{
-                  formatPercentage(
-                    data.selectedCard.valor_antigo,
-                    data.selectedCard.valor
-                  )
-                }}% off
-              </span>
-            </h3>
-            <h4 class="card-title whitespace-nowrap">
-              R$ {{ formatPrice(data.selectedCard.valor) }}
-            </h4>
-          </div>
         </div>
-      </button>
-
-      <!-- Imagens da mesma categoria -->
-      <div class="flex flex-row space-x-4 mt-2 mx-auto px-9 overflow-x-auto w-full">
-        <img
-          v-for="item in data.items"
-          :key="item.id"
-          :src="item.imagem"
-          :alt="'Image ' + item.id"
-          class="w-24 h-16 object-contain cursor-pointer"
-          @click="selectRelatedItemCard(item, category)"
-          :class="{
-            'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out': item.imagem === data.selectedCard.imagem,
-          }"
-        />
       </div>
     </div>
 
@@ -330,7 +333,7 @@ const handleColorSelected = (color) => {
 
 const selectRelatedItemCard = (item, category) => {
   groupedCatalogo.value[category].selectedCard = item;
-  selectedItem.value = item; 
+  selectedItem.value = item;
 };
 
 const selectRelatedItemModal = (item) => {
