@@ -15,7 +15,7 @@
         <button
           v-if="data.items.length > 0"
           @click="showModal(data.selectedCard)"
-          class="card card-compact w-80 bg-base-100 shadow-lg rounded-none mx-auto"
+          class="card card-compact w-80 bg-base-100 shadow-[0_4px_6px_rgba(0,0,0,0.1)] rounded-none mx-auto"
         >
           <figure class="rounded-box w-72">
             <img
