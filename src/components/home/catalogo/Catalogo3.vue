@@ -11,7 +11,7 @@
       class="flex flex-col items-center rounded-none max-w-[390px] space-y-4 p-4 mx-auto h-auto my-2"
     >
       <!-- Exibe apenas o primeiro item da categoria -->
-      <div class=" shadow-xl">
+      <div class="shadow-xl rounded-xl">
         <button
           v-if="data.items.length > 0"
           @click="showModal(data.selectedCard)"
@@ -60,19 +60,21 @@
         </button>
 
         <!-- Imagens da mesma categoria -->
-        <div class="flex flex-row space-x-4 p-6 mx-auto overflow-x-auto">
-          <img
-            v-for="item in data.items"
-            :key="item.id"
-            :src="item.imagem"
-            :alt="'Image ' + item.id"
-            @click="selectRelatedItemCard(item, category)"
-            class="w-28 h-16 object-contain cursor-pointer"
-            :class="{
-              'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out':
-                item.imagem === data.selectedCard.imagem,
-            }"
-          />
+        <div class="px-6">
+          <div class="flex flex-row space-x-4 py-6 px-2 mx-auto overflow-x-auto ">
+            <img
+              v-for="item in data.items"
+              :key="item.id"
+              :src="item.imagem"
+              :alt="'Image ' + item.id"
+              @click="selectRelatedItemCard(item, category)"
+              class="w-28 h-24 object-contain cursor-pointer"
+              :class="{
+                'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out':
+                  item.imagem === data.selectedCard.imagem,
+              }"
+            />
+          </div>
         </div>
       </div>
     </div>
