@@ -117,10 +117,9 @@ const toggleSidebar = () => {
 };
 
 const selectLayout = (layout) => {
-  if (selectedLayout.value !== layout) {
-    selectedLayout.value = layout;
-    window.dispatchEvent(new CustomEvent("layout-changed", { detail: layout }));
-  }
+  selectedLayout.value = layout;
+  window.dispatchEvent(new CustomEvent("layout-changed", { detail: layout }));
+  toggleSidebar();
 };
 
 watch(isSidebarOpen, (newValue) => {
@@ -133,12 +132,21 @@ watch(isSidebarOpen, (newValue) => {
 </script>
 
 <style scoped>
-.slide-enter-from {
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
   transform: translateX(-100%);
 }
 
-.slide-leave-to {
-  transform: translateX(-100%);
+.slide-enter-to,
+.slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .fade-enter-active,
