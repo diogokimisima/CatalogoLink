@@ -303,7 +303,7 @@ export const catalogo = [
         id: 21,
         id_produto: "091.03.20011  ",
         id_categoria: "091.03",
-        title: "Tarrafaebê",
+        title: "Tênis Bebê",
         categoria: "Tênis Bebê",
         cor: "Azul",
         cor_predominante: "blue",
@@ -316,7 +316,7 @@ export const catalogo = [
         id: 22,
         id_produto: "091.03.2015",
         id_categoria: "091.03",
-        title: "Tarrafaebê",
+        title: "Tênis Bebê",
         categoria: "Tênis Bebê",
         cor: "Branco",
         cor_predominante: "white",
@@ -328,7 +328,7 @@ export const catalogo = [
         id: 23,
         id_produto: "091.03.2079",
         id_categoria: "091.03",
-        title: "Tarrafaebê",
+        title: "Tênis Bebê",
         categoria: "Tênis Bebê",
         cor: "Laranja",
         cor_predominante: "orange",
@@ -337,6 +337,8 @@ export const catalogo = [
         valor_antigo: 49.90,
         imagem: tenisBebeLaranja
     },
+
+    //Garrafas
     {
         id: 24,
         id_produto: "100.72.744",
@@ -346,6 +348,7 @@ export const catalogo = [
         cor: "Vermelho",
         cor_predominante: "red",
         tamanho: ['500ml'],
+        valor_antigo: 129.90,
         valor: 100.00,
         imagem: garrafaMickey
     },
@@ -370,6 +373,7 @@ export const catalogo = [
         cor: "Azul",
         cor_predominante: "blue",
         tamanho: ['500ml'],
+        valor_antigo: 129.90,
         valor: 100.00,
         imagem: garrafaPawPatrol
     },
@@ -418,7 +422,7 @@ export const catalogo = [
         cor: "Amarelo",
         cor_predominante: "yellow",
         tamanho: ['500ml'],
-        valor_antigo: 120.00,
+        valor_antigo: 129.90,
         valor: 100.00,
         imagem: garrafaGarfield
     },
