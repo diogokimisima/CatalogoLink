@@ -194,6 +194,8 @@ const confirmarCarrinho = () => {
 _Carrinho:_ #${numeroAleatorio()}
 _Quantidades Total:_ ${somaQuantidadeTotal()}
 _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
+
+_Resumo do pedido:_ https://catalogo-link.com/pedido/${numeroAleatorio()}/resumo
   `;
 
   const mensagemCodificada = encodeURIComponent(mensagem.trim());
@@ -229,6 +231,7 @@ _Valor Total:_ R$ ${formatPrice(valorTotalCarrinho.value)}
 
   window.open(urlWhatsApp, '_blank');
 };
+
 </script>
 
 <style scoped>

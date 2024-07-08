@@ -305,7 +305,7 @@ const groupedCatalogo = computed(() => {
     if (!acc[item.categoria]) {
       acc[item.categoria] = {
         items: [],
-        selectedCard: item, // Inicializa com o primeiro item
+        selectedCard: item, 
       };
     }
     acc[item.categoria].items.push(item);
