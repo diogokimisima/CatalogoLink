@@ -8,16 +8,16 @@
     <div
       v-for="(data, category) in groupedCatalogo"
       :key="category"
-      class="flex flex-col items-center rounded-none max-w-[390px] space-y-4 p-4 mx-auto h-auto my-2"
+      class="flex rounded-none max-w-[390px] py-4"
     >
       <!-- Exibe apenas o primeiro item da categoria -->
-      <div class="shadow-xl rounded-xl">
+      <div class="flex flex-col justify-center shadow-xl rounded-xl">
         <button
           v-if="data.items.length > 0"
           @click="showModal(data.selectedCard)"
-          class="card card-compact w-80 bg-base-100 border-b border-neutral-300 rounded-none mx-auto"
+          class="w-80 bg-base-100 border-b border-neutral-300 rounded-none mx-auto"
         >
-          <figure class="rounded-box w-72">
+          <figure>
             <img
               class="object-cover"
               :src="data.selectedCard.imagem"
@@ -25,25 +25,22 @@
             />
           </figure>
 
-          <div class="card-body flex-row items-center gap-12">
-            <div class="flex flex-col flex-grow">
-              <h2 class="card-title font-semibold text-lg whitespace-nowrap">
+          <div class="flex items-center justify-center py-5">
+            <div class="flex flex-col flex-grow px-4">
+              <h2 class="font-bold text-base text-left whitespace-nowrap">
                 {{ data.selectedCard.title }}
               </h2>
-              <h3 class="card-title font-normal text-base">
+              <h3 class=" font-normal text-base text-left">
                 {{ data.selectedCard.id_produto }}
               </h3>
             </div>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col ml-auto px-4">
               <h3
-                class="text-base text-gray-400 whitespace-nowrap"
+                class="text-base text-gray-400  whitespace-nowrap"
                 v-if="data.selectedCard.valor_antigo"
               >
-                <span class="line-through mr-2">
-                  R${{ formatPrice(data.selectedCard.valor_antigo) }}
-                </span>
-                <span class="text-emerald-600">
+                <span class="text-emerald-600 mr-1">
                   {{
                     formatPercentage(
                       data.selectedCard.valor_antigo,
@@ -51,9 +48,12 @@
                     )
                   }}% off
                 </span>
+                <span class="line-through ">
+                  R${{ formatPrice(data.selectedCard.valor_antigo) }}
+                </span>
               </h3>
-              <h4 class="card-title whitespace-nowrap">
-                R$ {{ formatPrice(data.selectedCard.valor) }}
+              <h4 class="whitespace-nowrap text-lg text-right font-semibold">
+                R${{ formatPrice(data.selectedCard.valor) }}
               </h4>
             </div>
           </div>

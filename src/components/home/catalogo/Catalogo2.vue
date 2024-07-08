@@ -20,34 +20,34 @@
         >
           <button
             @click="showModal(item)"
-            class="card card-compact w-80 bg-base-100 shadow-lg mx-auto"
+            class="w-80 bg-base-100 shadow-xl mx-auto my-4 rounded-2xl"
           >
-            <figure class="rounded-box w-72">
+            <figure>
               <img class="object-cover" :src="item.imagem" :alt="'Image ' + item.id" />
             </figure>
 
-            <div class="card-body flex-row items-center gap-12">
-              <div class="flex flex-col flex-grow">
-                <h2 class="card-title font-semibold text-lg whitespace-nowrap">
+            <div class="flex items-center justify-center py-5">
+              <div class="flex flex-col flex-grow px-4">
+                <h2 class=" font-bold text-base text-left whitespace-nowrap">
                   {{ item.title }}
                 </h2>
-                <h3 class="card-title font-normal text-base">{{ item.id_produto }}</h3>
+                <h3 class=" font-normal text-base text-left">{{ item.id_produto }}</h3>
               </div>
 
-              <div class="flex flex-col">
+              <div class="flex flex-col ml-auto px-4">
                 <h3
-                  class="text-base text-gray-400 whitespace-nowrap"
+                  class="text-base text-gray-400  whitespace-nowrap"
                   v-if="item.valor_antigo"
                 >
-                  <span class="line-through mr-2">
-                    R${{ formatPrice(item.valor_antigo) }}
-                  </span>
-                  <span class="text-emerald-600">
+                  <span class="text-emerald-600  mr-1">
                     {{ formatPercentage(item.valor_antigo, item.valor) }}% off
                   </span>
+                  <span class="line-through">
+                    R${{ formatPrice(item.valor_antigo) }}
+                  </span>
                 </h3>
-                <h4 class="card-title whitespace-nowrap">
-                  R$ {{ formatPrice(item.valor) }}
+                <h4 class="whitespace-nowrap text-lg text-right font-semibold">
+                  R${{ formatPrice(item.valor) }}
                 </h4>
               </div>
             </div>
