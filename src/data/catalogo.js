@@ -27,6 +27,15 @@ import tenisBebeAzul from '../assets/images/tenisbebe-azul.jpg'
 import tenisBebeLaranja from '../assets/images/tenisbebe-laranja.jpg'
 import tenisBebeBranco from '../assets/images/tenisbebe-branco.jpg'
 
+import garrafaMickey from '../assets/images/garrafa1.jpg';
+import garrafaMinnie from '../assets/images/garrafa2.jpg';
+import garrafaPawPatrol from '../assets/images/garrafa3.jpg';
+import garrafaSuperMario from '../assets/images/garrafa4.jpg';
+import garrafaSonic from '../assets/images/garrafa5.jpg';
+import garrafaSnoopy from '../assets/images/garrafa6.jpg';
+import garrafaGarfield from '../assets/images/garrafa7.jpg';
+
+
 
 export const catalogo = [
     //Tênis infantil
@@ -327,5 +336,91 @@ export const catalogo = [
         valor: 47.41,
         valor_antigo: 49.90,
         imagem: tenisBebeLaranja
-    }
+    },
+    {
+        id: 24,
+        id_produto: "100.72.744",
+        id_categoria: "100.72",
+        title: "GARRAFA MICKEY",
+        categoria: "Garrafa Térmica",
+        cor: "Vermelho",
+        cor_predominante: "red",
+        tamanho: ['500ml'],
+        valor: 100.00,
+        imagem: garrafaMickey
+    },
+    {
+        id: 25,
+        id_produto: "100.72.737",
+        id_categoria: "100.72",
+        title: "GARRAFA MINNIE",
+        categoria: "Garrafa Térmica",
+        cor: "Rosa",
+        cor_predominante: "pink",
+        tamanho: ['500ml'],
+        valor: 100.00,
+        imagem: garrafaMinnie
+    },
+    {
+        id: 26,
+        id_produto: "100.72.736",
+        id_categoria: "100.72",
+        title: "GARRAFA PAW PATROL",
+        categoria: "Garrafa Térmica",
+        cor: "Azul",
+        cor_predominante: "blue",
+        tamanho: ['500ml'],
+        valor: 100.00,
+        imagem: garrafaPawPatrol
+    },
+    {
+        id: 27,
+        id_produto: "100.72.733",
+        id_categoria: "100.72",
+        title: "GARRAFA SUPER MARIO",
+        categoria: "Garrafa Térmica",
+        cor: "Vermelho",
+        cor_predominante: "red",
+        tamanho: ['500ml'],
+        valor: 100.00,
+        imagem: garrafaSuperMario
+    },
+    {
+        id: 28,
+        id_produto: "100.72.742",
+        id_categoria: "100.72",
+        title: "GARRAFA SONIC",
+        categoria: "Garrafa Térmica",
+        cor: "Azul",
+        cor_predominante: "blue",
+        tamanho: ['500ml'],
+        valor: 100.00,
+        imagem: garrafaSonic
+    },
+    {
+        id: 29,
+        id_produto: "100.72.738",
+        id_categoria: "100.72",
+        title: "GARRAFA SNOOPY",
+        categoria: "Garrafa Térmica",
+        cor: "Azul",
+        cor_predominante: "blue",
+        tamanho: ['500ml'],
+        valor: 100.00,
+        imagem: garrafaSnoopy
+    },
+    {
+        id: 30,
+        id_produto: "100.72.740",
+        id_categoria: "100.72",
+        title: "GARRAFA GARFIELD",
+        categoria: "Garrafa Térmica",
+        cor: "Amarelo",
+        cor_predominante: "yellow",
+        tamanho: ['500ml'],
+        valor: 100.00,
+        imagem: garrafaGarfield
+    },
+    
+    
 ]
