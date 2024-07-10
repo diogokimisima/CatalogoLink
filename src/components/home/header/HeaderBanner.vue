@@ -12,14 +12,14 @@
       >
         <a
           :href="'#slide' + (index === 0 ? banner.length : index)"
-          class="btn text-4xl bg-transparent border-none hover:bg-transparent hover:border-none"
+          class="btn text-2xl -ml-7 bg-transparent border-none hover:bg-transparent hover:border-none"
         >
           ❮
         </a>
 
         <a
           :href="'#slide' + (index === banner.length - 1 ? 1 : index + 2)"
-          class="btn text-4xl bg-transparent border-none hover:bg-transparent hover:border-none"
+          class="btn text-2xl -mr-6 bg-transparent border-none hover:bg-transparent hover:border-none"
         >
           ❯
         </a>

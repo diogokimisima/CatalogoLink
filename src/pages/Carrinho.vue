@@ -41,28 +41,11 @@
 
   <!-- modal para excluir um item do carrinho -->
   <dialog ref="myModal" id="my_modal_2" class="modal">
-    <div class="modal-box">
-      <h3 class="text-lg font-bold">Confirmação de exclusão</h3>
-      <p class="py-4">
-        Confirma a exclusão do item
-        <span class="font-bold"
-          >{{ selectedItem?.numeroItem }} - {{ selectedItem?.nomeProduto }}?</span
-        >
-      </p>
-      <form method="dialog" class="mt-5">
-        <div class="flex">
-          <button
-            class="border-neutral-200 border p-2 rounded-md focus:outline-none"
-            @click="removerDoCarrinho(index)"
-          >
-            Confirmar
-          </button>
-          <button class="ml-auto border-neutral-200 border p-2 rounded-md focus:outline-none">
-            Cancelar
-          </button>
-        </div>
-      </form>
-    </div>
+    <ModalConfirmarExclusao 
+      :removerDoCarrinho="removerDoCarrinho"
+      :selectedItem="selectedItem"
+      :index="index"
+    />
   </dialog>
 
   <!-- modal para finalizar o carrinho -->
@@ -70,47 +53,23 @@
     <transition name="slide">
       <ToastError class="z-50" v-if="showToastError" :message="toastErrorMessage" />
     </transition>
-    <div class="modal-box">
-      <form method="dialog">
-        <button
-          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 border-none focus:outline-none"
-        >
-          <X class="size-8" />
-        </button>
-      </form>
-      <h3 class="text-lg font-bold">Finalização do carrinho</h3>
-      <div class="flex flex-col gap-4 mt-5">
-        <label class="input input-bordered flex items-center gap-2">
-          <User />
-          <input v-model="nome" type="text" class="grow" placeholder="Nome" />
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          <Mail />
-          <input v-model="email" type="text" class="grow" placeholder="Email" />
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          <Phone />
-          <MaskInput
-            v-model="celular"
-            type="text"
-            mask="(##) #####-####"
-            class="grow"
-            placeholder="Celular: (99) 99999-9999"
-          />
-        </label>
-        <button @click="confirmarCarrinho" class="bg-blue-950 text-white p-2 rounded-md">
-          Confirmar
-        </button>
-      </div>
-    </div>
+    
+    <ModalFinalizarCarrinho 
+      :confirmarCarrinho="confirmarCarrinho"
+      :nome="nome"
+      :email="email"
+      :celular="celular"
+    />
+
   </dialog>
+  
 </template>
 
 <script setup>
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
-import { X, User, Mail, Phone } from 'lucide-vue-next';
-import { MaskInput } from 'vue-3-mask';
+import { X } from 'lucide-vue-next';
+
 
 import { formatPrice } from '../utils/formatarValores.js';
 import ToastSuccess from '../components/toasts/ToastSuccess.vue';
@@ -118,6 +77,8 @@ import ToastError from '../components/toasts/ToastError.vue';
 import CarrinhoVazio from '../components/carrinho/CarrinhoVazio.vue';
 import CarrinhoHeader from '../components/carrinho/CarrinhoHeader.vue';
 import CarrinhoItens from '../components/carrinho/CarrinhoItens.vue';
+import ModalConfirmarExclusao from '../components/carrinho/ModalConfirmarExclusao.vue'
+import ModalFinalizarCarrinho from '../components/carrinho/ModalFinalizarCarrinho.vue'
 
 const showToastSuccess = ref(false);
 const showToastError = ref(false);
