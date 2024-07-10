@@ -7,7 +7,9 @@
       <h1 class="font-semibold">NENHUM PRODUTO ENCONTRADO.</h1>
     </div>
 
-    <div class="max-w-screen-2xl flex flex-row flex-wrap justify-center items-center gap-0 mx-auto">
+    <div
+      class="max-w-screen-2xl flex flex-row flex-wrap justify-center items-center gap-0 mx-auto"
+    >
       <div v-for="(item, index) in filteredCatalogo" :key="item.id">
         <CatalogoCard
           :item="item"
@@ -26,130 +28,15 @@
 
     <!-- Modal -->
     <dialog ref="myModal" id="my_modal_3" class="modal py-5">
-      <transition name="slide" mode="out-in">
-        <div
-          v-if="selectedItem && somaTotal(selectedItem.id) != 0"
-          :key="selectedItem.id"
-          class="flex flex-col items-center justify-center gap-0 fixed top-24 right-8 z-50 bg-blue-950 w-[70px] h-[70px] rounded-full transform transition-transform duration-300"
-        >
-          <p class="text-slate-400 -mt-2">R$</p>
-          <p class="text-white font-bold">
-            {{ formatPrice(somaTotal(selectedItem.id)) }}
-          </p>
-        </div>
-      </transition>
-
-      <div class="modal-box h-full overflow-auto relative py-0 px-0">
-        <form
-          v-motion-fade-visible
-          class="flex flex-col justify-between border-b border-b-gray-400 sticky top-0 bg-white z-10 py-2 px-4"
-          method="dialog"
-        >
-          <div class="flex flex-row -mb-2">
-            <h3 class="font-bold text-lg">
-              {{ selectedItem?.title }}
-              <span class="font-semibold">({{ selectedItem?.id_produto }})</span>
-            </h3>
-            <div class="flex-grow"></div>
-            <button
-              class="btn btn-sm btn-circle btn-ghost border-none focus:outline-none"
-            >
-              <X class="size-8" />
-            </button>
-          </div>
-
-          <div class="flex flex-row">
-            <p class="text-lg font-semibold">{{ selectedItem?.cor }}</p>
-          </div>
-        </form>
-
-        <div class="my-5 px-4">
-          <img :src="selectedItem?.imagem" alt="imagem" />
-        </div>
-
-        <h2 class="my-3 text-center font-bold">Cores e modelos</h2>
-
-        <div
-          class="overflow-y-auto flex items-center font-bold h-26 w-full my-5 px-4"
-          id="categoriaIgual"
-        >
-          <ul class="flex flex-row space-x-2 gap-5 py-5">
-            <li
-              v-motion-fade-visible
-              class="rounded w-28"
-              v-for="relatedItem in relatedItems"
-              :key="relatedItem.id"
-              :class="{
-                'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out':
-                  relatedItem.imagem === selectedItem?.imagem,
-              }"
-            >
-              <img
-                class="object-contain"
-                :src="relatedItem.imagem"
-                :alt="'Image ' + relatedItem.id"
-                @click="selectRelatedItem(relatedItem)"
-              />
-            </li>
-          </ul>
-        </div>
-
-        <div class="flex justify-center">
-          <table>
-            <thead>
-              <tr>
-                <th class="p-4">
-                  <div class="flex justify-center items-center">
-                    <Ruler />
-                  </div>
-                </th>
-                <th class="p-4">
-                  <div class="flex justify-center items-center">
-                    <CandlestickChart />
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="tamanho in selectedItem?.tamanho" :key="tamanho">
-                <td class="p-4 italic">{{ tamanho }}</td>
-                <td>
-                  <div class="flex justify-center items-center">
-                    <InputNumber
-                      :initialValue="getQuantidade(selectedItem.id, tamanho)"
-                      @input="updateQuantidade(selectedItem.id, tamanho, $event)"
-                    />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="px-4 mt-4">
-          <p class="italic">
-            <span class="font-semibold">Valor Unitário:</span> R${{ selectedItem?.valor }}
-          </p>
-          <p class="italic">
-            <span class="font-semibold">Quantidade Total:</span>
-            {{ totalQuantidadeSelecionada }}
-          </p>
-        </div>
-
-        <div class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
-          <div
-            class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md"
-          >
-            <button
-              class="flex text-white"
-              @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))"
-            >
-              <ShoppingCart class="mr-2 z-10" />
-              Adicionar
-            </button>
-          </div>
-        </div>
-      </div>
+      <ModalCatalogoCompra
+        :selectedItem="selectedItem"
+        :relatedItems="relatedItems"
+        :somaTotal="somaTotal"
+        :getQuantidade="getQuantidade"
+        :updateQuantidade="updateQuantidade"
+        :handleAddToCart="handleAddToCart"
+        :totalQuantidadeSelecionada="totalQuantidadeSelecionada"
+      />
     </dialog>
   </div>
 </template>
@@ -157,13 +44,13 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, reactive } from "vue";
 import { useStore } from "vuex";
-import { X, CandlestickChart, Ruler, ShoppingCart } from "lucide-vue-next";
 
 import { formatPrice, removeDiacritics } from "../../../utils/formatarValores.js";
 import { catalogo } from "../../../data/catalogo.js";
 import InputNumber from "./CatalogoInputNumber.vue";
 import ToastSuccess from "../../toasts/ToastSuccess.vue";
 import CatalogoCard from "./CatalogoCard.vue";
+import ModalCatalogoCompra from "./ModalCatalogoCompra.vue";
 
 const props = defineProps({
   selectedCategory: {
@@ -203,6 +90,10 @@ const handleSortSelected = (criteria) => {
 
 const handleColorSelected = (color) => {
   selectedColors.value = color;
+};
+
+const selectRelatedItem = (item) => {
+  selectedItem.value = item;
 };
 
 const handleAddToCart = () => {
@@ -255,10 +146,6 @@ const somaTotal = (id) => {
   return Object.entries(quantidades[id]).reduce((total, [tamanho, quantidade]) => {
     return total + selectedItem.value.valor * quantidade;
   }, 0);
-};
-
-const selectRelatedItem = (item) => {
-  selectedItem.value = item;
 };
 
 const clearAllFilters = () => {
