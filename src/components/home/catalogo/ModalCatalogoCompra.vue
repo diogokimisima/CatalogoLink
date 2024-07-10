@@ -128,11 +128,12 @@ import InputNumber from "../catalogo/CatalogoInputNumber.vue";
 
 const props = defineProps({
   selectedItem: Object,
-  relatedItems: Array,
+  relatedItems: Object,
   somaTotal: Function,
   getQuantidade: Function,
   updateQuantidade: Function,
   handleAddToCart: Function,
+  selectRelatedItem: Function,
   totalQuantidadeSelecionada: Number,
 });
 

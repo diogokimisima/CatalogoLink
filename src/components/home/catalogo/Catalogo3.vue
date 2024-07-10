@@ -96,6 +96,7 @@
         :updateQuantidade="updateQuantidade"
         :handleAddToCart="handleAddToCart"
         :totalQuantidadeSelecionada="totalQuantidadeSelecionada"
+        :selectRelatedItem="selectRelatedItem"
       />
     </dialog>
   </div>

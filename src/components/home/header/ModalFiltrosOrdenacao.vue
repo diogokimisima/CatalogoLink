@@ -133,8 +133,17 @@
 </template>
 
 <script setup>
-import { Circle, CircleDot, ChevronDown, ChevronUp, Check, X, Trash, Trash2 } from "lucide-vue-next";
-import { ref, computed } from 'vue';
+import {
+  Circle,
+  CircleDot,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  X,
+  Trash,
+  Trash2,
+} from "lucide-vue-next";
+import { ref, computed } from "vue";
 
 const props = defineProps({
   showSideFilter: Boolean,
