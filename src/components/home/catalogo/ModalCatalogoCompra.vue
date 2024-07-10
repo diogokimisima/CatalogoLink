@@ -122,40 +122,20 @@
 </template>
 
 <script setup>
-import { X, Ruler, CandlestickChart } from "lucide-vue-next";
+import { X, Ruler, CandlestickChart, ShoppingCart } from "lucide-vue-next";
 import { formatPrice } from "../../../utils/formatarValores";
 import InputNumber from "../catalogo/CatalogoInputNumber.vue";
 
 const props = defineProps({
-  selectedItem: {
-    type: Object,
-    required: true,
-  },
-  relatedItems: {
-    type: Array,
-    required: true,
-  },
-  somaTotal: {
-    type: Function,
-    required: true,
-  },
-  getQuantidade: {
-    type: Function,
-    required: true,
-  },
-  updateQuantidade: {
-    type: Function,
-    required: true,
-  },
-  handleAddToCart: {
-    type: Function,
-    required: true,
-  },
-  totalQuantidadeSelecionada: {
-    type: Number,
-    required: true,
-  },
+  selectedItem: Object,
+  relatedItems: Array,
+  somaTotal: Function,
+  getQuantidade: Function,
+  updateQuantidade: Function,
+  handleAddToCart: Function,
+  totalQuantidadeSelecionada: Number,
 });
+
 </script>
 
 <style scoped>

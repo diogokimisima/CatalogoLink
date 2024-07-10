@@ -41,7 +41,7 @@
 
   <!-- modal para excluir um item do carrinho -->
   <dialog ref="myModal" id="my_modal_2" class="modal">
-    <ModalConfirmarExclusao 
+    <ModalConfirmarExclusao
       :removerDoCarrinho="removerDoCarrinho"
       :selectedItem="selectedItem"
       :index="index"
@@ -53,42 +53,42 @@
     <transition name="slide">
       <ToastError class="z-50" v-if="showToastError" :message="toastErrorMessage" />
     </transition>
-    
-    <ModalFinalizarCarrinho 
+
+    <ModalFinalizarCarrinho
       :confirmarCarrinho="confirmarCarrinho"
       :nome="nome"
       :email="email"
       :celular="celular"
+      @update:nome="nome = $event"
+      @update:email="email = $event"
+      @update:celular="celular = $event"
     />
-
   </dialog>
-  
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { useStore } from 'vuex';
-import { X } from 'lucide-vue-next';
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import { X } from "lucide-vue-next";
 
-
-import { formatPrice } from '../utils/formatarValores.js';
-import ToastSuccess from '../components/toasts/ToastSuccess.vue';
-import ToastError from '../components/toasts/ToastError.vue';
-import CarrinhoVazio from '../components/carrinho/CarrinhoVazio.vue';
-import CarrinhoHeader from '../components/carrinho/CarrinhoHeader.vue';
-import CarrinhoItens from '../components/carrinho/CarrinhoItens.vue';
-import ModalConfirmarExclusao from '../components/carrinho/ModalConfirmarExclusao.vue'
-import ModalFinalizarCarrinho from '../components/carrinho/ModalFinalizarCarrinho.vue'
+import { formatPrice } from "../utils/formatarValores.js";
+import ToastSuccess from "../components/toasts/ToastSuccess.vue";
+import ToastError from "../components/toasts/ToastError.vue";
+import CarrinhoVazio from "../components/carrinho/CarrinhoVazio.vue";
+import CarrinhoHeader from "../components/carrinho/CarrinhoHeader.vue";
+import CarrinhoItens from "../components/carrinho/CarrinhoItens.vue";
+import ModalConfirmarExclusao from "../components/carrinho/ModalConfirmarExclusao.vue";
+import ModalFinalizarCarrinho from "../components/carrinho/ModalFinalizarCarrinho.vue";
 
 const showToastSuccess = ref(false);
 const showToastError = ref(false);
-const toastErrorMessage = ref('');
+const toastErrorMessage = ref("");
 const selectedItem = ref(null);
 const myModal = ref(null);
 const store = useStore();
-const nome = ref('');
-const email = ref('');
-const celular = ref('');
+const nome = ref("");
+const email = ref("");
+const celular = ref("");
 
 const carrinho = computed(() => store.getters.cartItems);
 
@@ -124,7 +124,7 @@ const valorTotalCarrinho = computed(() => {
 });
 
 const removerDoCarrinho = (index) => {
-  store.dispatch('removeFromCart', index);
+  store.dispatch("removeFromCart", index);
 
   showToastSuccess.value = true;
   setTimeout(() => {
@@ -160,15 +160,15 @@ _Resumo do pedido:_ https://catalogo-link.com/pedido/${numeroAleatorio()}/resumo
   `;
 
   const mensagemCodificada = encodeURIComponent(mensagem.trim());
-  const numeroWhatsApp = '5511948256352';
+  const numeroWhatsApp = "5511948256352";
   const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
 
-  if (nome.value === '') {
+  if (nome.value === "") {
     setTimeout(() => {
       showToastError.value = false;
     }, 2000);
 
-    toastErrorMessage.value = 'Preencha o campo nome!';
+    toastErrorMessage.value = "Preencha o campo nome!";
     return (showToastError.value = true);
   }
 
@@ -177,7 +177,7 @@ _Resumo do pedido:_ https://catalogo-link.com/pedido/${numeroAleatorio()}/resumo
       showToastError.value = false;
     }, 2000);
 
-    toastErrorMessage.value = 'Preencha com um email válido';
+    toastErrorMessage.value = "Preencha com um email válido";
     return (showToastError.value = true);
   }
 
@@ -186,13 +186,12 @@ _Resumo do pedido:_ https://catalogo-link.com/pedido/${numeroAleatorio()}/resumo
       showToastError.value = false;
     }, 2000);
 
-    toastErrorMessage.value = 'Preencha com um número de celular válido';
+    toastErrorMessage.value = "Preencha com um número de celular válido";
     return (showToastError.value = true);
   }
 
-  window.open(urlWhatsApp, '_blank');
+  window.open(urlWhatsApp, "_blank");
 };
-
 </script>
 
 <style scoped>

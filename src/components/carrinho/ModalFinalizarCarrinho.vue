@@ -3,6 +3,7 @@
     <form method="dialog">
       <button
         class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 border-none focus:outline-none"
+        @click="$emit('close')"
       >
         <X class="size-8" />
       </button>
@@ -12,32 +13,32 @@
       <label class="input input-bordered flex items-center gap-2">
         <User />
         <input
-          v-model="localNome"
+          :value="nome"
+          @input="updateNome"
           type="text"
           class="grow"
           placeholder="Nome"
-          @input="updateNome"
         />
       </label>
       <label class="input input-bordered flex items-center gap-2">
         <Mail />
         <input
-          v-model="localEmail"
-          type="text"
+          :value="email"
+          @input="updateEmail"
+          type="email"
           class="grow"
           placeholder="Email"
-          @input="updateEmail"
         />
       </label>
       <label class="input input-bordered flex items-center gap-2">
         <Phone />
         <MaskInput
-          v-model="localCelular"
+          :value="celular"
+          @input="updateCelular"
           type="text"
           mask="(##) #####-####"
           class="grow"
           placeholder="Celular: (99) 99999-9999"
-          @input="updateCelular"
         />
       </label>
       <button @click="confirmarCarrinho" class="bg-blue-950 text-white p-2 rounded-md">
@@ -48,14 +49,28 @@
 </template>
 
 <script setup>
-import { Phone, Mail, User, X } from "lucide-vue-next";
-import { MaskInput } from "vue-3-mask";
+import { Phone, Mail, User, X } from 'lucide-vue-next';
+import { MaskInput } from 'vue-3-mask';
+import { defineEmits, defineProps } from 'vue';
 
 const props = defineProps({
+  confirmarCarrinho: Function,
   nome: String,
   email: String,
   celular: String,
-  confirmarCarrinho: Function,
 });
 
+const emit = defineEmits(['update:nome', 'update:email', 'update:celular', 'close']);
+
+const updateNome = (event) => {
+  emit('update:nome', event.target.value);
+};
+
+const updateEmail = (event) => {
+  emit('update:email', event.target.value);
+};
+
+const updateCelular = (value) => {
+  emit('update:celular', value);
+};
 </script>
