@@ -51,14 +51,8 @@ import { defineProps, defineEmits } from "vue";
 import { Circle, CircleDot, X } from "lucide-vue-next";
 
 const props = defineProps({
-  isSidebarOpen: {
-    type: Boolean,
-    required: true,
-  },
-  selectedLayout: {
-    type: String,
-    required: true,
-  },
+  isSidebarOpen: Boolean,
+  selectedLayout: String,
 });
 
 const emit = defineEmits(["toggleSidebar", "selectLayout"]);

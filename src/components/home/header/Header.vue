@@ -10,29 +10,11 @@
       <HeaderCategorias @category-selected="updateCategory" />
     </div>
 
-    <div
-      :class="[
-        { 'pt-20': isSticky },
-        'my-3 mx-auto flex items-center gap-2 z-50 max-w-screen-2xl',
-      ]"
-    >
-      <div class="w-4/5 px-2">
-        <label class="input input-bordered flex items-center gap-2 mr-auto">
-          <Search class="text-gray-400 size-5" />
-          <input
-            type="text"
-            class="grow"
-            placeholder="Pesquisar"
-            @input="handleSearchInput($event.target.value)"
-          />
-        </label>
-      </div>
-      <div class="flex items-center justify-center mx-auto">
-        <button @click="toggleSideFilter">
-          <ListFilter />
-        </button>
-      </div>
-    </div>
+    <HeaderInput
+      :isSticky="isSticky"
+      @search="handleSearchInput"
+      @toggle-filter="toggleSideFilter"
+    />
 
     <transition name="fade">
       <div
@@ -81,6 +63,7 @@ import { catalogo } from "../../../data/catalogo.js";
 import HeaderBanner from "./HeaderBanner.vue";
 import HeaderCategorias from "./HeaderCategorias.vue";
 import ModalFiltrosOrdenacao from "./ModalFiltrosOrdenacao.vue";
+import HeaderInput from "./HeaderInput.vue";
 
 const isSticky = ref(false);
 const showSideFilter = ref(false);

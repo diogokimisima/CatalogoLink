@@ -12,7 +12,6 @@
           type="text"
           class="grow"
           placeholder="Pesquisar"
-          :value="searchQuery"
           @input="handleSearchInput($event.target.value)"
         />
       </label>
@@ -26,25 +25,22 @@
 </template>
 
 <script setup>
-import { Search, ListFilter } from "lucide-vue-next";
-import { ref, watch } from "vue";
+import { Search, ListFilter } from 'lucide-vue-next'
 
 const props = defineProps({
-  searchQuery: {
-    type: String,
-    default: "",
-  },
   isSticky: {
     type: Boolean,
     default: false,
   },
-  toggleSideFilter: {
-    type: Function, 
-    required: true, 
-  },
-  handleSearchInput: {
-    type: Function, 
-    required: true, 
-  },
 });
+
+const emit = defineEmits(['search', 'toggle-filter']);
+
+function handleSearchInput(value) {
+  emit('search', value);
+}
+
+function toggleSideFilter() {
+  emit('toggle-filter');
+}
 </script>
