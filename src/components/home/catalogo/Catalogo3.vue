@@ -88,7 +88,7 @@
 
     <!-- Modal -->
     <dialog ref="myModal" id="my_modal_3" class="modal py-5">
-      <ModalCatalogoCompra
+      <ModalCatalogoCompra2
         :selectedItem="selectedItem"
         :relatedItems="relatedItems"
         :somaTotal="somaTotal"
@@ -115,7 +115,7 @@ import {
 import { catalogo } from "../../../data/catalogo.js";
 import InputNumber from "./CatalogoInputNumber.vue";
 import ToastSuccess from "../../toasts/ToastSuccess.vue";
-import ModalCatalogoCompra from "./ModalCatalogoCompra.vue";
+import ModalCatalogoCompra2 from "./ModalCatalogoCompra2.vue";
 
 const props = defineProps({
   selectedCategory: {

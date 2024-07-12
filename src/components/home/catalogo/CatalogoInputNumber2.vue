@@ -1,6 +1,6 @@
 <template>
   <form class="max-w-xs mx-auto my-0">
-    <div class="flex flex-col items-center max-w-[8rem]">
+    <div class="flex items-center max-w-[8rem]">
       <button
         type="button"
         id="decrement-button"

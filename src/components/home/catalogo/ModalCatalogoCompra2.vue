@@ -65,22 +65,36 @@
       </ul>
     </div>
 
-    <div class="flex max-w-80 overflow-x-auto gap-2  mx-auto">
-      <div class="flex flex-col mr-3">
-        <Ruler class="mt-4"/>
-        <CandlestickChart class="mt-[70px]"/>
-      </div>
-      <div v-for="tamanho in selectedItem?.tamanho" :key="tamanho" class="flex-col">
-        <div>
-          <p class="p-4 italic">{{ tamanho }}</p>
-        </div>
-        <div class="">
-          <InputNumber
-            :initialValue="getQuantidade(selectedItem.id, tamanho)"
-            @input="updateQuantidade(selectedItem.id, tamanho, $event)"
-          />
-        </div>
-      </div>
+    <div class="flex justify-center">
+      <table>
+        <thead>
+          <tr>
+            <th class="p-4">
+              <div class="flex justify-center items-center">
+                <Ruler />
+              </div>
+            </th>
+            <th class="p-4">
+              <div class="flex justify-center items-center">
+                <CandlestickChart />
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="tamanho in selectedItem?.tamanho" :key="tamanho">
+            <td class="p-4 italic">{{ tamanho }}</td>
+            <td>
+              <div class="flex justify-center items-center">
+                <InputNumber2
+                  :initialValue="getQuantidade(selectedItem.id, tamanho)"
+                  @input="updateQuantidade(selectedItem.id, tamanho, $event)"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="px-4 mt-4">
@@ -110,7 +124,7 @@
 <script setup>
 import { X, Ruler, CandlestickChart, ShoppingCart } from "lucide-vue-next";
 import { formatPrice } from "../../../utils/formatarValores";
-import InputNumber from "../catalogo/CatalogoInputNumber.vue";
+import InputNumber2 from "../catalogo/CatalogoInputNumber2.vue";
 
 const props = defineProps({
   selectedItem: Object,

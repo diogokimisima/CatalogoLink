@@ -28,18 +28,18 @@
 
             <div class="flex items-center justify-center py-5">
               <div class="flex flex-col flex-grow px-4">
-                <h2 class=" font-bold text-base text-left whitespace-nowrap">
+                <h2 class="font-bold text-base text-left whitespace-nowrap">
                   {{ item.title }}
                 </h2>
-                <h3 class=" font-normal text-base text-left">{{ item.id_produto }}</h3>
+                <h3 class="font-normal text-base text-left">{{ item.id_produto }}</h3>
               </div>
 
               <div class="flex flex-col ml-auto px-4">
                 <h3
-                  class="text-base text-gray-400  whitespace-nowrap"
+                  class="text-base text-gray-400 whitespace-nowrap"
                   v-if="item.valor_antigo"
                 >
-                  <span class="text-emerald-600  mr-1">
+                  <span class="text-emerald-600 mr-1">
                     {{ formatPercentage(item.valor_antigo, item.valor) }}% off
                   </span>
                   <span class="line-through">
@@ -65,7 +65,7 @@
 
     <!-- Modal -->
     <dialog ref="myModal" id="my_modal_3" class="modal py-5">
-      <ModalCatalogoCompra
+      <ModalCatalogoCompra2
         :selectedItem="selectedItem"
         :relatedItems="relatedItems"
         :somaTotal="somaTotal"
@@ -89,9 +89,8 @@ import {
   removeDiacritics,
 } from "../../../utils/formatarValores.js";
 import { catalogo } from "../../../data/catalogo.js";
-import InputNumber from "./CatalogoInputNumber.vue";
 import ToastSuccess from "../../toasts/ToastSuccess.vue";
-import ModalCatalogoCompra from "./ModalCatalogoCompra.vue";
+import ModalCatalogoCompra2 from "./ModalCatalogoCompra2.vue";
 
 const props = defineProps({
   selectedCategory: {
