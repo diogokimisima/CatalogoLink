@@ -1,10 +1,7 @@
 <template>
   <transition name="slide" mode="out-in">
-    <div
-      v-if="selectedItem && somaTotal(selectedItem.id) != 0"
-      :key="selectedItem.id"
-      class="flex flex-col items-center justify-center gap-0 fixed top-24 right-8 z-50 bg-blue-950 w-[70px] h-[70px] rounded-full transform transition-transform duration-300"
-    >
+    <div v-if="selectedItem && somaTotal(selectedItem.id) != 0" :key="selectedItem.id"
+      class="flex flex-col items-center justify-center gap-0 fixed top-24 right-8 z-50 bg-blue-950 w-[70px] h-[70px] rounded-full transform transition-transform duration-300">
       <p class="text-slate-400 -mt-2">R$</p>
       <p class="text-white font-bold">
         {{ formatPrice(somaTotal(selectedItem.id)) }}
@@ -13,11 +10,9 @@
   </transition>
 
   <div class="modal-box h-full overflow-auto relative py-0 px-0">
-    <form
-      v-motion-fade-visible
+    <form v-motion-fade-visible
       class="flex flex-col justify-between border-b border-b-gray-400 sticky top-0 bg-white z-10 py-2 px-4"
-      method="dialog"
-    >
+      method="dialog">
       <div class="flex flex-row -mb-2">
         <h3 class="font-bold text-lg">
           {{ selectedItem?.title }}
@@ -40,45 +35,32 @@
 
     <h2 class="my-3 text-center font-bold">Cores e modelos</h2>
 
-    <div
-      class="overflow-y-auto flex items-center font-bold h-26 w-full my-5 px-4"
-      id="categoriaIgual"
-    >
+    <div class="overflow-y-auto flex items-center font-bold h-26 w-full my-5 px-4" id="categoriaIgual">
       <ul class="flex flex-row space-x-2 gap-5 py-5">
-        <li
-          v-motion-fade-visible
-          class="rounded w-28"
-          v-for="relatedItem in relatedItems"
-          :key="relatedItem.id"
-          :class="{
-            'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out':
-              relatedItem.imagem === selectedItem?.imagem,
-          }"
-        >
-          <img
-            class="object-contain"
-            :src="relatedItem.imagem"
-            :alt="'Image ' + relatedItem.id"
-            @click="selectRelatedItem(relatedItem)"
-          />
+        <li v-motion-fade-visible class="rounded w-28" v-for="relatedItem in relatedItems" :key="relatedItem.id" :class="{
+          'border-b-2 border-gray-400 transition-colors duration-500 ease-in-out':
+            relatedItem.imagem === selectedItem?.imagem,
+        }">
+          <img class="object-contain" :src="relatedItem.imagem" :alt="'Image ' + relatedItem.id"
+            @click="selectRelatedItem(relatedItem)" />
         </li>
       </ul>
     </div>
 
-    <div class="flex max-w-80 overflow-x-auto gap-2  mx-auto">
+    <div class="flex max-w-80 mx-auto ">
       <div class="flex flex-col mr-3">
-        <Ruler class="mt-4"/>
-        <CandlestickChart class="mt-[70px]"/>
+        <Ruler class="mt-4" />
+        <CandlestickChart class="mt-[70px]" />
       </div>
-      <div v-for="tamanho in selectedItem?.tamanho" :key="tamanho" class="flex-col">
-        <div>
-          <p class="p-4 italic">{{ tamanho }}</p>
-        </div>
-        <div class="">
-          <InputNumber
-            :initialValue="getQuantidade(selectedItem.id, tamanho)"
-            @input="updateQuantidade(selectedItem.id, tamanho, $event)"
-          />
+      <div class="overflow-y-auto flex gap-2 shadow-sm rounded-md px-5">
+        <div v-for="tamanho in selectedItem?.tamanho" :key="tamanho" class="flex-col ">
+          <div>
+            <p class="p-4 italic">{{ tamanho }}</p>
+          </div>
+          <div class="">
+            <InputNumber :initialValue="getQuantidade(selectedItem.id, tamanho)"
+              @input="updateQuantidade(selectedItem.id, tamanho, $event)" />
+          </div>
         </div>
       </div>
     </div>
@@ -95,10 +77,7 @@
 
     <div class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
       <div class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md">
-        <button
-          class="flex text-white"
-          @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))"
-        >
+        <button class="flex text-white" @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">
           <ShoppingCart class="mr-2 z-10" />
           Adicionar
         </button>
@@ -129,11 +108,13 @@ const props = defineProps({
 .slide-leave-active {
   transition: transform 0.5s, opacity 0.5s;
 }
+
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
   transform: translateX(100%);
 }
+
 .slide-enter-to,
 .slide-leave-from {
   opacity: 1;
