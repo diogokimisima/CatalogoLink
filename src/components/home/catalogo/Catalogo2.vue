@@ -8,10 +8,10 @@
     <div
       v-for="(categoryItems, category) in groupedCatalogo"
       :key="category"
-      class="flex"
+      class="flex flex-row flex-wrap justify-center w-full"
     >
       <div
-        class="carousel carousel-center flex-row items-center rounded-none max-w-[390px] space-x-4 p-4 mx-auto h-auto my-2"
+        class="carousel carousel-center items-center max-w-[390px] rounded-none  space-x-4 p-4 mx-auto h-auto my-2"
       >
         <div
           v-for="item in categoryItems"
