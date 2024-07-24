@@ -35,7 +35,7 @@
         <MaskInput
           :value="celular"
           @input="updateCelular"
-          type="text"
+          type="tel"
           mask="(##) #####-####"
           class="grow"
           placeholder="Celular: (99) 99999-9999"
