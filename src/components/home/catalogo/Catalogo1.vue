@@ -8,7 +8,7 @@
     </div>
 
     <div
-      class="max-w-screen-2xl flex flex-row flex-wrap justify-center items-center gap-0 mx-auto"
+      class="max-w-screen-2xl flex flex-row flex-wrap justify-center items-center mx-auto gap-2.5"
     >
       <div v-for="(item, index) in filteredCatalogo" :key="item.id">
         <CatalogoCard

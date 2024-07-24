@@ -2,7 +2,7 @@
 
 <template>
   <div class="relative pb-40 mx-auto">
-    <Header class="z-20" />
+    <Header />
     <Catalogo1
       v-if="currentLayout === 'layout1'"
       :selectedCategory="selectedCategory"

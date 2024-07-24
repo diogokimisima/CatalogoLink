@@ -8,10 +8,10 @@
     <div
       v-for="(data, category) in groupedCatalogo"
       :key="category"
-      class="flex rounded-none max-w-[390px] py-4"
+      class="flex justify-center flex-row flex-wrap mx-auto rounded-none py-4"
     >
       <!-- Exibe apenas o primeiro item da categoria -->
-      <div class="flex flex-col justify-center shadow-xl rounded-xl">
+      <div class="flex flex-col justify-center max-w-[390px] shadow-xl rounded-xl">
         <button
           v-if="data.items.length > 0"
           @click="showModal(data.selectedCard)"

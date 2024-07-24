@@ -7,12 +7,13 @@
       :selectedLayout="selectedLayout"
       @toggleSidebar="toggleSidebar"
       @selectLayout="handleSelectLayout"
+      class="z-50"
     />
 
     <transition name="fade">
       <div
         v-if="isSidebarOpen"
-        class="fixed inset-0 bg-black bg-opacity-70 z-40"
+        class="fixed inset-0 bg-black bg-opacity-70 "
         @click="toggleSidebar"
       ></div>
     </transition>
