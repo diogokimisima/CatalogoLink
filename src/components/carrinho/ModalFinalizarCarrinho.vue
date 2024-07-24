@@ -70,7 +70,7 @@ const updateEmail = (event) => {
   emit('update:email', event.target.value);
 };
 
-const updateCelular = (value) => {
-  emit('update:celular', value);
+const updateCelular = (event) => {
+  emit('update:celular', event.detail.unmaskedValue);
 };
 </script>
