@@ -71,6 +71,6 @@ const updateEmail = (event) => {
 };
 
 const updateCelular = (event) => {
-  emit('update:celular', event.detail.unmaskedValue);
+  emit('update:celular', event.target.value);
 };
 </script>
