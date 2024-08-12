@@ -75,9 +75,9 @@
       </p>
     </div>
 
-    <div class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
+    <div @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))" class="bg-white border-t border-gray-400 mt-2 sticky bottom-0 px-4 py-2">
       <div class="flex items-center justify-center py-3 w-full bg-blue-950 rounded-md">
-        <button class="flex text-white" @click="handleAddToCart(selectedItem.title, somaTotal(selectedItem.id))">
+        <button class="flex text-white" >
           <ShoppingCart class="mr-2 z-10" />
           Adicionar
         </button>
