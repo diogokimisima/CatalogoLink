@@ -35,7 +35,7 @@
         <MaskInput
           :value="celular"
           @input="updateCelular"
-          type="text"
+          type="tel"
           mask="(##) #####-####"
           class="grow"
           placeholder="Celular: (99) 99999-9999"
@@ -70,7 +70,7 @@ const updateEmail = (event) => {
   emit('update:email', event.target.value);
 };
 
-const updateCelular = (value) => {
-  emit('update:celular', value);
+const updateCelular = (event) => {
+  emit('update:celular', event.target.value);
 };
 </script>

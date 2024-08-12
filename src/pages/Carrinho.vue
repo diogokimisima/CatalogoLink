@@ -138,9 +138,10 @@ const validarEmail = (email) => {
 };
 
 const validarTelefone = (telefone) => {
-  const telefoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+  const telefoneRegex = /^\d{10,11}$/; // 10 dígitos para números fixos e 11 para números móveis
   return telefoneRegex.test(telefone);
 };
+
 
 const confirmarCarrinho = () => {
   const mensagem = `

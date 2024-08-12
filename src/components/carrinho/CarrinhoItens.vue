@@ -7,7 +7,7 @@
       <div class="flex flex-row items-center justify-between">
         <h2 class="text-lg">
           <span class="font-bold"
-            >{{ item.numeroItem }} - {{ item.nomeProduto }}</span
+            >{{ index + 1 }} - {{ item.nomeProduto }}</span
           >
           ({{ item.codigoProduto }})
         </h2>
