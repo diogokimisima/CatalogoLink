@@ -220,6 +220,10 @@ const handleColorSelected = (color) => {
   selectedColors.value = color;
 };
 
+const selectRelatedItem = (item) => {
+  selectedItem.value = item;
+};
+
 const selectRelatedItemCard = (item, category) => {
   groupedCatalogo.value[category].selectedCard = item;
   selectedItem.value = item;
